@@ -1,0 +1,116 @@
+import curses
+import time
+from animations import display
+
+
+def start_gamebox():
+
+    game_box = curses.newwin(35, 70, 10, 30)
+    game_box.box()
+    game_box.refresh()
+
+
+def start_msgbox():
+
+    msg_box = curses.newwin(5, 70, 5, 30)
+    msg_box.box()
+    msg_box.refresh()
+
+
+
+#--------GAME WIN-------------------------------
+
+
+def start_gamewin():
+
+    curses.initscr()
+    curses.noecho()
+    curses.curs_set(0)
+
+    start_gamebox()
+
+    win = curses.newwin(33, 66, 11, 31)
+    win.keypad(1)
+
+    return win
+
+
+def intro(win):
+
+    tree1 = open('GRAPHICS/INTRO/tree1').readlines()
+    tree2 = open('GRAPHICS/INTRO/tree2',).readlines()
+    farm = open('GRAPHICS/INTRO/farm_logo',).readlines()
+
+    i = 0
+    while i <= 3:
+        display(tree1, win, 3, 3)
+        win.refresh()
+        time.sleep(1)
+        win.clear()
+        display(tree2, win, 3, 3)
+        win.refresh()
+        time.sleep(1)
+        win.clear()
+        i += 1
+
+    txt_win = curses.newwin(6, 29, 20, 50)
+    display(farm, txt_win, 0, 0)
+    txt_win.refresh()
+    time.sleep(2)
+
+    start_win = curses.newwin(1, 25, 42, 53)
+    start_win.addstr(0, 0, "Press any key to start.")
+    start_win.refresh()
+    start_win.getch()
+    start_win.clear()
+    start_win.refresh()
+
+
+def begin():
+
+    self.clear()
+    self.refresh()
+
+
+
+#----------MSG WIN--------------------------------------
+
+def start_msgwin():
+
+    start_msgbox()
+
+    win = curses.newwin(3, 68, 6, 31)
+
+    win.addstr(1, 25, "Welcome to Farm!")
+    win.addstr(2, 30, "-->")
+    win.refresh()
+    win.getch()
+    win.clear()
+
+    win.addstr(1, 25, "'wasd' to move.")
+    win.addstr(2, 30, "-->")
+    win.refresh()
+    win.getch()
+    win.clear()
+
+    win.addstr(1, 12, "'p' to plant a crop. 'h' to harvest it.")
+    win.addstr(2, 30, "-->")
+    win.refresh()
+    win.getch()
+    win.clear()
+
+    win.addstr(1, 24, "'o' to open doors.")
+    win.addstr(2, 22, "Press any key to begin.")
+    win.refresh()
+    win.getch()
+    win.clear()
+
+    win.refresh()
+
+    return win
+
+
+
+game_win = start_gamewin()
+intro(game_win)
+msg_win = start_msgwin()

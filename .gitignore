@@ -1,0 +1,6 @@
+# Ignore all compiled python files
+*.pyc
+
+# People don't need to see my personal BUGLIST or TODO files
+BUGLIST
+TODO.txt
