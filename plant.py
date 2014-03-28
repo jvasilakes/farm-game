@@ -1,15 +1,15 @@
-from things import Thing
+from thing import Thing
 
 
 class Plant(Thing):
 
     def __init__(self, Ystart, Xstart, graphics):
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
-
-	self.name = 'Crop'
+	self.name = 'Plant'
 
         self.stage = 1
+
+	Thing.__init__(self, Ystart, Xstart, graphics)
 
 
     def grow(self):

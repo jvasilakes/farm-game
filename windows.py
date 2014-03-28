@@ -27,9 +27,9 @@ def start_gamewin():
     curses.noecho()
     curses.curs_set(0)
 
-    start_gamebox()
+    #start_gamebox()
 
-    win = curses.newwin(33, 66, 11, 31)
+    win = curses.newwin(33, 66, 4, 0)
     win.keypad(1)
 
     return win
@@ -43,22 +43,22 @@ def intro(win):
 
     i = 0
     while i <= 3:
-        display(tree1, win, 3, 3)
+        display(tree1, win, 3, 1)
         win.refresh()
         time.sleep(1)
         win.clear()
-        display(tree2, win, 3, 3)
+        display(tree2, win, 3, 1)
         win.refresh()
         time.sleep(1)
         win.clear()
         i += 1
 
-    txt_win = curses.newwin(6, 29, 20, 50)
+    txt_win = curses.newwin(6, 29, 13, 20)
     display(farm, txt_win, 0, 0)
     txt_win.refresh()
     time.sleep(2)
 
-    start_win = curses.newwin(1, 25, 42, 53)
+    start_win = curses.newwin(1, 25, 34, 23)
     start_win.addstr(0, 0, "Press any key to start.")
     start_win.refresh()
     start_win.getch()
@@ -77,9 +77,10 @@ def begin():
 
 def start_msgwin():
 
-    start_msgbox()
+    #start_msgbox()
 
-    win = curses.newwin(3, 68, 6, 31)
+    win = curses.newwin(3, 68, 0, 0)
+    #win = curses.newwin(3, 68, 6, 31)
 
     win.addstr(1, 25, "Welcome to Farm!")
     win.addstr(2, 30, "-->")
@@ -99,7 +100,7 @@ def start_msgwin():
     win.getch()
     win.clear()
 
-    win.addstr(1, 24, "'o' to open doors.")
+    win.addstr(1, 25, "'k' to interact.")
     win.addstr(2, 22, "Press any key to begin.")
     win.refresh()
     win.getch()

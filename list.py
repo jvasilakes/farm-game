@@ -30,10 +30,5 @@ class List(object):
 	window.refresh()
 
 
-    def grow_plants(self):
-
-	for plant in self.things['plants']:
-	    plant.grow()
-
 
 list = List()

@@ -1,96 +1,99 @@
-import curses
 import random
+import curses
 
 import windows
-from windows import game_win
-from windows import msg_win
+from windows import game_win, msg_win
 
 from world import world
 
 import animations
 import character
-import things
+import thing
 import plant
 
-
-farmer = character.Character("@") 
-
-house = things.Thing(1, 1, 'GRAPHICS/house')
-ship_box = things.Thing(4, 12, 'GRAPHICS/ship_box')
-pond = things.Thing(28, 40, 'GRAPHICS/pond')
-
-things.populate('trees', 'GRAPHICS/tree', 12)
-things.populate('rocks', 'GRAPHICS/rock', 9)
+from environment import house, ship_box, pond, Tree, Rock
+from character import farmer
 
 
-# ---------- GAMEPLAY --------------------
+def main():
 
-c = game_win.getch()
-
-while True:
-
-    if c in farmer.dirs:
-
-        farmer.move(c)
-	list.redraw(game_win)
-        c = game_win.getch()
+    world.populate(Tree, 'GRAPHICS/tree', 12)
+    world.populate(Rock, 'GRAPHICS/rock', 9)
 
 
-    elif c in farmer.actions:
+    # --------------------- GAMEPLAY --------------------------------
 
-	if c == ord('p'):
+    c = game_win.getch()
 
-	    farmer.plant()
-	    list.redraw(game_win)
+    while True:
+
+        if c in farmer.dirs:
+
+            farmer.move(c)
+	    world.redraw()
             c = game_win.getch()
 
-	elif c == ord('o'):
-	    if farmer.pos == [6, 6]:
 
-	        # go into your house and sleep until the next day
-	        # plants grow one stage while you sleep
+        elif c in farmer.actions:
 
+	    if c == ord('k'):
+
+	 	for key in world.contents:
+		    for thing in world.contents[key]:
+	        	if farmer.pos in thing.vicinity:
+
+			    msg_win.clear()
+			    msg_win.refresh()
+			    thing.interact(farmer)
+
+		game_win.refresh()
+
+	        c = msg_win.getch()
+
+
+	    elif c == ord('p'):
+
+	        farmer.plant()
+	        world.redraw()
+                c = game_win.getch()
+
+
+	    elif c == ord('h'):
+
+	        farmer.harvest()
 	        game_win.clear()
-	        animations.sunrise(game_win) 
-	        game_win.clear()
-	        list.grow_plants()
-	        list.redraw(game_win)
-	        farmer.render(game_win)
+	        world.redraw()
+	        farmer.draw()
 	        c = game_win.getch()
 
-	    else:
-		c = game_win.getch()
 
-	elif c == ord('h'):
+	    elif c == ord('i'):
 
-	    farmer.harvest()
-	    game_win.clear()
-	    list.redraw(game_win)
-	    farmer.render(game_win)
-	    c = game_win.getch()
+	        msg_win.clear()
+	        msg_win.refresh()
+	        farmer.inventory.view()
+	        c = game_win.getch()
 
-	elif c == ord('i'):
 
-	    msg_win.clear()
-	    msg_win.refresh()
-	    farmer.inventory.view()
-	    c = game_win.getch()
-
-	elif c == ord('j'):
+	    elif c == ord('j'):
 	    
-	    farmer.inventory.remove()
-	    msg_win.clear()
-	    msg_win.refresh()
-	    c = game_win.getch()
+	        farmer.inventory.remove()
+	        #msg_win.clear()
+	        #msg_win.refresh()
+	        c = game_win.getch()
 
 
-    elif c == ord('q'):
+        elif c == ord('q'):
 
-	break
+	    break
 
-    else:
+        else:
 
-        c = game_win.getch()
+            c = game_win.getch()
 
 
-curses.endwin()
+    curses.endwin()
+    
+    
+if __name__ == '__main__':
+    main()

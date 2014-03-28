@@ -1,28 +1,7 @@
 import random
 from windows import game_win
-from list import list
+from world import world
 
-
-def populate(name, graphics, number):
-    
-    name = []
-
-    for i in xrange(number):
-	name.append(i)
-
-    random.seed()
-
-    for i in xrange(number):
-	y = random.randrange(1, 26)
-	x = random.randrange(1, 60)
-	name[i] = Thing(y, x, graphics)
-
-	n = 0
-        while name[i].intersection and n < 3:
-	    y = random.randrange(1, 26)
-	    x = random.randrange(1, 60)
-	    name[i] = Thing(y, x, graphics)
-	    n += 1
 
 
 class Thing(object):
@@ -39,6 +18,8 @@ class Thing(object):
 	self.boundries = []
 	self.find_boundries()
 
+	self.vicinity = []
+
 	self.intersection = True
 	self.intersects()
 
@@ -46,7 +27,7 @@ class Thing(object):
 	    del self.boundries
 
 	else:
-	    list.append(self)
+	    world.add(self)
 	    self.draw()
 	
 
@@ -82,9 +63,9 @@ class Thing(object):
 
     def intersects(self):
 	
-	for clas in list.things:
+	for clas in world.contents:
 
-	    for thing in list.things[clas]:
+	    for thing in world.contents[clas]:
 
 		for n in xrange(len(self.boundries)):
 
