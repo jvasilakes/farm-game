@@ -35,9 +35,9 @@ class House(Thing):
 	game_win.refresh()
 
 
-	earnings = 0
-	for cls in ship_box.inventory:
-	    for item in ship_box.inventory[cls]:
+	earnings = 0	#Make all this into another function
+	for cls in ship_box.inventory.contents:
+	    for item in ship_box.inventory.contents[cls]:
 		earnings += item.value
 
 	player.money += earnings
@@ -240,6 +240,7 @@ class Wood(Thing):
 	self.value = 10
 	
 	
+
 #----- SINGLETONS ----------------------------------	
 
 house = House(1, 1, 'GRAPHICS/house')

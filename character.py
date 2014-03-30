@@ -125,8 +125,7 @@ class Player(Character):
 
 	self.inventory = inventory.Inventory()
 	
-	Money = 0
-	self.inventory.append(Money)
+	self.money = 0
 
 	self.draw()
 
