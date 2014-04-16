@@ -34,23 +34,8 @@ class House(Thing):
 
 	game_win.refresh()
 
+	ship_box.sell(player)
 
-	earnings = 0	#Make all this into another function
-	for cls in ship_box.inventory.contents:
-	    for item in ship_box.inventory.contents[cls]:
-		earnings += item.value
-
-	player.money += earnings
-
-	if earnings > 0:
-	    msg_win.clear()
-	    msg_win.refresh() 
-	    msg_win.addstr(1, 5, "You earned %d dollars", earnings)
-	    msg_win.addstr(2, 6, "from your shipments.")
-	    msg_win.refresh()
-
-	else:
-	    pass 
 
 
 class Shipbox(Thing):
@@ -60,7 +45,7 @@ class Shipbox(Thing):
 
 	self.name = 'Shipbox'
 
-	self.inventory = Inventory()
+	self.inventory = Inventory(self.name)
 
 	Thing.__init__(self, Ystart, Xstart, graphics)
 
@@ -73,11 +58,14 @@ class Shipbox(Thing):
 	msg_win.addstr(0, 5, "Shipping box: ")
 	msg_win.addstr(0, 25, "1. Add item.")
 	msg_win.addstr(1, 25, "2. Remove item.")
-	msg_win.addstr(2, 25, "3. View contents.")
+	msg_win.addstr(2, 25, "3. Nevermind.")
 	msg_win.refresh()
 
 	ans = msg_win.getch()
 	
+	while ans != ord('1') and ans != ord('2') and ans != ord('3'):
+	    ans = msg_win.getch()
+
 	msg_win.clear()
 
 	if ans == ord('1'):
@@ -87,13 +75,13 @@ class Shipbox(Thing):
 
 	    msg_win.clear()
 	    msg_win.refresh()
-	    thing = player.inventory.remove()
+	    item_list = player.inventory.view()
 
-	    if thing == 'Nothing':
+	    if item_list == 'None':
 		return
 
 	    else:
-	        ship_box.inventory.add(thing)
+	        ship_box.inventory.add(item_list)
 
 	elif ans == ord('2'):
 	    msg_win.addstr(1, 10, "What would you like to remove?")
@@ -102,19 +90,38 @@ class Shipbox(Thing):
 
 	    msg_win.clear()
 	    msg_win.refresh()
-	    thing = ship_box.inventory.remove()
+	    item_list = ship_box.inventory.view()
 
-	    if thing == 'Nothing':
+	    if item_list == 'None':
 		return
 
 	    else:
-	        player.inventory.add(thing)
+	        player.inventory.add(item_list)
 
 	elif ans == ord('3'):
-	    ship_box.inventory.view()
+	    return
+
+
+    def sell(self, player):
+	
+	earnings = 0
+	for cls in ship_box.inventory.contents:
+	    for item in self.inventory.contents[cls]:
+		earnings += item.value
+		self.inventory.contents[cls].remove(item)
+
+	player.money += earnings
+
+	if earnings > 0:
+	    msg_win.clear()
+	    msg_win.refresh() 
+	    msg_win.addstr(1, 5, "Total shipment value:")
+	    msg_win.addstr(2, 5, "$")
+	    msg_win.addstr(2, 6, str(earnings))
+	    msg_win.refresh()
 
 	else:
-	    return
+	    pass 
 
 
 class Pond(Thing):
@@ -181,10 +188,8 @@ class Tree(Thing):
 	Thing.__init__(self, Ystart, Xstart, graphics)
 
 	self.vicinity = [[Ystart + 2, Xstart],
-		    [Ystart + 2, Xstart + 3],
-		    [Ystart + 3, Xstart + 2]]
-
-	#self.actable = vicinity
+		        [Ystart + 2, Xstart + 3],
+		        [Ystart + 3, Xstart + 2]]
 
 	self.resource_qty = 2
 
@@ -199,11 +204,14 @@ class Tree(Thing):
 
         if ans == ord('y'):
 
+	    temp = []
+	
 	    world.contents[self.name].remove(self)
 	    world.redraw()
 
 	    for i in xrange(self.resource_qty):
-		farmer.inventory.add(Wood.create())
+		temp.append(Wood.create())
+		farmer.inventory.add(temp)
 
 	else:
 	    return
@@ -239,6 +247,19 @@ class Wood(Thing):
 
 	self.value = 10
 	
+
+class Stone(Thing):
+
+    @classmethod
+    def create(cls):
+	stone = Stone()
+	return stone
+
+    def __init__(self):
+
+	self.name = 'Stone'
+
+	self.value = 5
 	
 
 #----- SINGLETONS ----------------------------------	

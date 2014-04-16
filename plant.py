@@ -9,6 +9,8 @@ class Plant(Thing):
 
         self.stage = 1
 
+	self.value = 5
+
 	Thing.__init__(self, Ystart, Xstart, graphics)
 
 

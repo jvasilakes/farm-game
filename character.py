@@ -64,7 +64,7 @@ class Character(object):
 		    self.draw()
 
 	    elif dir == ord('s'):
-	        if self.pos[0] == 32:
+	        if self.pos[0] == 31:
 		    pass
 
 	        else:
@@ -113,6 +113,8 @@ class Player(Character):
 
 	Character.__init__(self, graphics)
 
+	self.name = 'Player'
+
 	self.pos = [6, 6]
 
 	self.actions = [
@@ -123,7 +125,7 @@ class Player(Character):
 			ord('j')  #drop an item
 	 	       ]
 
-	self.inventory = inventory.Inventory()
+	self.inventory = inventory.Inventory(self.name)
 	
 	self.money = 0
 
@@ -178,11 +180,14 @@ class Player(Character):
 
 		    if crop.get_stage() == 3:
 
+			temp = []
+
 		        i = world.contents['Crop'].index(crop)
 	
 		        plant = world.contents['Crop'].pop(i)
+			temp.append(plant)
 
-		        self.inventory.add(plant)
+		        self.inventory.add(temp)
 
 		    else:
 		        return

@@ -4,6 +4,7 @@
 # People don't need to see my personal BUGLIST or TODO files
 BUGLIST
 TODO.txt
+OLD
 
 # or my maintenance script
 cleanup

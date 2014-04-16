@@ -27,8 +27,6 @@ def start_gamewin():
     curses.noecho()
     curses.curs_set(0)
 
-    #start_gamebox()
-
     win = curses.newwin(33, 66, 4, 0)
     win.keypad(1)
 
@@ -77,10 +75,8 @@ def begin():
 
 def start_msgwin():
 
-    #start_msgbox()
-
     win = curses.newwin(3, 68, 0, 0)
-    #win = curses.newwin(3, 68, 6, 31)
+    win.keypad(1)
 
     win.addstr(1, 25, "Welcome to Farm!")
     win.addstr(2, 30, "-->")

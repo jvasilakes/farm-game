@@ -75,14 +75,6 @@ def main():
 	        c = game_win.getch()
 
 
-	    elif c == ord('j'):
-	    
-	        farmer.inventory.remove()
-	        #msg_win.clear()
-	        #msg_win.refresh()
-	        c = game_win.getch()
-
-
         elif c == ord('q'):
 
 	    break
