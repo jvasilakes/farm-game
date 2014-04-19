@@ -3,6 +3,7 @@ import time
 from animations import display
 
 
+######### NOT USED ###########################
 def start_gamebox():
 
     game_box = curses.newwin(35, 70, 10, 30)
@@ -15,7 +16,7 @@ def start_msgbox():
     msg_box = curses.newwin(5, 70, 5, 30)
     msg_box.box()
     msg_box.refresh()
-
+###############################################
 
 
 #--------GAME WIN-------------------------------
@@ -107,7 +108,30 @@ def start_msgwin():
     return win
 
 
+#----------DEBUG WIN-------------------------------------
+
+class debug_console(object):
+
+    def __init__(self):
+        self.win = curses.newwin(20, 90, 3, 80)
+        self.win.keypad(1)
+	self.header = curses.newwin(2, 20, 0, 100)
+	self.header.addstr(0, 0, "DEBUGGING CONSOLE")
+	self.header.refresh()
+
+	self.ynow = 0
+
+    def prnt(self, message):
+	self.win.addstr(self.ynow, 0, message)
+	self.win.refresh()
+	self.ynow += 1	
+
+
+    def clear(self):
+	self.win.clear()
+	self.win.refresh()
 
 game_win = start_gamewin()
 intro(game_win)
 msg_win = start_msgwin()
+debug_win = debug_console()

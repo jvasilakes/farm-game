@@ -2,7 +2,7 @@ import random
 import curses
 
 import windows
-from windows import game_win, msg_win
+from windows import game_win, msg_win, debug_win
 
 from world import world
 

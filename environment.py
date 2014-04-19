@@ -4,7 +4,7 @@ import animations
 from thing import Thing
 from inventory import Inventory
 from expand import find_vicinity
-from windows import game_win, msg_win
+from windows import game_win, msg_win, debug_win
 from world import world
 
 
@@ -56,8 +56,8 @@ class Shipbox(Thing):
 
 	msg_win.clear()
 	msg_win.addstr(0, 5, "Shipping box: ")
-	msg_win.addstr(0, 25, "1. Add item.")
-	msg_win.addstr(1, 25, "2. Remove item.")
+	msg_win.addstr(0, 25, "1. Add items.")
+	msg_win.addstr(1, 25, "2. Remove items.")
 	msg_win.addstr(2, 25, "3. Nevermind.")
 	msg_win.refresh()
 
@@ -105,7 +105,10 @@ class Shipbox(Thing):
     def sell(self, player):
 	
 	earnings = 0
-	for cls in ship_box.inventory.contents:
+	for cls in self.inventory.contents:
+	    debug_win.prnt("cls: " + cls)
+	    debug_win.prnt("cls length: " + str(len(self.inventory.contents[cls])))
+	    debug_win.prnt("self.inventory.contents[" + cls + "]: " + str(self.inventory.contents[cls]))
 	    for item in self.inventory.contents[cls]:
 		earnings += item.value
 		self.inventory.contents[cls].remove(item)
@@ -211,7 +214,8 @@ class Tree(Thing):
 
 	    for i in xrange(self.resource_qty):
 		temp.append(Wood.create())
-		farmer.inventory.add(temp)
+
+  	    farmer.inventory.add(temp)
 
 	else:
 	    return
