@@ -11,6 +11,8 @@ class Inventory(object):
 
 	self.contents = {}
 
+	self.money = 0
+
 
     def add(self, item_list):
 
@@ -84,23 +86,27 @@ class Inventory(object):
 
 	if len(self.contents) > 0:
 
+	    empty = True
+
 	    for item_type in self.contents:
 		
 		count = len(self.contents[item_type])
 
 		if count > 0:
+
+		    empty = False
 		    num = str(count)
 
 		    msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
 		    msg_win.addstr(0, 30, item_type + " x" + num)
-		    msg_win.addstr(2, 5, "'r': remove item    'n': next")
+		    msg_win.addstr(2, 5, "'t': take item    'n': next")
 		    msg_win.refresh()
 
 		    c = msg_win.getch()
-		    while c != ord('r') and c != ord('n'):
+		    while c != ord('t') and c != ord('n'):
 			c = msg_win.getch()
 
-		    if c == ord('r'):
+		    if c == ord('t'):
 			item_list = self.remove(item_type, num)
 			return item_list
 
@@ -111,7 +117,13 @@ class Inventory(object):
 		else:
 		    pass
 
-	    return 'None'
+	    if empty:
+	        msg_win.addstr(2, 18, "Nothing here.")
+	        msg_win.refresh() 
+	        msg_win.getch()
+	        msg_win.clear()
+	        msg_win.refresh()
+	        return 'None'
 
 	else:
 	    msg_win.addstr(2, 18, "Nothing here.")

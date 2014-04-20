@@ -15,7 +15,7 @@ class Character(object):
 	self.name = 'Character'
 
 	self.graphics = graphics
-	self.pos = [6, 4]    # y,x coordinates, not x,y coordinates
+	self.pos = [6, 4]
 	self.dirs = [ord('w'), ord('s'), ord('a'), ord('d')]
 
 
@@ -122,7 +122,6 @@ class Player(Character):
 			ord('p'), #plant
 			ord('h'), #harvest
 			ord('i'), #view inventory
-			ord('j')  #drop an item
 	 	       ]
 
 	self.inventory = inventory.Inventory(self.name)

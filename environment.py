@@ -1,4 +1,5 @@
 import random
+import time
 
 import animations
 from thing import Thing
@@ -106,10 +107,9 @@ class Shipbox(Thing):
 	
 	earnings = 0
 	for cls in self.inventory.contents:
-	    debug_win.prnt("cls: " + cls)
-	    debug_win.prnt("cls length: " + str(len(self.inventory.contents[cls])))
-	    debug_win.prnt("self.inventory.contents[" + cls + "]: " + str(self.inventory.contents[cls]))
-	    for item in self.inventory.contents[cls]:
+
+	    for item in reversed(self.inventory.contents[cls]):
+
 		earnings += item.value
 		self.inventory.contents[cls].remove(item)
 
@@ -136,15 +136,47 @@ class Pond(Thing):
 
 	Thing.__init__(self, Ystart, Xstart, graphics)
 
+	self.vicinity = find_vicinity(self.boundries)
 
-#    def catch_fish(self):
+    
+    def iscatch(self, percent):
 
-#	random.seed
+	return random.random() > percent
 
-#	result = random.randrange(0, 5)
 
-#	if result == fish_caught:
-#	    return fish #############NOT DONE######YETTTT#####
+    def interact(self, player):
+
+	random.seed
+
+	msg_win.clear()
+	msg_win.addstr(1, 5, "Fishing...")
+	msg_win.refresh()
+
+        seconds = random.randrange(2, 15)
+	debug_win.prnt("Fishing for " + str(seconds) + " seconds")
+	#time.sleep(seconds) 
+
+	if self.iscatch(0.6):
+
+	    msg_win.clear()
+	    msg_win.addstr(1, 5, "You caught a fish!")
+	    msg_win.refresh()
+	    msg_win.getch()
+
+	    temp = []
+	    temp.append(Fish.create())
+	    player.inventory.add(temp)
+
+	    return
+
+	else:
+	
+	    msg_win.clear()
+	    msg_win.addstr(1, 5, "No bites this time...")
+	    msg_win.refresh()
+	    msg_win.getch()
+
+	    return
 
 
 class Crop(Thing):
@@ -210,6 +242,8 @@ class Tree(Thing):
 	    temp = []
 	
 	    world.contents[self.name].remove(self)
+	    game_win.clear()
+	    farmer.draw()
 	    world.redraw()
 
 	    for i in xrange(self.resource_qty):
@@ -265,6 +299,20 @@ class Stone(Thing):
 
 	self.value = 5
 	
+
+class Fish(Thing):
+
+    @classmethod
+    def create(cls):
+	fish = Fish()
+	return fish
+
+
+    def __init__(self):
+
+	self.name = 'Fish'
+
+	self.value = 20
 
 #----- SINGLETONS ----------------------------------	
 
