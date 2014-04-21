@@ -78,9 +78,9 @@ def start_msgwin():
     win = curses.newwin(3, 68, 0, 0)
     win.keypad(1)
 
-    return win
-
 """
+Uncomment for introductory help screen
+
     win.addstr(1, 25, "Welcome to Farm!")
     win.addstr(2, 30, "-->")
     win.refresh()
@@ -106,10 +106,10 @@ def start_msgwin():
     win.clear()
 
     win.refresh()
-
+"""
 
     return win
-"""
+
 
 
 #----------DEBUG WIN-------------------------------------
