@@ -26,6 +26,9 @@ class Character(object):
 
     def obstructed(self, dir): 
 
+	# Checks if the space to which the player is moving is
+	# occupied by some object.
+
 	pos = []
 
 	if dir == ord('w'):
@@ -55,6 +58,8 @@ class Character(object):
 	else:
 
 	    if dir == ord('w'):
+	    	
+	    	# if character's y position is all the way at the top.
 	        if self.pos[0] == 0:
 		    pass
 
@@ -64,6 +69,8 @@ class Character(object):
 		    self.draw()
 
 	    elif dir == ord('s'):
+	    	
+	    	# if character's position is all the way at the bottom.
 	        if self.pos[0] == 31:
 		    pass
 
@@ -73,6 +80,8 @@ class Character(object):
 		    self.draw()
 
 	    elif dir == ord('a'): 
+	    	
+	    	# if character's x position is all the way to the left
 	        if self.pos[1] == 0:
 		    pass
 
@@ -82,6 +91,7 @@ class Character(object):
 		    self.draw()
 
 	    elif dir == ord('d'):
+	    	# if character's x position is all the way to the right
 	        if self.pos[1] == 65:
 		    pass
 
@@ -96,6 +106,10 @@ class Character(object):
 
 
 	if isinstance(self, Player):
+		
+	    # if the character is a player,
+	    # then prompt player if they are able
+	    # to interact with something they are next to.
 
 	    for key in world.contents:
 	        for thing in world.contents[key]:
@@ -164,6 +178,7 @@ class Player(Character):
 	    return
 
 	else:
+	    # TODO: make Crop.create() class method
 	    planting = Crop(ypos, xpos, 'GRAPHICS/crop1')
 
         msg_win.clear()
@@ -175,6 +190,8 @@ class Player(Character):
 	try:
 
 	    for crop in world.contents['Crop']:
+	    	
+	    	# if there is a crop directly above the player
 	        if [(self.pos[0] - 1), self.pos[1]] in crop.get_boundries():
 
 		    if crop.get_stage() == 3:
