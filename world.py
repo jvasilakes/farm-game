@@ -6,7 +6,12 @@ class World(object):
 
     def __init__(self):
 
-	self.contents = {}
+        # Each key in the dictionary is the name of some class (e.g. 'Crop' or 'Tree').
+	# Each newly created object is appended to a sublist under it's respective key
+	# in this dictionary during it's __init__() routine via the add() function 
+	# below.
+	
+	self.contents = {}	
 
   
     def add(self, thing):
@@ -15,7 +20,9 @@ class World(object):
 	    self.contents[thing.name].append(thing)
 
 	else:
+	    # Create a new key with the class name and an empty list,
 	    self.contents.update(zip([thing.name], [[]]))
+	    # then append 'thing' to that list.
 	    self.contents[thing.name].append(thing)
 
 
@@ -27,44 +34,51 @@ class World(object):
 
     def redraw(self):
 
-	for cls in self.contents:
-	    for thing in self.contents[cls]:
+	for key in self.contents:
+	    for thing in self.contents[key]:
 
 		thing.draw()
 
 	game_win.refresh()
 
 
-    def populate(self, thing, graphics, number):
+    def populate(self, obj, graphics, number):
 	
 	random.seed()
 
 	for i in xrange(number):
+	    # 26 is maximum y value
 	    y = random.randrange(1, 26)
+	    # 60 is maximum x value
 	    x = random.randrange(1, 60)
-	    obj = thing.create(y, x, graphics)	
+	    thing = obj.create(y, x, graphics)	
 
-	    if obj.intersection:
+	    if thing.intersection:
 	        n = 0
 
-	        while obj.intersection and n < 3:    # Retry up to 3 times
+	        while thing.intersection and n < 3:    # Retry up to 3 times
 	            y = random.randrange(1, 26)
 	            x = random.randrange(1, 60)
-	            thing.create(y, x, graphics)	
+	            obj.create(y, x, graphics)	
 		    n += 1
 
 
-    def updateAll(self, thing, function):   # TODO: finish this
+    def updateAll(self, key, function):   # TODO: finish this
 
-	if thing not in self.contents:
+	if key not in self.contents:
 	    return
 
 	else:
-	    for instance in self.contents['thing']:
-		instance.function()	
+		
+	    try:
+	        for obj in self.contents[key]:
+		    obj.function()	
+		    
+	    except:
+	    	return
 
 
-    def grow_crops(self):     # THIS IS ONLY TEMPORARY, DEPRECATE THIS
+    def grow_crops(self):     # THIS IS WHAT updateAll() SHOULD DO. GET RID OF THIS
 
 	try:
 
