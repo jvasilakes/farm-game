@@ -40,7 +40,7 @@ class Inventory(object):
 	msg_win.refresh()
 
 
-    # Pretty mcuh an interactive version of world.remove()
+    # Pretty much an interactive version of world.remove()
     def remove(self, item, num):
 
 	curses.echo()
@@ -92,7 +92,7 @@ class Inventory(object):
 
 	if len(self.contents) > 0:
 
-	    # This will flip to False if any dictionary key actaully 
+	    # This will flip to False if any dictionary key actually 
 	    # has any ojects in it's sublist.
 	    # Used to test for an empty list even when dicitonary keys are present.
 	    empty = True
