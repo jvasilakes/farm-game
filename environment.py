@@ -139,11 +139,6 @@ class Pond(Thing):
 	self.vicinity = find_vicinity(self.boundries)
 
     
-    def iscatch(self, percent):
-
-	return random.random() > percent
-
-
     def interact(self, player):
 
 	random.seed
@@ -155,6 +150,12 @@ class Pond(Thing):
         seconds = random.randrange(2, 15)
 	debug_win.prnt("Fishing for " + str(seconds) + " seconds")
 	#time.sleep(seconds) 
+
+	for second in xrange(seconds):
+	    self.animate()
+	    self.graphics = 'GRAPHICS/pond1'
+	    self.draw()
+	    game_win.refresh()
 
 	if self.iscatch(0.6):
 
@@ -178,6 +179,23 @@ class Pond(Thing):
 
 	    return
 
+
+    def iscatch(self, percent):
+
+	return random.random() > percent
+
+
+    def animate(self):
+
+	time.sleep(1)
+
+	if self.graphics == 'GRAPHICS/pond1':
+	    self.graphics = 'GRAPHICS/pond2'
+	    world.redraw()
+
+	else:
+	    self.graphics = 'GRAPHICS/pond1'
+	    world.redraw()
 
 class Crop(Thing):
 
@@ -320,4 +338,4 @@ house = House(1, 1, 'GRAPHICS/house')
 
 ship_box = Shipbox(4, 12, 'GRAPHICS/ship_box')
 
-pond = Pond(28, 40, 'GRAPHICS/pond')
+pond = Pond(28, 40, 'GRAPHICS/pond1')

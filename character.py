@@ -60,8 +60,8 @@ class Character(object):
 
 	        else:
 		    self.pos[0] -= 1
-		    game_win.clear()
-		    self.draw()
+		    #game_win.clear()
+		    #self.draw()
 
 	    elif dir == ord('s'):
 	        if self.pos[0] == 31:
@@ -69,8 +69,8 @@ class Character(object):
 
 	        else:
 		    self.pos[0] += 1
-		    game_win.clear()
-		    self.draw()
+		    #game_win.clear()
+		    #self.draw()
 
 	    elif dir == ord('a'): 
 	        if self.pos[1] == 0:
@@ -78,8 +78,8 @@ class Character(object):
 
 	        else:
 		    self.pos[1] -= 1
-		    game_win.clear()
-		    self.draw()
+		    #game_win.clear()
+		    #self.draw()
 
 	    elif dir == ord('d'):
 	        if self.pos[1] == 65:
@@ -87,8 +87,8 @@ class Character(object):
 
 	        else:
 		    self.pos[1] += 1
-		    game_win.clear()
-		    self.draw()
+		    #game_win.clear()
+		    #self.draw()
 	
 	    msg_win.clear()
 	    msg_win.refresh()

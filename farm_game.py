@@ -61,9 +61,9 @@ def main():
 	    elif c == ord('h'):
 
 	        farmer.harvest()
-	        game_win.clear()
+	        #game_win.clear()
 	        world.redraw()
-	        farmer.draw()
+	        #farmer.draw()
 	        c = game_win.getch()
 
 

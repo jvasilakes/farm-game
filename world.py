@@ -1,5 +1,6 @@
 import random
 from windows import game_win
+from character import Character 
 
 
 class World(object):
@@ -8,29 +9,58 @@ class World(object):
 
 	self.contents = {}
 
+	self.characters = {}
+
   
     def add(self, thing):
 
-	if thing.name in self.contents:
-	    self.contents[thing.name].append(thing)
+	# First, choose the list to modify according
+	# to what type of thing we're dealing with.
+	if isinstance(thing, Character):
+	    list = self.characters
 
 	else:
-	    self.contents.update(zip([thing.name], [[]]))
-	    self.contents[thing.name].append(thing)
+	    list = self.contents
+
+
+	# Then update the list as necessary
+	if thing.name in list:
+	    list[thing.name].append(thing)
+
+	else:
+	    list.update(zip([thing.name], [[]]))
+	    list[thing.name].append(thing)
 
 
     def remove(self, thing):
 
-	self.contents[thing.name].remove(thing)
-	    
+	# First, choose the list to modify according
+	# to what type of thing we're dealing with.
+	if isinstance(thing, Character):
+	    list = self.characters
+
+	else:
+	    list = self.contents
+
+
+	# Then update the list as necessary
+	try:
+	    list[thing.name].remove(thing)
+
+	except:
+	    return
 
 
     def redraw(self):
+
+	game_win.clear()
 
 	for cls in self.contents:
 	    for thing in self.contents[cls]:
 
 		thing.draw()
+
+	#farmer.draw()
 
 	game_win.refresh()
 
@@ -54,15 +84,14 @@ class World(object):
 		    n += 1
 
 
-    def updateAll(self, thing, function):   # TODO: finish this
+    def updateAll(self, function):  
 
-	if thing not in self.contents:
-	    return
-
-	else:
+	try:
 	    for instance in self.contents['thing']:
 		instance.function()	
 
+	except:
+	    return
 
     def grow_crops(self):     # THIS IS ONLY TEMPORARY, DEPRECATE THIS
 
