@@ -38,23 +38,31 @@ def fill(corners_list):
     vicinity = []
 
 
+    # for each corner in corners_list, w/o the final value: [A, B, C, D]
     for i in xrange((len(corners_list) - 1)):
 
+	# E.g. if y value of A is equal to y value of B,
+	# then we are dealing with a horizontal line.
 	if corners_list[i][0] == corners_list[i+1][0]:
 
 	    y = corners_list[i][0]
 
+	    # if x value of B is greater than the x value of A,
+	    # then we are moving left to right (A is to the left of B)
 	    if corners_list[i+1][1] > corners_list[i][1]:
 	        for x in xrange(corners_list[i][1], corners_list[i+1][1]):
 	            vicinity.append([y, x])
 
 	    else:
+	    	# Else, we are moving from right to left (B is to the left of A)
 		for x in xrange(corners_list[i+1][1], corners_list[i][1]):
 		    vicinity.append([y, x])
 
 	    vicinity.append(corners_list[i+1])
 
 
+	# Else if x value of A is equal to the x value of B,
+	# then we are dealing with a vertical line.
 	elif corners_list[i][1] == corners_list[i+1][1]:    
 
 	    x = corners_list[i][1]
@@ -68,6 +76,9 @@ def fill(corners_list):
 		    vicinity.append([y, x])
 
 	    vicinity.append(corners_list[i+1])
+
+	# Need an else statement here. This function so far assumes that is is dealing with
+	# a rectangular object. It works for now...
 
 
     return vicinity

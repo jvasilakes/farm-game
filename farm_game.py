@@ -11,7 +11,8 @@ import character
 import thing
 import plant
 
-from environment import house, ship_box, pond, Tree, Rock
+from environment import Tree, Rock        # Classes
+from environment import house, ship_box, pond		# Singletons
 from character import farmer
 
 
@@ -28,6 +29,7 @@ def main():
     while True:
 
         if c in farmer.dirs:
+            # 'w', 'a', 's', 'd'
 
             farmer.move(c)
 	    world.redraw()
@@ -35,6 +37,10 @@ def main():
 
 
         elif c in farmer.actions:
+            # 'k': interact
+            # 'p': plant a crop
+            # 'h': harvest a crop
+            # 'i': view inventory
 
 	    if c == ord('k'):
 

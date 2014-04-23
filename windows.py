@@ -3,7 +3,11 @@ import time
 from animations import display
 
 
-######### NOT USED ###########################
+"""
+Currently not implemented. Can be used
+to draw a visible border around game_win
+and msg_win.
+
 def start_gamebox():
 
     game_box = curses.newwin(35, 70, 10, 30)
@@ -16,7 +20,7 @@ def start_msgbox():
     msg_box = curses.newwin(5, 70, 5, 30)
     msg_box.box()
     msg_box.refresh()
-###############################################
+"""
 
 
 #--------GAME WIN-------------------------------
@@ -57,18 +61,13 @@ def intro(win):
     txt_win.refresh()
     time.sleep(2)
 
+    # TODO make this use msg_win
     start_win = curses.newwin(1, 25, 34, 23)
     start_win.addstr(0, 0, "Press any key to start.")
     start_win.refresh()
     start_win.getch()
     start_win.clear()
     start_win.refresh()
-
-
-def begin():
-
-    self.clear()
-    self.refresh()
 
 
 
@@ -79,9 +78,9 @@ def start_msgwin():
     win = curses.newwin(3, 68, 0, 0)
     win.keypad(1)
 
-    return win
-
 """
+Uncomment for introductory help screen
+
     win.addstr(1, 25, "Welcome to Farm!")
     win.addstr(2, 30, "-->")
     win.refresh()
@@ -107,10 +106,10 @@ def start_msgwin():
     win.clear()
 
     win.refresh()
-
+"""
 
     return win
-"""
+
 
 
 #----------DEBUG WIN-------------------------------------
@@ -142,6 +141,9 @@ class debug_console(object):
 	self.win.refresh()
 
 game_win = start_gamewin()
+
+# Uncomment to see the intro animation
 #intro(game_win)
+
 msg_win = start_msgwin()
 debug_win = debug_console()

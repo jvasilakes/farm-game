@@ -11,13 +11,18 @@ class Inventory(object):
 
 	self.contents = {}
 
-	self.money = 0
+	# Not sure where to put this...
+	# self.money = 0
 
 
+    # Pretty much the same as world.add()
     def add(self, item_list):
 
 	count = 0	
 
+	# a list is used so that multiple items can be added at once
+	# for example, when the player cuts down a tree, they receive
+	# two pieces of wood.
 	for item in item_list:
 
 	    count += 1
@@ -35,6 +40,7 @@ class Inventory(object):
 	msg_win.refresh()
 
 
+    # Pretty much an interactive version of world.remove()
     def remove(self, item, num):
 
 	curses.echo()
@@ -86,6 +92,9 @@ class Inventory(object):
 
 	if len(self.contents) > 0:
 
+	    # This will flip to False if any dictionary key actually 
+	    # has any ojects in it's sublist.
+	    # Used to test for an empty list even when dicitonary keys are present.
 	    empty = True
 
 	    for item_type in self.contents:

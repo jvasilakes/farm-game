@@ -7,7 +7,12 @@ class World(object):
 
     def __init__(self):
 
-	self.contents = {}
+        # Each key in the dictionary is the name of some class (e.g. 'Crop' or 'Tree').
+	# Each newly created object is appended to a sublist under it's respective key
+	# in this dictionary during it's __init__() routine via the add() function 
+	# below.
+	
+	self.contents = {}	
 
 	self.characters = {}
 
@@ -28,8 +33,15 @@ class World(object):
 	    list[thing.name].append(thing)
 
 	else:
+	    # Create a new key with the class name and an empty list,
+	    self.contents.update(zip([thing.name], [[]]))
 	    list.update(zip([thing.name], [[]]))
+
+	    # then append 'thing' to that list.
+	    self.contents[thing.name].append(thing)
 	    list[thing.name].append(thing)
+
+
 
 
     def remove(self, thing):
@@ -58,6 +70,7 @@ class World(object):
 	for cls in self.contents:
 	    for thing in self.contents[cls]:
 
+
 		thing.draw()
 
 	#farmer.draw()
@@ -65,22 +78,24 @@ class World(object):
 	game_win.refresh()
 
 
-    def populate(self, thing, graphics, number):
+    def populate(self, obj, graphics, number):
 	
 	random.seed()
 
 	for i in xrange(number):
+	    # 26 is maximum y value
 	    y = random.randrange(1, 26)
+	    # 60 is maximum x value
 	    x = random.randrange(1, 60)
-	    obj = thing.create(y, x, graphics)	
+	    thing = obj.create(y, x, graphics)	
 
-	    if obj.intersection:
+	    if thing.intersection:
 	        n = 0
 
-	        while obj.intersection and n < 3:    # Retry up to 3 times
+	        while thing.intersection and n < 3:    # Retry up to 3 times
 	            y = random.randrange(1, 26)
 	            x = random.randrange(1, 60)
-	            thing.create(y, x, graphics)	
+	            obj.create(y, x, graphics)	
 		    n += 1
 
 
@@ -93,7 +108,7 @@ class World(object):
 	except:
 	    return
 
-    def grow_crops(self):     # THIS IS ONLY TEMPORARY, DEPRECATE THIS
+    def grow_crops(self):     # THIS IS WHAT updateAll() SHOULD DO. GET RID OF THIS
 
 	try:
 

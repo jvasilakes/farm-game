@@ -29,7 +29,7 @@ class House(Thing):
         game_win.clear()
         animations.sunrise(game_win) 
         game_win.clear()
-        world.grow_crops()
+        world.grow_crops()   # Use updateAll here
         world.redraw()
         player.draw()
 
@@ -149,6 +149,8 @@ class Pond(Thing):
 
         seconds = random.randrange(2, 15)
 	debug_win.prnt("Fishing for " + str(seconds) + " seconds")
+	
+	# Comment out if you don't want to wait while debugging
 	#time.sleep(seconds) 
 
 	for second in xrange(seconds):
@@ -198,6 +200,11 @@ class Pond(Thing):
 	    world.redraw()
 
 class Crop(Thing):
+	
+    @classmethod
+    def create(cls, Ystart, Xstart, graphics):
+    	crop = Crop(Ystart, Xstart, graphics)
+    	return crop
 
     def __init__(self, Ystart, Xstart, graphics):
 
@@ -221,6 +228,7 @@ class Crop(Thing):
 	    return
 
 
+    # I don't think I need this...
     def get_stage(self):
 
 	return self.stage
@@ -240,10 +248,12 @@ class Tree(Thing):
 
 	Thing.__init__(self, Ystart, Xstart, graphics)
 
+	# Sometimes it easier to hard code it in
 	self.vicinity = [[Ystart + 2, Xstart],
 		        [Ystart + 2, Xstart + 3],
 		        [Ystart + 3, Xstart + 2]]
 
+	# How much wood the player gets
 	self.resource_qty = 2
 
 
@@ -331,6 +341,8 @@ class Fish(Thing):
 	self.name = 'Fish'
 
 	self.value = 20
+	
+	
 
 #----- SINGLETONS ----------------------------------	
 

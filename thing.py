@@ -8,6 +8,7 @@ class Thing(object):
 
     def __init__(self, Ystart, Xstart, graphics):
 
+	# y, x coordinates of the top left corner of the graphic
 	self.Ystart = Ystart
 	self.Xstart = Xstart
 	self.Y = Ystart
@@ -23,6 +24,8 @@ class Thing(object):
 	self.intersection = True
 	self.intersects()
 
+	# If it intersects with something else, delete it's boundries
+	# and don't add it to the world.
 	if self.intersection:
 	    del self.boundries
 
@@ -34,6 +37,9 @@ class Thing(object):
     def find_boundries(self):
 	
 	file = open(self.graphics, 'r')
+
+	# Starting from Ystart, Xstart add them accordingly
+	# with each new line (add to Ystart) or character (add to Xstart)
 
 	for line in file:
 
@@ -52,10 +58,11 @@ class Thing(object):
 	    self.Y += 1
 	    self.X = self.Xstart
 
-	self.X = self.Xstart
 	self.Y = self.Ystart
+	self.X = self.Xstart
 
 
+    # I don't think I need this...
     def get_boundries(self):
 
 	return self.boundries
@@ -63,14 +70,15 @@ class Thing(object):
 
     def intersects(self):
 	
-	for clas in world.contents:
+	for key in world.contents:
 
-	    for thing in world.contents[clas]:
+	    for thing in world.contents[key]:
 
 		for n in xrange(len(self.boundries)):
 
 		    if self.boundries[n] in thing.get_boundries() \
-		       or self.boundries[n] == [6, 6]:
+		        # can't have anything directly in front of the house door
+		        or self.boundries[n] == [6, 6]: 
 
 		        self.intersection = True
 		        return
