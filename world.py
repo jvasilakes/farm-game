@@ -1,13 +1,12 @@
 import random
 from windows import game_win
-from character import Character 
 
 
 class World(object):
 
     def __init__(self):
 
-        # Each key in the dictionary is the name of some class (e.g. 'Crop' or 'Tree').
+        # Each key in the dictionary is the name of some class (e.g. 'Crop', 'Tree', or 'Player').
 	# Each newly created object is appended to a sublist under it's respective key
 	# in this dictionary during it's __init__() routine via the add() function 
 	# below.
@@ -17,38 +16,35 @@ class World(object):
 	self.characters = {}
 
   
-    def add(self, thing):
+    def add(self, obj):
 
 	# First, choose the list to modify according
 	# to what type of thing we're dealing with.
-	if isinstance(thing, Character):
+	if obj.name == 'Player' or obj.name == 'NPC':
 	    list = self.characters
 
 	else:
 	    list = self.contents
 
-
 	# Then update the list as necessary
-	if thing.name in list:
-	    list[thing.name].append(thing)
+	if obj.name in list:
+	    list[obj.name].append(obj)
 
 	else:
 	    # Create a new key with the class name and an empty list,
-	    self.contents.update(zip([thing.name], [[]]))
-	    list.update(zip([thing.name], [[]]))
+	    list.update(zip([obj.name], [[]]))
+	    list.update(zip([obj.name], [[]]))
 
-	    # then append 'thing' to that list.
-	    self.contents[thing.name].append(thing)
-	    list[thing.name].append(thing)
-
-
+	    # then append 'obj' to that list.
+	    list[obj.name].append(obj)
+	    list[obj.name].append(obj)
 
 
-    def remove(self, thing):
+    def remove(self, obj):
 
 	# First, choose the list to modify according
-	# to what type of thing we're dealing with.
-	if isinstance(thing, Character):
+	# to what type of obj we're dealing with.
+	if obj.name == 'Player' or obj.name == 'NPC':
 	    list = self.characters
 
 	else:
@@ -57,7 +53,7 @@ class World(object):
 
 	# Then update the list as necessary
 	try:
-	    list[thing.name].remove(thing)
+	    list[obj.name].remove(obj)
 
 	except:
 	    return
@@ -67,13 +63,15 @@ class World(object):
 
 	game_win.clear()
 
-	for cls in self.contents:
-	    for thing in self.contents[cls]:
+	for key in self.contents:
+	    for obj in self.contents[key]:
 
+		obj.draw()
 
-		thing.draw()
+	for key in self.characters:
+	    for character in self.characters[key]:
 
-	#farmer.draw()
+	        character.draw()
 
 	game_win.refresh()
 

@@ -1,0 +1,2388 @@
+world.contents: 
+Object: House appended to list: contents
+
+world.contents: House, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Object: Shipbox appended to list: contents
+
+world.contents: House, Shipbox, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Object: Pond appended to list: contents
+
+world.contents: 
+world.contents: House, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+world.contents: House, Shipbox, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+world.contents: House, Shipbox, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+
+world.contents: House, Shipbox, Rock, Tree, Pond, 
+Checking intersection with House
+	under key: House
+
+Checking intersection with House
+	under key: House
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Shipbox
+	under key: Shipbox
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Rock
+	under key: Rock
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Tree
+	under key: Tree
+
+Checking intersection with Pond
+	under key: Pond
+
+Checking intersection with Pond
+	under key: Pond
+

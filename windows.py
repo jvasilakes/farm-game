@@ -1,26 +1,10 @@
 import curses
 import time
+
+from farm_config import *
+
 from animations import display
 
-
-"""
-Currently not implemented. Can be used
-to draw a visible border around game_win
-and msg_win.
-
-def start_gamebox():
-
-    game_box = curses.newwin(35, 70, 10, 30)
-    game_box.box()
-    game_box.refresh()
-
-
-def start_msgbox():
-
-    msg_box = curses.newwin(5, 70, 5, 30)
-    msg_box.box()
-    msg_box.refresh()
-"""
 
 
 #--------GAME WIN-------------------------------
@@ -73,40 +57,38 @@ def intro(win):
 
 #----------MSG WIN--------------------------------------
 
-def start_msgwin():
+def start_msgwin(HELP_SCREEN):
 
     win = curses.newwin(3, 68, 0, 0)
     win.keypad(1)
 
-"""
-Uncomment for introductory help screen
+    if HELP_SCREEN:
 
-    win.addstr(1, 25, "Welcome to Farm!")
-    win.addstr(2, 30, "-->")
-    win.refresh()
-    win.getch()
-    win.clear()
+	win.addstr(1, 25, "Welcome to Farm!")
+	win.addstr(2, 30, "-->")
+	win.refresh()
+	win.getch()
+        win.clear()
 
-    win.addstr(1, 25, "'wasd' to move.")
-    win.addstr(2, 30, "-->")
-    win.refresh()
-    win.getch()
-    win.clear()
+	win.addstr(1, 25, "'wasd' to move.")
+	win.addstr(2, 30, "-->")
+        win.refresh()
+	win.getch()
+	win.clear()
 
-    win.addstr(1, 12, "'p' to plant a crop. 'h' to harvest it.")
-    win.addstr(2, 30, "-->")
-    win.refresh()
-    win.getch()
-    win.clear()
+	win.addstr(1, 12, "'p' to plant a crop. 'h' to harvest it.")
+	win.addstr(2, 30, "-->")
+	win.refresh()
+	win.getch()
+	win.clear()
 
-    win.addstr(1, 25, "'k' to interact.")
-    win.addstr(2, 22, "Press any key to begin.")
-    win.refresh()
-    win.getch()
-    win.clear()
+	win.addstr(1, 25, "'k' to interact.")
+	win.addstr(2, 22, "Press any key to begin.")
+	win.refresh()
+	win.getch()
+	win.clear()
 
-    win.refresh()
-"""
+	win.refresh()
 
     return win
 
@@ -142,8 +124,10 @@ class debug_console(object):
 
 game_win = start_gamewin()
 
-# Uncomment to see the intro animation
-#intro(game_win)
+if INTRO:
+    intro(game_win)
 
-msg_win = start_msgwin()
-debug_win = debug_console()
+msg_win = start_msgwin(HELP_SCREEN)
+
+if DEBUG_WIN:
+    debug_win = debug_console()

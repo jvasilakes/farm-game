@@ -1,5 +1,6 @@
 import random
-from windows import game_win
+
+from windows import game_win, debug_win
 from world import world
 
 
@@ -72,13 +73,12 @@ class Thing(object):
 	
 	for key in world.contents:
 
-	    for thing in world.contents[key]:
+	    for obj in world.contents[key]:
 
 		for n in xrange(len(self.boundries)):
 
-		    if self.boundries[n] in thing.get_boundries() \
-		        # can't have anything directly in front of the house door
-		        or self.boundries[n] == [6, 6]: 
+		    # can't have anything directly in front of the house door
+		    if self.boundries[n] in obj.get_boundries() or self.boundries[n] == [6, 6]: 
 
 		        self.intersection = True
 		        return
@@ -88,6 +88,15 @@ class Thing(object):
 	
 	self.intersection = False
 	    
+
+    def load_graphics(self):
+
+	file = open(self.graphics_file, 'r').readlines()
+
+	file.close()
+
+	return file
+
 
     def draw(self):
 

@@ -1,7 +1,7 @@
-from world import world
-
 import thing
 import inventory
+
+from world import world
 from windows import game_win, msg_win
 from environment import Crop
 from environment import ship_box
@@ -9,14 +9,14 @@ from environment import ship_box
 
 class Character(object):
 
-
     def __init__(self, graphics):
 
-	self.name = 'Character'
-
 	self.graphics = graphics
-	self.pos = [6, 4]
 	self.dirs = [ord('w'), ord('s'), ord('a'), ord('d')]
+
+        world.add(self)
+
+	self.draw()
 
 
     def draw(self):
@@ -122,27 +122,24 @@ class Character(object):
 
 class Player(Character):
 
-
     def __init__(self, graphics):
-
-	Character.__init__(self, graphics)
 
 	self.name = 'Player'
 
 	self.pos = [6, 6]
 
 	self.actions = [
-			ord('k'), #interact
-			ord('p'), #plant
-			ord('h'), #harvest
-			ord('i'), #view inventory
-	 	       ]
+	    ord('k'), #interact
+	    ord('p'), #plant
+	    ord('h'), #harvest
+	    ord('i'), #view inventory
+	    ]
 
 	self.inventory = inventory.Inventory(self.name)
 	
 	self.money = 0
 
-	self.draw()
+	Character.__init__(self, graphics)
 
 
     def plant(self):

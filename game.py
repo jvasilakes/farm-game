@@ -1,19 +1,17 @@
+
 import random
 import curses
 
 import windows
-from windows import game_win, msg_win, debug_win
-
-from world import world
-
 import animations
-import character
 import thing
 import plant
 
-from environment import Tree, Rock        # Classes
+from windows import game_win, msg_win, debug_win
+from world import world					# Initilaize the play field
+from environment import Tree, Rock			# Classes
 from environment import house, ship_box, pond		# Singletons
-from character import farmer
+from character import farmer				# Create player
 
 
 def main():
@@ -95,3 +93,4 @@ def main():
     
 if __name__ == '__main__':
     main()
+
