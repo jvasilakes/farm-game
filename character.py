@@ -1,22 +1,39 @@
-import thing
-import inventory
+import random
 
+from header import *
 from world import world
-from windows import game_win, msg_win
+from startup import game_win, msg_win
+from inventory import Inventory
 from environment import Crop
 from environment import ship_box
 
 
 class Character(object):
 
-    def __init__(self, graphics):
+    list = []
 
+    @classmethod
+    def drawAll(cls):
+	
+	for character in Character.list:
+	    character.draw()
+
+
+    def __init__(self, start_pos, graphics):
+
+	self.pos = start_pos	
 	self.graphics = graphics
-	self.dirs = [ord('w'), ord('s'), ord('a'), ord('d')]
+	self.dirs = [
+	    KEY_UP,
+	    KEY_DOWN, 
+	    KEY_LEFT, 
+	    KEY_RIGHT, 
+	    NULL
+	    ]
 
-        world.add(self)
+	Character.list.append(self)
 
-	self.draw()
+	world.add(self)
 
 
     def draw(self):
@@ -27,37 +44,68 @@ class Character(object):
     def obstructed(self, dir): 
 
 	# Checks if the space to which the player is moving is
-	# occupied by some object.
+	# occupied by something.
 
 	pos = []
 
-	if dir == ord('w'):
+	if dir == KEY_UP:
 	    pos = [self.pos[0] - 1, self.pos[1]] 
-	elif dir == ord('s'):
+	elif dir == KEY_DOWN:
 	    pos = [self.pos[0] + 1, self.pos[1]]
-	elif dir == ord('a'):
+	elif dir == KEY_LEFT:
 	    pos = [self.pos[0], self.pos[1] - 1]
-	elif dir == ord('d'):
+	elif dir == KEY_RIGHT:
 	    pos = [self.pos[0], self.pos[1] + 1]
 
-	for cls in world.contents:
-	    for thing in world.contents[cls]:
-		if pos in thing.get_boundries():
+	for key in world.contents:
+	    for obj in world.contents[key]:
+		if pos in obj.boundries:
 		    
 		    return True
+
+	for key in world.characters:
+	    for character in world.characters[key]:
+
+		if pos == character.pos:
+
+		    # If a character is in the way of the Player, move it out of the way.
+		    if isinstance(self, Player):
+			self.displace(character, dir)
+			return False
+
+		    else:
+			return True
 
         return False
 
 
     def move(self, dir):
 
+	if isinstance(self, Player):
+		
+	    for key in world.contents:
+	        for obj in world.contents[key]:
+
+		    # Make visible objects within the Player's view distance
+		    if abs(obj.Ystart - self.pos[0]) <= self.view_distance_y:
+			if abs(obj.Xstart - self.pos[1]) <= self.view_distance_x:
+			    obj.visible = True
+
+		    # Check to see if we can interact with anything
+		    if self.pos in obj.vicinity:
+	    	        msg_win.clear()
+	    	        msg_win.addstr(1, 20, "Press " + chr(KEY_INTERACT) + " to interact.")
+	    	        msg_win.refresh()
+	    
+	if dir == NULL:
+	    return
+
 	if self.obstructed(dir):
 	    return
 
-
 	else:
 
-	    if dir == ord('w'):
+	    if dir == KEY_UP:
 	    	
 	    	# if character's y position is all the way at the top.
 	        if self.pos[0] == 0:
@@ -65,21 +113,17 @@ class Character(object):
 
 	        else:
 		    self.pos[0] -= 1
-		    #game_win.clear()
-		    #self.draw()
 
-	    elif dir == ord('s'):
+	    elif dir == KEY_DOWN:
 	    	
-	    	# if character's position is all the way at the bottom.
-	        if self.pos[0] == 31:
+	    	# if character's y position is all the way at the bottom.
+	        if self.pos[0] == (GAME_WIN_SIZE_Y-2):
 		    pass
 
 	        else:
 		    self.pos[0] += 1
-		    #game_win.clear()
-		    #self.draw()
 
-	    elif dir == ord('a'): 
+	    elif dir == KEY_LEFT: 
 	    	
 	    	# if character's x position is all the way to the left
 	        if self.pos[1] == 0:
@@ -87,59 +131,44 @@ class Character(object):
 
 	        else:
 		    self.pos[1] -= 1
-		    #game_win.clear()
-		    #self.draw()
 
-	    elif dir == ord('d'):
+	    elif dir == KEY_RIGHT:
 	    	# if character's x position is all the way to the right
-	        if self.pos[1] == 65:
+	        if self.pos[1] == (GAME_WIN_SIZE_X-1):
 		    pass
 
 	        else:
 		    self.pos[1] += 1
-		    #game_win.clear()
-		    #self.draw()
 	
 	    msg_win.clear()
 	    msg_win.refresh()
 
 
 
-	if isinstance(self, Player):
-		
-	    # if the character is a player,
-	    # then prompt player if they are able
-	    # to interact with something they are next to.
-
-	    for key in world.contents:
-	        for thing in world.contents[key]:
-		    if self.pos in thing.vicinity:
-	    	        msg_win.clear()
-	    	        msg_win.addstr(1, 20, "Press 'k' to interact.")
-	    	        msg_win.refresh()
-	    
-
-
 class Player(Character):
 
-    def __init__(self, graphics):
+    def __init__(self, start_pos, graphics):
 
 	self.name = 'Player'
 
-	self.pos = [6, 6]
-
 	self.actions = [
-	    ord('k'), #interact
-	    ord('p'), #plant
-	    ord('h'), #harvest
-	    ord('i'), #view inventory
+	    KEY_INTERACT,
+	    KEY_PLANT,
+	    KEY_HARVEST,
+	    KEY_INVENTORY
 	    ]
 
-	self.inventory = inventory.Inventory(self.name)
-	
-	self.money = 0
+	self.view_distance_y = VIEW_DISTANCE_Y
+	self.view_distance_x = VIEW_DISTANCE_X
 
-	Character.__init__(self, graphics)
+	self.inventory = Inventory(self.name)
+	
+	Character.__init__(self, start_pos, graphics)
+
+
+    # Moves another character if it is the way of the Player
+    def displace(self, character, dir): 
+	character.move(dir)
 
 
     def plant(self):
@@ -152,19 +181,19 @@ class Player(Character):
 	msg_win.clear()
 	msg_win.refresh()
 
-	if ans == ord('w'):
+	if ans == KEY_UP:
 	    ypos = self.pos[0] - 1
 	    xpos = self.pos[1]
 
-	elif ans == ord('s'):
+	elif ans == KEY_DOWN:
 	    ypos = self.pos[0] + 1
 	    xpos = self.pos[1]
 
-	elif ans == ord('a'):
+	elif ans == KEY_LEFT:
 	    ypos = self.pos[0]
 	    xpos = self.pos[1] - 1
 
-	elif ans == ord('d'):
+	elif ans == KEY_RIGHT:
 	    ypos = self.pos[0]
 	    xpos = self.pos[1] + 1
 
@@ -175,8 +204,8 @@ class Player(Character):
 	    return
 
 	else:
-	    # TODO: make Crop.create() class method
-	    planting = Crop(ypos, xpos, 'GRAPHICS/crop1')
+	    new = Crop.create(ypos, xpos, 'GRAPHICS/crop1')
+	    new.insert()
 
         msg_win.clear()
         msg_win.refresh()
@@ -187,11 +216,11 @@ class Player(Character):
 	try:
 
 	    for crop in world.contents['Crop']:
-	    	
-	    	# if there is a crop directly above the player
-	        if [(self.pos[0] - 1), self.pos[1]] in crop.get_boundries():
 
-		    if crop.get_stage() == 3:
+	    	# if there is a crop directly above the player
+	        if [(self.pos[0] - 1), self.pos[1]] in crop.boundries:
+
+		    if crop.stage == 3:
 
 			temp = []
 
@@ -212,4 +241,37 @@ class Player(Character):
 	    return
 
 
-farmer = Player('@')
+class NPC(Character):
+
+    def __init__(self, start_pos, graphics):
+
+	self.name = 'NPC'
+
+	Character.__init__(self, start_pos, graphics)
+
+	self.last_dir = NULL
+
+
+    def is_same_dir(self, percent):
+
+	return random.random() > percent
+
+
+    def AI_move(self):
+
+	if self.is_same_dir(0.8):
+	    dir = self.last_dir
+
+	else:
+	    dir = random.choice(self.dirs)
+	    self.last_dir = dir
+
+	self.move(dir)
+
+
+
+#------------- SINGLETONS ---------------------------
+
+farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC)
+
+dog = NPC(DOG_START_POS, DOG_GRAPHIC)

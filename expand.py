@@ -1,3 +1,4 @@
+
 def find_min(coor, list):
 
     min = list[0][coor]
@@ -32,13 +33,12 @@ def find_corners(ymin, ymax, xmin, xmax):
     return corners
 
 
-
 def fill(corners_list):
 
     vicinity = []
 
 
-    # for each corner in corners_list, w/o the final value: [A, B, C, D]
+    # for each corner in corners_list, w/o the final value (i.e. [A, B, C, D])
     for i in xrange((len(corners_list) - 1)):
 
 	# E.g. if y value of A is equal to y value of B,

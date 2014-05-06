@@ -2,22 +2,28 @@ import random
 import time
 
 import animations
-from thing import Thing
+
+from header import *
+from startup import game_win, msg_win
+from world import world
+from node import Node
 from inventory import Inventory
 from expand import find_vicinity
-from windows import game_win, msg_win, debug_win
-from world import world
 
 
-class House(Thing):
+class House(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'House'
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
 
+	# Visible from the start
+	self.visible = True
+
+	# Location of the front door
 	self.vicinity.append([(Ystart + 5), (Xstart + 5)])
 
 
@@ -27,9 +33,9 @@ class House(Thing):
         # plants grow one stage while you sleep
 
         game_win.clear()
-        animations.sunrise(game_win) 
+        animations.sunrise(game_win)
         game_win.clear()
-        world.grow_crops()   # Use updateAll here
+        world.grow_crops()
         world.redraw()
         player.draw()
 
@@ -39,16 +45,18 @@ class House(Thing):
 
 
 
-class Shipbox(Thing):
+class Shipbox(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'Shipbox'
 
 	self.inventory = Inventory(self.name)
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
+
+	self.visible = True
 
 	self.vicinity = find_vicinity(self.boundries)
 
@@ -76,6 +84,7 @@ class Shipbox(Thing):
 
 	    msg_win.clear()
 	    msg_win.refresh()
+
 	    item_list = player.inventory.view()
 
 	    if item_list == 'None':
@@ -106,14 +115,14 @@ class Shipbox(Thing):
     def sell(self, player):
 	
 	earnings = 0
-	for cls in self.inventory.contents:
+	for key in self.inventory.contents:
 
-	    for item in reversed(self.inventory.contents[cls]):
+	    for item in reversed(self.inventory.contents[key]):
 
 		earnings += item.value
-		self.inventory.contents[cls].remove(item)
+		self.inventory.contents[key].remove(item)
 
-	player.money += earnings
+	player.inventory.money += earnings
 
 	if earnings > 0:
 	    msg_win.clear()
@@ -127,18 +136,18 @@ class Shipbox(Thing):
 	    pass 
 
 
-class Pond(Thing):
+class Pond(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'Pond'
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
 
 	self.vicinity = find_vicinity(self.boundries)
 
-    
+
     def interact(self, player):
 
 	random.seed
@@ -148,16 +157,10 @@ class Pond(Thing):
 	msg_win.refresh()
 
         seconds = random.randrange(2, 15)
-	debug_win.prnt("Fishing for " + str(seconds) + " seconds")
 	
-	# Comment out if you don't want to wait while debugging
-	#time.sleep(seconds) 
+	self.animate(seconds)
 
-	for second in xrange(seconds):
-	    self.animate()
-	    self.graphics = 'GRAPHICS/pond1'
-	    self.draw()
-	    game_win.refresh()
+        game_win.refresh()
 
 	if self.iscatch(0.6):
 
@@ -182,39 +185,49 @@ class Pond(Thing):
 	    return
 
 
+    def animate(self, duration):
+
+        graphics1 = self.graphics
+        graphics2 = self.load_graphics('GRAPHICS/pond2')
+
+	for second in xrange(duration):
+
+	    time.sleep(1)
+
+	    if self.graphics == graphics1:
+		self.graphics = graphics2
+		world.redraw()
+
+	    else:
+		self.graphics = graphics1
+		world.redraw()
+
+	self.graphics = graphics1
+
+
     def iscatch(self, percent):
 
 	return random.random() > percent
 
 
-    def animate(self):
 
-	time.sleep(1)
-
-	if self.graphics == 'GRAPHICS/pond1':
-	    self.graphics = 'GRAPHICS/pond2'
-	    world.redraw()
-
-	else:
-	    self.graphics = 'GRAPHICS/pond1'
-	    world.redraw()
-
-class Crop(Thing):
+class Crop(Node):
 	
     @classmethod
-    def create(cls, Ystart, Xstart, graphics):
-    	crop = Crop(Ystart, Xstart, graphics)
+    def create(cls, Ystart, Xstart, graphics_file):
+    	crop = Crop(Ystart, Xstart, graphics_file)
     	return crop
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'Crop'
 
+	# Stage of growth out of 3
         self.stage = 1
 
 	self.value = 5
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
 
 
     def grow(self):
@@ -222,33 +235,27 @@ class Crop(Thing):
 
 	if self.stage < 3:
 	    self.stage += 1
-	    self.graphics = 'GRAPHICS/crop' + str(self.stage)
+	    self.graphics = self.load_graphics('GRAPHICS/crop' + str(self.stage))
 
 	else:
 	    return
 
 
-    # I don't think I need this...
-    def get_stage(self):
 
-	return self.stage
-
-
-class Tree(Thing):
+class Tree(Node):
 
     @classmethod
-    def create(cls, Ystart, Xstart, graphics):
-	tree = Tree(Ystart, Xstart, graphics)
+    def create(cls, Ystart, Xstart, graphics_file):
+	tree = Tree(Ystart, Xstart, graphics_file)
 	return tree
 
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'Tree'
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
 
-	# Sometimes it easier to hard code it in
 	self.vicinity = [[Ystart + 2, Xstart],
 		        [Ystart + 2, Xstart + 3],
 		        [Ystart + 3, Xstart + 2]]
@@ -284,22 +291,22 @@ class Tree(Thing):
 
 
 
-class Rock(Thing):
+class Rock(Node):
 
     @classmethod
-    def create(cls, Ystart, Xstart, graphics):
-	rock = Rock(Ystart, Xstart, graphics)
+    def create(cls, Ystart, Xstart, graphics_file):
+	rock = Rock(Ystart, Xstart, graphics_file)
 	return rock
 
-    def __init__(self, Ystart, Xstart, graphics):
+    def __init__(self, Ystart, Xstart, graphics_file):
 
 	self.name = 'Rock'
 
-	Thing.__init__(self, Ystart, Xstart, graphics)
+	Node.__init__(self, Ystart, Xstart, graphics_file)
 
 	
 
-class Wood(Thing):
+class Wood(Node):
 
     @classmethod
     def create(cls):
@@ -314,7 +321,7 @@ class Wood(Thing):
 	self.value = 10
 	
 
-class Stone(Thing):
+class Stone(Node):
 
     @classmethod
     def create(cls):
@@ -328,7 +335,7 @@ class Stone(Thing):
 	self.value = 5
 	
 
-class Fish(Thing):
+class Fish(Node):
 
     @classmethod
     def create(cls):
@@ -346,8 +353,8 @@ class Fish(Thing):
 
 #----- SINGLETONS ----------------------------------	
 
-house = House(1, 1, 'GRAPHICS/house')
+house = House(1, 1, HOUSE_GRAPHIC)
 
-ship_box = Shipbox(4, 12, 'GRAPHICS/ship_box')
+ship_box = Shipbox(4, 12, SHIP_BOX_GRAPHIC)
 
-pond = Pond(28, 40, 'GRAPHICS/pond1')
+pond = Pond(GAME_WIN_SIZE_Y-5, GAME_WIN_SIZE_X-16, POND_GRAPHIC)

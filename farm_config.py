@@ -4,4 +4,5 @@ INTRO=False
 
 HELP_SCREEN=False
 
-DEBUG_WIN=True
+DEBUG_WIN=False
+

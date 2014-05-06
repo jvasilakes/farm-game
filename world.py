@@ -1,5 +1,7 @@
 import random
-from windows import game_win
+
+from header import *
+from startup import game_win
 
 
 class World(object):
@@ -8,8 +10,7 @@ class World(object):
 
         # Each key in the dictionary is the name of some class (e.g. 'Crop', 'Tree', or 'Player').
 	# Each newly created object is appended to a sublist under it's respective key
-	# in this dictionary during it's __init__() routine via the add() function 
-	# below.
+	# in this dictionary during it's insert() routine via the add() function below.
 	
 	self.contents = {}	
 
@@ -33,10 +34,7 @@ class World(object):
 	else:
 	    # Create a new key with the class name and an empty list,
 	    list.update(zip([obj.name], [[]]))
-	    list.update(zip([obj.name], [[]]))
 
-	    # then append 'obj' to that list.
-	    list[obj.name].append(obj)
 	    list[obj.name].append(obj)
 
 
@@ -76,37 +74,28 @@ class World(object):
 	game_win.refresh()
 
 
-    def populate(self, obj, graphics, number):
+    # Initializes <number> amount of <obj> objects
+    # but does not draw them in the world.
+    def seed(self, obj, graphics, number):
 	
 	random.seed()
 
 	for i in xrange(number):
-	    # 26 is maximum y value
-	    y = random.randrange(1, 26)
-	    # 60 is maximum x value
-	    x = random.randrange(1, 60)
+	    y = random.randrange(1, GAME_WIN_SIZE_Y-5)
+	    x = random.randrange(1, GAME_WIN_SIZE_X-5)
 	    thing = obj.create(y, x, graphics)	
 
 	    if thing.intersection:
-	        n = 0
 
+	        n = 0
 	        while thing.intersection and n < 3:    # Retry up to 3 times
-	            y = random.randrange(1, 26)
-	            x = random.randrange(1, 60)
+	            y = random.randrange(1, GAME_WIN_SIZE_Y-5)
+	            x = random.randrange(1, GAME_WIN_SIZE_X-5)
 	            obj.create(y, x, graphics)	
 		    n += 1
 
 
-    def updateAll(self, function):  
-
-	try:
-	    for instance in self.contents['thing']:
-		instance.function()	
-
-	except:
-	    return
-
-    def grow_crops(self):     # THIS IS WHAT updateAll() SHOULD DO. GET RID OF THIS
+    def grow_crops(self):
 
 	try:
 
@@ -117,4 +106,17 @@ class World(object):
 	    return
 
 
+    def updateNPCs(self):
+
+	try:
+
+	    for npc in self.characters['NPC']:
+		npc.AI_move()
+
+	except:
+	    return
+
+
+# ------- INITIALIZE THE WORLD --------------------
 world = World()
+

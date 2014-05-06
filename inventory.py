@@ -1,5 +1,6 @@
 import curses
-from windows import msg_win
+
+from startup import msg_win
 
 
 class Inventory(object):
@@ -11,8 +12,7 @@ class Inventory(object):
 
 	self.contents = {}
 
-	# Not sure where to put this...
-	# self.money = 0
+	self.money = 0
 
 
     # Pretty much the same as world.add()
@@ -20,8 +20,8 @@ class Inventory(object):
 
 	count = 0	
 
-	# a list is used so that multiple items can be added at once
-	# for example, when the player cuts down a tree, they receive
+	# a list is used so that multiple items can be added at once.
+	# For example, when the player cuts down a tree, they receive
 	# two pieces of wood.
 	for item in item_list:
 
@@ -35,8 +35,11 @@ class Inventory(object):
 	        self.contents[item.name].append(item)
 
 	msg_win.clear()
-	msg_win.addstr(1, 5, str(count) + " " + item.name + \
-		       " added to " + self.owner + "'s inventory.")
+	msg_win.addstr(
+	    1, 5, str(count) + " " + item.name + \
+	    " added to " + self.owner + "'s inventory."
+	    )
+
 	msg_win.refresh()
 
 
@@ -52,13 +55,16 @@ class Inventory(object):
         ans = msg_win.getstr()
 
 	curses.noecho()
+
 	if int(ans) <= int(num):
 
 	    temp = []
 
             msg_win.clear()
-            msg_win.addstr(1, 5, str(ans) + " " + item + \
-			   " removed from " + self.owner + "'s inventory.")
+            msg_win.addstr(
+		1, 5, str(ans) + " " + item + \
+		" removed from " + self.owner + "'s inventory."
+		)
 
             msg_win.refresh()
 
@@ -90,10 +96,12 @@ class Inventory(object):
 
     def view(self):
 
+	msg_win.addstr(2, 50, "$" + str(self.money))
+
 	if len(self.contents) > 0:
 
 	    # This will flip to False if any dictionary key actually 
-	    # has any ojects in it's sublist.
+	    # has any objects in it's sublist.
 	    # Used to test for an empty list even when dicitonary keys are present.
 	    empty = True
 
@@ -106,8 +114,10 @@ class Inventory(object):
 		    empty = False
 		    num = str(count)
 
+		    msg_win.addstr(2, 50, "$" + str(self.money))
+
 		    msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
-		    msg_win.addstr(0, 30, item_type + " x" + num)
+		    msg_win.addstr(0, 25, item_type + " x" + num)
 		    msg_win.addstr(2, 5, "'t': take item    'n': next")
 		    msg_win.refresh()
 
@@ -127,7 +137,7 @@ class Inventory(object):
 		    pass
 
 	    if empty:
-	        msg_win.addstr(2, 18, "Nothing here.")
+	        msg_win.addstr(0, 18, "Nothing here.")
 	        msg_win.refresh() 
 	        msg_win.getch()
 	        msg_win.clear()
@@ -135,9 +145,10 @@ class Inventory(object):
 	        return 'None'
 
 	else:
-	    msg_win.addstr(2, 18, "Nothing here.")
+	    msg_win.addstr(0, 18, "Nothing here.")
 	    msg_win.refresh() 
 	    msg_win.getch()
 	    msg_win.clear()
 	    msg_win.refresh()
-	    return
+	    return 'None'
+
