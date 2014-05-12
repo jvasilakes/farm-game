@@ -1,3 +1,5 @@
+#!/usr/bin/python2.7
+
 import random
 import curses
 
@@ -25,12 +27,10 @@ def main():
     c = game_win.getch()
 
     while True:
-
         if c in farmer.dirs:
-            # 'w', 'a', 's', 'd'
-
+	    # 'w', 'a', 's', 'd', 'NULL'
             farmer.move(c)
-	    world.redraw()
+            world.redraw()
             c = game_win.getch()
 
 
@@ -40,7 +40,7 @@ def main():
             # 'h': harvest a crop
             # 'i': view inventory
 
-	    if c == KEY_INTERACT:
+            if c == KEY_INTERACT:
 
 	 	for key in world.contents:
 		    for obj in world.contents[key]:

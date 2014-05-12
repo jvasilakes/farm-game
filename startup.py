@@ -1,37 +1,17 @@
-import curses
 import time
+import curses
 
 from header import *
 from farm_config import *
 
-from animations import display
+from animations import display, intro
 
-
-# TODO finish this
-def writeScreenInfo(max_height, max_width):
-
-    if GAME_WIN_SIZE_Y > max_height or GAME_WIN_SIZE_X > max_width \
-	or GAME_WIN_SIZE_Y < INTRO_ANIM_SIZE_Y or GAME_WIN_SIZE_X < INTRO_ANIM_SIZE_X:
-
-	curses.endwin()
-	print("Incompatible game_win size!")    
-
-    MSG_WIN_SIZE_Y = GAME_WIN_POS_Y - 1
-    if MSG_WIN_SIZE_Y < 3:
-	curses.endwin()
-	print("incompatible msg_win size!")
-
-    file = open('screenInfo.conf', 'w')
 
 
 #--------GAME WIN-------------------------------
 
 
 def start_gamewin():
-
-    stdscr = curses.initscr()
-    curses.noecho()
-    curses.curs_set(0)
 
     game_win = curses.newwin(
 	GAME_WIN_SIZE_Y,
@@ -43,35 +23,6 @@ def start_gamewin():
     game_win.keypad(1)
 
     return game_win
-
-
-def intro(win):
-
-    tree1 = open('GRAPHICS/INTRO/tree1').readlines()
-    tree2 = open('GRAPHICS/INTRO/tree2',).readlines()
-    farm_logo = open('GRAPHICS/INTRO/farm_logo',).readlines()
-
-    for i in xrange(3):
-        display(tree1, win, 3, 1)
-        win.refresh()
-        time.sleep(1)
-        win.clear()
-        display(tree2, win, 3, 1)
-        win.refresh()
-        time.sleep(1)
-        win.clear()
-
-    txt_win = curses.newwin(
-	TXT_WIN_SIZE_Y,
-	TXT_WIN_SIZE_X,
-	TXT_WIN_POS_Y,
-	TXT_WIN_POS_X
-	)
-
-    display(farm_logo, txt_win, 0, 0)
-    txt_win.refresh()
-    time.sleep(2)
-
 
 
 #----------MSG WIN--------------------------------------
@@ -142,23 +93,45 @@ def show_help_screen():
 class debug_console(object):
 
     def __init__(self):
-        self.win = curses.newwin(200, 90, 3, 80)
+        self.win = curses.newwin(
+	    DEBUG_WIN_SIZE_Y,
+	    DEBUG_WIN_SIZE_X,
+	    DEBUG_WIN_POS_Y,
+	    DEBUG_WIN_POS_X
+	    )
+
         self.win.keypad(1)
-	self.header = curses.newwin(2, 20, 0, 100)
+
+	self.header = curses.newwin(
+	    DEBUG_TITLE_SIZE_Y,
+	    DEBUG_TITLE_SIZE_X,
+	    DEBUG_TITLE_POS_Y,
+	    DEBUG_TITLE_POS_X
+	    )
+
 	self.header.addstr(0, 1, "DEBUGGING CONSOLE")
 	self.header.refresh()
 
 	self.ynow = 0
 
+
     def prnt(self, message):
-	if self.ynow >= 40:
+    
+	if self.ynow >= DEBUG_WIN_SIZE_Y:
 	    self.clear()
 	    self.ynow = 0
 
-	else:
-	    self.win.addstr(self.ynow, 0, message)
-	    self.win.refresh()
-	    self.ynow += 1	
+	self.win.addstr(self.ynow, 0, message)
+
+	count = 0
+	for char in message:
+	    count += 1
+
+	if count >= DEBUG_WIN_SIZE_X:
+	    self.ynow += 1
+
+	self.win.refresh()
+	self.ynow += 1	
 
 
     def clear(self):
@@ -167,6 +140,10 @@ class debug_console(object):
 
 
 #---------- INITIALIZATION ----------------------------
+
+curses.initscr()
+curses.noecho()
+curses.curs_set(0)
 
 game_win = start_gamewin()
 
