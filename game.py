@@ -79,7 +79,19 @@ def main():
 
         elif c == KEY_QUIT:
 
-	    break
+	    msg_win.clear()
+	    msg_win.addstr(1, 10, "Really quit? [y/n]")
+	    msg_win.refresh()
+
+	    ans = msg_win.getch()
+
+	    if ans == ord('y'):
+		break
+
+	    else:
+		msg_win.clear()
+		msg_win.refresh()
+		c = game_win.getch()
 
         else:
 

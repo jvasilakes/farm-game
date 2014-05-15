@@ -80,7 +80,6 @@ class Character(object):
 
 	# Check if the space to which the player is moving is
 	# occupied by something.
-
 	pos = []
 
 	if dir == KEY_UP:
@@ -115,6 +114,7 @@ class Character(object):
 
 
 
+    # moveWrapper defined at the beginning of this file
     @moveWrapper
     def move(self, dir):
 
@@ -198,7 +198,6 @@ class Player(Character):
 
 	else:
 	    new = Crop.create(ypos, xpos, 'GRAPHICS/crop1')
-	    new.insert()
 
         msg_win.clear()
         msg_win.refresh()
