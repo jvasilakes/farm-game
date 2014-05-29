@@ -1,0 +1,11 @@
+# Ignore all compiled python files
+*.pyc
+#.swp
+
+# People don't need to see my personal BUGLIST or TODO files
+BUGLIST
+TODO
+OLD
+
+# or my maintenance script
+cleanup

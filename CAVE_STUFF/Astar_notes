@@ -1,0 +1,29 @@
+Two lists:
+
+1. (OPEN LIST) Stores all sqaures that are being considered.
+2. (CLOSED LIST) Stores all squares that are NOT being considered.
+
+Add current position to closed list.
+Add all walkable tiles to open list.
+
+Assign each open sqaure a score
+Score consists of:
+1. (G) Movement cost from start sqaure to current square.
+2. (H) Estimated movement cost from current sqaure to destination square.
+
+Calculating G:
+Add 1 to movement cost of parent square.
+
+Calculating H:
+Distance from current square to destination square ignoring obstacles.
+
+The Algorithm:
+
+1. Compute score of each square on open list.
+2. Get square (S) in open list which has lowest score.
+3. Remove S from open list and add it to closed list.
+4. For each square (T) that is walkable and adajacent to S:
+	1. If T is in closed list -> ignore it.
+	2. If T is not in open list -> add T to open list and compute score.
+	3. If T already in open list -> Recompute score: if it is lower than before -> update it.
+
