@@ -1,7 +1,7 @@
 A simple farming game, written mainly for practice with the python curses module.
 
 Running the game:
-Just type './game.py' into your *nix terminal!
+Just type './setup.py' into your *nix terminal!
 
 Controls:
 
