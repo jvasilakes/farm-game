@@ -10,148 +10,235 @@ hall_horz = open('hall_horz', 'r').readlines()
 
 class Cave(object):
 
-	def __init__(self):
+    def __init__(self):
 
-		self.rooms = []
+	self.rooms = []
 
-		self.halls = []
+	self.halls = []
 
-		self.open_list = []
-		self.closed_list = []
-
-
-	def draw(self, win):
-
-		for room in self.rooms:
-
-			room.draw(win)
-
-		for hall in self.halls:
-
-			hall.draw(win)
+	self.walls = []
 
 
-	def find_hall(self):
+    def draw(self, win):
 
-	    #TODO: Use A star algorithm here
+	for room in self.rooms:
 
-	def make_hall(self):
+	    room.draw(win)
 
-		y = self.rooms[0].Ystart + 1
+	for hall in self.halls:
 
-		length = self.rooms[1].Xstart - (self.rooms[0].Xstart + 5)
+	    hall.draw(win)
 
-		for i in range(length - 1):
 
-			Hall.create(y, ((self.rooms[0].Xstart + 6) + i), self)
+    def build_hall(self):
 
-			self.rooms[1].door_pos = [y + 1, self.rooms[1].Xstart]
-			self.rooms[0].door_pos = [y + 1, self.rooms[0].Xstart + 5]
+	complete = False	
+
+	start = self.rooms[0].door_pos = [self.rooms[0].Ystart + 2, self.rooms[0].Xstart + 5]
+
+	end = self.rooms[1].door_pos = [self.rooms[0].Ystart + 2, self.rooms[1].Xstart]
+
+	current = start
+	
+	self.rooms[0].closed_list.append(start)
+	self.rooms[0].closed_list.append([start[0], start[1] - 1])
+	self.rooms[0].closed_list.append([start[0] + 1, start[1]])
+	self.rooms[0].closed_list.append([start[0] - 1, start[1]])
+
+	self.rooms[0].open_list.append([start[0], start[1] + 1])
+
+	walkable = [[current[0] - 1, current[1]],
+		    [current[0] + 1, current[1]],
+		    [current[0], current[1] - 1],
+		    [current[0], current[1] + 1]]
+
+	log = open('logfile', 'a')
+
+	for i in range(5):
+	
+	    log.write(str(i) + '\n')
+
+	    best = self.find_best_tile(self.rooms[0].open_list, start, end) 
+	
+	    log.write("Best found!\n")
+
+	    if best[0] == current[0]:
+		Hall.create('H', best[0], best[1], self)
+		log.write("Horz hall created at X %d!\n" % best[1])
+
+	    else:
+		Hall.create('V', best[0], best[1], self)
+		log.write("Vert hall created! at Y %d!\n" % best[0])
+
+	    current = best
+	    log.write("Current tile updated!\n")
+
+	    self.rooms[0].open_list.remove(current)
+
+	    self.rooms[0].closed_list.append(current)
+
+	    for tile in walkable:
+
+		if tile == end:
+		    return
+
+		if tile in self.rooms[0].closed_list:
+		    pass
+
+		if tile not in self.rooms[0].open_list:
+		    self.rooms[0].open_list.append(tile) 
+							
+	log.close()
+
+    def calc_score(self, tile, start, end):
+
+	# Movement cost from start tile to current tile
+	G = abs((tile[0] - start[0]) + (tile[1] - start[1]))
+
+	# Movement cost from current tile to destination tile
+	H = abs((end[0] - tile[0]) + (end[1] - start[1]))
+
+	score = G + H
+
+	return score
+
+
+    def find_best_tile(self, list, start, end):
+
+	min = self.calc_score(list[0], start, end)
+
+	for tile in list:
+	    if self.calc_score(tile, start, end) < min:
+		min = self.calc_score(tile, start, end)
+		best = tile
+
+	return tile
+
+
+    def make_hall(self):
+
+	y = self.rooms[0].Ystart + 1
+
+	length = self.rooms[1].Xstart - (self.rooms[0].Xstart + 5)
+
+	for i in range(length - 1):
+
+		Hall.create(y, ((self.rooms[0].Xstart + 6) + i), self)
+
+		self.rooms[1].door_pos = [y + 1, self.rooms[1].Xstart]
+		self.rooms[0].door_pos = [y + 1, self.rooms[0].Xstart + 5]
 
 
 class Node(object):
 
-	def __init__(self, Ystart, Xstart, cave):
+    def __init__(self, Ystart, Xstart, cave):
 
-		self.Ystart = Ystart
-		self.Xstart = Xstart
-		self.Y = Ystart
-		self.X = Xstart
+	self.Ystart = Ystart
+	self.Xstart = Xstart
+	self.Y = Ystart
+	self.X = Xstart
 
-		self.boundaries = []
-		self.find_boundaries()
+	self.boundaries = []
+	self.find_boundaries()
 
-		for coor in self.boundaries:
-			cave.closed_list.append(coor)
+	for coor in self.boundaries:
+	    cave.walls.append(coor)
 
-		cave.rooms.append(self)
+	    cave.rooms.append(self)
 
 
-	def find_boundaries(self):
-		
-		# Starting from Ystart, Xstart add them accordingly
-		# with each new line (add to Ystart) or character (add to Xstart)
+    def find_boundaries(self):
+							
+	# Starting from Ystart, Xstart add them accordingly
+	# with each new line (add to Ystart) or character (add to Xstart)
 
-		for line in self.graphics:
+	for line in self.graphics:
 
-			for char in line:
+	    for char in line:
 
-				if char == '\n':
-					pass
+		if char == '\n':
+		    pass
 
-				elif char == ' ':
-					self.X += 1
+		elif char == ' ':
+		    self.X += 1
 
-				else:
-					self.boundaries.append([self.Y, self.X])
-					self.X += 1
+		else:
+		    self.boundaries.append([self.Y, self.X])
+		    self.X += 1
 
-			self.Y += 1
-			self.X = self.Xstart
+	    self.Y += 1
+	    self.X = self.Xstart
 
-		self.Y = self.Ystart
-		self.X = self.Xstart
-
+	self.Y = self.Ystart
+	self.X = self.Xstart
 
 
 class Room(Node):
 
-	def __init__(self, Ystart, Xstart, cave):
+    def __init__(self, Ystart, Xstart, cave):
 
-		self.graphics = room
+	self.graphics = room
 
-		Node.__init__(self, Ystart, Xstart, cave)
+	Node.__init__(self, Ystart, Xstart, cave)
+
+	self.open_list = []
+	self.closed_list = []
 
 
-	def draw(self, win):
 
-		[y, x] = [self.Ystart, self.Xstart]
+    def draw(self, win):
 
-		for line in self.graphics:
+	[y, x] = [self.Ystart, self.Xstart]
 
-			line = line.strip().rstrip()
+	for line in self.graphics:
 
-			for char in line:
+	    line = line.strip().rstrip()
 
-				if [y, x] == self.door_pos:
-					x += 1
+	    for char in line:
 
-				else:
-					win.addstr(y, x, char)
-					x += 1
+		#if [y, x] == self.door_pos:
+		    #x += 1
 
-			y += 1
-			x = self.Xstart
+		#else:
+		win.addstr(y, x, char)
+		x += 1
+
+	    y += 1
+	    x = self.Xstart
 
 
 class Hall(Node):
 
-	@classmethod
-	def create(cls, Ystart, Xstart, cave):
-		hall = Hall(Ystart, Xstart, cave)
-		return hall
+    @classmethod
+    def create(cls, dir, Ystart, Xstart, cave):
+	hall = Hall(dir, Ystart, Xstart, cave)
+	return hall
 
 
-	def __init__(self, Ystart, Xstart, cave):
+    def __init__(self, dir, Ystart, Xstart, cave):
 
-		self.graphics = hall_horz
+	if dir == 'H':
+	    self.graphics = hall_horz
 
-		Node.__init__(self, Ystart, Xstart, cave)
+	elif dir == 'V':
+	    self.graphics == hall_vert
+
+	Node.__init__(self, Ystart, Xstart, cave)
 
 
-	def draw(self, win):
+    def draw(self, win):
 
-		y = self.Ystart
-		x = self.Xstart
+	y = self.Ystart
+	x = self.Xstart
 
-		for line in self.graphics:
+	for line in self.graphics:
 
-			line = line.strip().rstrip()
+	    line = line.strip().rstrip()
 
-			win.addstr(y, x, line)
+	    win.addstr(y, x, line)
 
-			y += 1
-			x = self.Xstart
+	    y += 1
+	    x = self.Xstart
 
 
 # --------- MAIN ---------------
@@ -161,12 +248,15 @@ curses.curs_set(0)
 
 win = curses.newwin(50, 100, 0, 0)
 
+win.addstr(0, 0, "CAVE!")
+win.refresh()
+
 cave = Cave()
 
 room1 = Room(5, 5, cave)
 room2 = Room(5, 20, cave)
 
-cave.make_hall()
+cave.build_hall()
 
 cave.draw(win)
 win.refresh()

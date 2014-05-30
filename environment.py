@@ -230,6 +230,9 @@ class Cave(Node):
 	self.boundaries.append(self.vicinity)
 
 
+    def interact(self, player):
+	pass
+
 class Crop(Node):
 	
     @classmethod
