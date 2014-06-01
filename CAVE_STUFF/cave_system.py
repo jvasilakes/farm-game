@@ -32,13 +32,23 @@ class Cave(object):
 
     def build_hall(self):
 
+	log = open('logfile', 'a')
+
 	complete = False	
 
-	start = self.rooms[0].door_pos = [self.rooms[0].Ystart + 2, self.rooms[0].Xstart + 5]
+	start = self.rooms[0].door_pos = [self.rooms[0].Ystart + 1, self.rooms[0].Xstart + 5]
 
-	end = self.rooms[1].door_pos = [self.rooms[0].Ystart + 2, self.rooms[1].Xstart]
+	end = self.rooms[1].door_pos = [self.rooms[1].Ystart + 1, 20]
 
 	current = start
+
+	log.write("current: ")
+	log.write(str(current))
+	log.write('\n')
+
+	log.write("end: ")
+	log.write(str(end))
+	log.write('\n')
 	
 	self.rooms[0].closed_list.append(start)
 	self.rooms[0].closed_list.append([start[0], start[1] - 1])
@@ -47,20 +57,22 @@ class Cave(object):
 
 	self.rooms[0].open_list.append([start[0], start[1] + 1])
 
-	walkable = [[current[0] - 1, current[1]],
-		    [current[0] + 1, current[1]],
-		    [current[0], current[1] - 1],
-		    [current[0], current[1] + 1]]
+	log.write("Initial closed list: ")
+	log.write(str(self.rooms[0].closed_list))
+	log.write('\n')
 
-	log = open('logfile', 'a')
+	log.write("Initial open list: ")
+	log.write(str(self.rooms[0].open_list))
+	log.write('\n')
 
-	for i in range(5):
+	while not complete:
 	
-	    log.write(str(i) + '\n')
-
 	    best = self.find_best_tile(self.rooms[0].open_list, start, end) 
 	
-	    log.write("Best found!\n")
+	    log.write("Open list: ")
+	    log.write(str(self.rooms[0].open_list))
+	    log.write('\n')
+	    log.write("Best in list: " + str(best) + '\n')
 
 	    if best[0] == current[0]:
 		Hall.create('H', best[0], best[1], self)
@@ -73,14 +85,37 @@ class Cave(object):
 	    current = best
 	    log.write("Current tile updated!\n")
 
-	    self.rooms[0].open_list.remove(current)
+	    walkable = [[current[0] - 1, current[1]],
+			[current[0] + 1, current[1]],
+			[current[0], current[1] - 1],
+			[current[0], current[1] + 1]]
 
-	    self.rooms[0].closed_list.append(current)
+	    index = self.rooms[0].open_list.index(current)
+	
+	    log.write("Index: " + str(index) + '\n')
 
+	    tile = self.rooms[0].open_list.pop(index)
+
+	    self.rooms[0].closed_list.append(tile)
+
+	    log.write("NEW Open list: ")
+	    log.write(str(self.rooms[0].open_list))
+	    log.write('\n')
+	    log.write("NEW closed list: ")
+	    log.write(str(self.rooms[0].closed_list))
+	    log.write('\n')
+
+	    log.write("current: ")
+	    log.write(str(current))
+	    log.write('\n')
+	
 	    for tile in walkable:
 
+		log.write(str(tile))
+		log.write('\n')
+
 		if tile == end:
-		    return
+		    complete = True
 
 		if tile in self.rooms[0].closed_list:
 		    pass
@@ -253,8 +288,8 @@ win.refresh()
 
 cave = Cave()
 
-room1 = Room(5, 5, cave)
-room2 = Room(5, 20, cave)
+room0 = Room(5, 5, cave)
+room1 = Room(7, 20, cave)
 
 cave.build_hall()
 
