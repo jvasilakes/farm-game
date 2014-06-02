@@ -1,3 +1,5 @@
+#!/usr/bin/python2.7
+
 import curses
 
 
@@ -38,7 +40,7 @@ class Cave(object):
 
 	start = self.rooms[0].door_pos = [self.rooms[0].Ystart + 1, self.rooms[0].Xstart + 5]
 
-	end = self.rooms[1].door_pos = [self.rooms[1].Ystart + 1, 20]
+	end = self.rooms[1].door_pos = [self.rooms[1].Ystart + 1, self.rooms[1].Xstart]
 
 	current = start
 
@@ -50,10 +52,10 @@ class Cave(object):
 	log.write(str(end))
 	log.write('\n')
 	
+	for room in self.rooms:
+	    self.rooms[0].closed_list.extend(room.boundaries)
+
 	self.rooms[0].closed_list.append(start)
-	self.rooms[0].closed_list.append([start[0], start[1] - 1])
-	self.rooms[0].closed_list.append([start[0] + 1, start[1]])
-	self.rooms[0].closed_list.append([start[0] - 1, start[1]])
 
 	self.rooms[0].open_list.append([start[0], start[1] + 1])
 
@@ -65,7 +67,8 @@ class Cave(object):
 	log.write(str(self.rooms[0].open_list))
 	log.write('\n')
 
-	while not complete:
+	for i in xrange(5):
+	#while not complete:
 	
 	    best = self.find_best_tile(self.rooms[0].open_list, start, end) 
 	
@@ -115,6 +118,7 @@ class Cave(object):
 		log.write('\n')
 
 		if tile == end:
+		    Hall.create('H', tile[0], tile[1], self)
 		    complete = True
 
 		if tile in self.rooms[0].closed_list:
@@ -140,14 +144,13 @@ class Cave(object):
 
     def find_best_tile(self, list, start, end):
 
-	min = self.calc_score(list[0], start, end)
+	best = list[0]
 
 	for tile in list:
-	    if self.calc_score(tile, start, end) < min:
-		min = self.calc_score(tile, start, end)
+	    if self.calc_score(tile, start, end) < self.calc_score(best, start, end):
 		best = tile
 
-	return tile
+	return best
 
 
     def make_hall(self):
@@ -256,7 +259,7 @@ class Hall(Node):
 	    self.graphics = hall_horz
 
 	elif dir == 'V':
-	    self.graphics == hall_vert
+	    self.graphics = hall_vert
 
 	Node.__init__(self, Ystart, Xstart, cave)
 
