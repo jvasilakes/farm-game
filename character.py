@@ -1,8 +1,10 @@
 import random
+import time
 
 from header import *
+from pathfinding import Astar
 from world import world
-from startup import game_win, msg_win
+from startup import game_win, msg_win, debug_win
 from inventory import Inventory
 from environment import Crop
 from environment import ship_box
@@ -45,7 +47,9 @@ class Character(object):
     def __init__(self, start_pos, graphics):
 
 	self.pos = start_pos	
+
 	self.graphics = graphics
+
 	self.dirs = [
 	    KEY_UP,
 	    KEY_DOWN, 
@@ -53,6 +57,8 @@ class Character(object):
 	    KEY_RIGHT, 
 	    NULL
 	    ]
+
+	self.future_moves = []
 
 	world.add(self)
 
@@ -68,14 +74,23 @@ class Character(object):
         if dir == KEY_UP and self.pos[0] == 0 or \
 	    dir == KEY_DOWN and self.pos[0] == (GAME_WIN_SIZE_Y - 1) or \
 	    dir == KEY_LEFT and self.pos[1] == 0 or \
-	    dir == KEY_RIGHT and self.pos[1] == (GAME_WIN_SIZE_X-1):
+	    dir == KEY_RIGHT and self.pos[1] == (GAME_WIN_SIZE_X - 1):
 
 	    return True
+
+	elif isinstance(dir, list) and len(dir) == 2:
+
+	    if dir[0] <= 0 or \
+		dir[0] >= (GAME_WIN_SIZE_Y - 1) or \
+		dir[1] <= 0 or \
+		dir[1] >= (GAME_WIN_SIZE_X - 1):
+
+		return True
 
 
 	# Check if the space to which the player is moving is
 	# occupied by something.
-	pos = []
+	pos = dir
 
 	if dir == KEY_UP:
 	    pos = [self.pos[0] - 1, self.pos[1]] 
@@ -127,6 +142,15 @@ class Character(object):
 
 	elif dir == KEY_RIGHT:
 	    self.pos[1] += 1
+
+	# If dir is actually a coordinate
+	elif isinstance(dir, list) and len(dir) == 2:
+
+	    # Move to that coordinate
+	    self.pos = dir
+
+	else:
+	    return
 	
 
 
@@ -140,7 +164,8 @@ class Player(Character):
 	    KEY_INTERACT,
 	    KEY_PLANT,
 	    KEY_HARVEST,
-	    KEY_INVENTORY
+	    KEY_INVENTORY,
+	    KEY_FIND_PLAYER
 	    ]
 
 	self.view_distance_y = VIEW_DISTANCE_Y
@@ -243,6 +268,14 @@ class NPC(Character):
 
     def AI_move(self):
 
+	if len(self.future_moves) > 0:
+
+	    coor = self.future_moves.pop(0)
+
+	    self.move(coor)
+
+	    return
+
 	if self.is_same_dir(0.8):
 	    dir = self.last_dir
 
@@ -251,6 +284,33 @@ class NPC(Character):
 	    self.last_dir = dir
 
 	self.move(dir)
+
+	return
+
+
+    # TODO: make this into a more generic Character function called 'find_goal(self, goal)'
+    #	    Also, create a 'character.finding_goal' bool state. While True, will execute
+    #	    find_goal()
+    def find_player(self, player):
+
+	debug_win.prnt("Starting find_player()")
+
+	start = self.pos
+
+	end = player.pos	
+
+	closed_list = []
+
+	for key in world.contents:
+	    for obj in world.contents[key]:
+		closed_list.append(obj.boundaries)
+
+	self.future_moves = Astar(start, end, closed_list)
+
+	if len(self.future_moves) > 0:
+	    debug_win.prnt("Path created successfully")
+	else:
+	    debug_win.prnt("Path creation failed")
 
 
 

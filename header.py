@@ -17,6 +17,7 @@ KEY_INTERACT = ord('k')
 KEY_PLANT = ord('p')
 KEY_HARVEST = ord('h')
 KEY_INVENTORY = ord('i')
+KEY_FIND_PLAYER = ord('f')
 
 KEY_QUIT = ord('q')
 
@@ -30,8 +31,9 @@ SUNRISE_DIR = 'GRAPHICS/SUNRISE/'
 HOUSE_GRAPHIC = 'GRAPHICS/house'
 SHIP_BOX_GRAPHIC = 'GRAPHICS/ship_box'
 POND_GRAPHIC = 'GRAPHICS/pond1'
+CAVE_GRAPHICS_DIR = 'GRAPHICS/CAVE/'
 
-NUMBER_TREES = int((max_y * max_x) * 0.01)
+NUMBER_TREES = int((max_y * max_x) * 0.003)
 NUMBER_ROCKS = int((max_y * max_x) * 0.005)
 
 PLAYER_1_GRAPHIC = '@'

@@ -4,17 +4,17 @@ import random
 import curses
 
 from header import *
-from startup import game_win, msg_win
+from startup import game_win, msg_win, debug_win
 from world import world
 from node import Node
-from character import Character, farmer
+from character import Character, farmer, dog
 from environment import house, ship_box, pond
 from environment import Tree, Rock, Cave
 
 
 def main():
 
-    world.seed(Cave, 'GRAPHICS/cave', 1)
+    world.seed(Cave, CAVE_GRAPHICS_DIR + 'entrance_external', 1)
     world.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
     world.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
 
@@ -22,7 +22,7 @@ def main():
 
     # --------------------- GAMEPLAY --------------------------------
 
-    c = game_win.getch()
+    c = NULL
 
     while True:
         if c in farmer.dirs:
@@ -73,6 +73,13 @@ def main():
 	        msg_win.refresh()
 	        farmer.inventory.view()
 	        c = game_win.getch()
+
+	    elif c == KEY_FIND_PLAYER:
+
+		dog.find_player(farmer)
+		c = game_win.getch()
+
+		
 
 
         elif c == KEY_QUIT:
