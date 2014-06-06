@@ -13,3 +13,4 @@ cleanup
 CAVE_STUFF/*.pyc
 CAVE_STUFF/logfile
 CAVE_STUFF/algo.py
+CAVE_STUFF/.cave_system.py
