@@ -3,7 +3,9 @@ def find_best_tile(list, start, end, tile_count):
     best = list[0]
 
     for tile in list:
+
 	if calc_score(tile, start, end, tile_count) < calc_score(best, start, end, tile_count):
+
 	    best = tile
 
     return best
@@ -39,9 +41,7 @@ def wrapper(Astar):
 	Astar(rooms)
     """
 
-    closed_list = []
-
-    def find_paths(rooms_list):
+    def find_paths(rooms_list, closed_list):
 
 	paths = []
 

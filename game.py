@@ -4,7 +4,7 @@ import random
 import curses
 
 from header import *
-from startup import game_win, msg_win, debug_win
+from startup import game_win, msg_win
 from world import world
 from node import Node
 from character import Character, farmer, dog

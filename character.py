@@ -4,7 +4,7 @@ import time
 from header import *
 from pathfinding import Astar
 from world import world
-from startup import game_win, msg_win, debug_win
+from startup import game_win, msg_win
 from inventory import Inventory
 from environment import Crop
 from environment import ship_box
@@ -293,8 +293,6 @@ class NPC(Character):
     #	    find_goal()
     def find_player(self, player):
 
-	debug_win.prnt("Starting find_player()")
-
 	start = self.pos
 
 	end = player.pos	
@@ -306,11 +304,6 @@ class NPC(Character):
 		closed_list.append(obj.boundaries)
 
 	self.future_moves = Astar(start, end, closed_list)
-
-	if len(self.future_moves) > 0:
-	    debug_win.prnt("Path created successfully")
-	else:
-	    debug_win.prnt("Path creation failed")
 
 
 
