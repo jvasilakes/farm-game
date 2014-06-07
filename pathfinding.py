@@ -1,12 +1,23 @@
 def find_best_tile(list, start, end, tile_count):
 
-    best = list[0]
+    try:
 
-    for tile in list:
-	if calc_score(tile, start, end, tile_count) < calc_score(best, start, end, tile_count):
-	    best = tile
+	with open('logfile', 'a') as log:
+	    log.write("Open list: %s\n" % str(list))
 
-    return best
+	best = list[0]
+
+	for tile in list:
+
+	    if calc_score(tile, start, end, tile_count) < \
+	       calc_score(best, start, end, tile_count):
+
+		best = tile
+
+	return best
+
+    except:
+	return 'None'
 
 
 def calc_score(tile, start, end, tile_count):
@@ -39,9 +50,7 @@ def wrapper(Astar):
 	Astar(rooms)
     """
 
-    closed_list = []
-
-    def find_paths(rooms_list):
+    def find_paths(rooms_list, closed_list):
 
 	paths = []
 
@@ -59,14 +68,9 @@ def Astar(start, end, closed_list):
     """
     A* pathfinding algorithm.
 
-    Pass it a list of [y, x] coordinates and
-    it will return a list of coordinates going from
-    one point to the next.
-
-    Example:
-	from Astar import Astar
-	points = [[2, 2], [5, 5]]
-	path = Astar(points)	
+    This algorithm finds a path from start to end
+    avoiding objects whose coordinates are stored
+    in closed_list.
     """
 
     path = []
@@ -88,28 +92,32 @@ def Astar(start, end, closed_list):
 
 	for tile in walkable:
 
-	    if tile[0] == 0 or tile[1] == 0:
+	    if tile[0] <= 0 or \
+	       tile[1] <= 0 or \
+	       tile in closed_list:
+
 		pass
 
-	    if tile in closed_list:
-		pass
-
-	    if tile not in open_list:
+	    else:
 		open_list.append(tile)
-
 
 	best = find_best_tile(open_list, start, end, tile_count)
 
 	if best == end:
 	    complete = True
 
+	elif best == 'None':
+	    dead_end = current
+	    closed_list.append(dead_end)
+
+	    last_good_place = path[len(path)]
+	    current = last_good_place
+
 	else:
 	    path.append(best)
-
-	current = best
-	tile_count += 1
-
-	closed_list.append(current)
+	    current = best
+	    tile_count += 1
+	    closed_list.append(current)
 
     return path
 

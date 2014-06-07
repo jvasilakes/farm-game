@@ -301,7 +301,10 @@ class NPC(Character):
 
 	for key in world.contents:
 	    for obj in world.contents[key]:
-		closed_list.append(obj.boundaries)
+		closed_list.extend(obj.boundaries)
+
+	with open('logfile', 'a') as log:
+	    log.write(str(closed_list))
 
 	self.future_moves = Astar(start, end, closed_list)
 

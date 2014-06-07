@@ -4,7 +4,8 @@ def find_best_tile(list, start, end, tile_count):
 
     for tile in list:
 
-	if calc_score(tile, start, end, tile_count) < calc_score(best, start, end, tile_count):
+	if calc_score(tile, start, end, tile_count) < \
+	   calc_score(best, start, end, tile_count):
 
 	    best = tile
 
@@ -88,17 +89,18 @@ def Astar(start, end, closed_list):
 
 	for tile in walkable:
 
-	    if tile[0] == 0 or tile[1] == 0:
+	    if tile[0] <= 0 or \
+	       tile[1] <= 0 or \
+	       tile in closed_list:
+
 		pass
 
-	    if tile in closed_list:
-		pass
-
-	    if tile not in open_list:
+	    #if tile not in open_list:
+	    else:
 		open_list.append(tile)
 
-
 	best = find_best_tile(open_list, start, end, tile_count)
+
 
 	if best == end:
 	    complete = True

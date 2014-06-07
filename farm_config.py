@@ -4,6 +4,6 @@ INTRO = False
 
 HELP_SCREEN = False
 
-DEBUG_WIN = False
+DEBUG_WIN = True
 
 ALL_VISIBLE = False

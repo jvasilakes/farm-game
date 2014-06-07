@@ -15,12 +15,14 @@ def main():
     win.addstr(0, 0, "CAVE!")
     win.refresh()
 
-    rooms = [[1, 7], [9, 1], [4, 17]]
+    rooms = [[1, 7], [9, 1], [3, 20]]
 
-    closed_list = []
+    closed_list = [[3, 5], [8, 1], [3, 15], [4, 16], [2, 16], [3, 16], [3, 17]]
+
+    for item in closed_list:
+	win.addstr(item[0], item[1], 'O')
 
     for room in rooms:
-	closed_list.append(room)
 	win.addstr(room[0], room[1], '$')
 
     win.refresh()
