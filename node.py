@@ -9,6 +9,8 @@ from world import world
 
 class Node(object):
 
+    # Add new parameter 'space' which will be the space to which
+    # the new Node instance will be added.
     def __init__(self, Ystart, Xstart, graphics_file):
 
 	# y, x coordinates of the top left corner of the graphic
@@ -30,7 +32,7 @@ class Node(object):
 	else:
 	    self.visible = False
 
-	self.intersection = self.intersects()
+	self.intersection = self.intersects()  #Boolean
 
 	# If it intersects with something else, delete it's boundaries
 	# and don't add it to the world.
@@ -119,3 +121,13 @@ class Node(object):
 
 	    self.Y = self.Ystart
 
+
+    def interact(self, player):
+
+	""" Default interact function
+
+	Will do nothing if not defined.
+
+	"""
+	
+	pass

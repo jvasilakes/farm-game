@@ -288,9 +288,11 @@ class NPC(Character):
 	return
 
 
-    # TODO: make this into a more generic Character function called 'find_goal(self, goal)'
-    #	    Also, create a 'character.finding_goal' bool state. While True, will execute
-    #	    find_goal()
+    # TODO: make this into a more generic Character 
+    # function called 'find_goal(self, goal)'
+    # Also, create a 'character.finding_goal' bool 
+    # state. While True, will execute find_goal()
+
     def find_player(self, player):
 
 	start = self.pos
@@ -303,10 +305,12 @@ class NPC(Character):
 	    for obj in world.contents[key]:
 		closed_list.extend(obj.boundaries)
 
-	with open('logfile', 'a') as log:
-	    log.write(str(closed_list))
-
 	self.future_moves = Astar(start, end, closed_list)
+
+	for coor in self.future_moves:
+	    game_win.addstr(coor[0], coor[1], '#')
+	    
+	game_win.refresh()
 
 
 

@@ -10,8 +10,8 @@ class World(object):
 
         # Each key in the dictionary is the name of some class (e.g. 'Crop', 
 	# 'Tree', or 'Player').  Each newly created object is appended to a 
-	# sublist under it's respective key in this dictionary during it's
-	# insert() routine via the add() function below.
+	# sublist under it's respective key in this dictionary via the add()
+	# function below.
 	
 	self.contents = {}	
 

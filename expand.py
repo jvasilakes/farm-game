@@ -50,12 +50,16 @@ def fill(corners_list):
 	    # if x value of B is greater than the x value of A,
 	    # then we are moving left to right (A is to the left of B)
 	    if corners_list[i+1][1] > corners_list[i][1]:
+
 	        for x in xrange(corners_list[i][1], corners_list[i+1][1]):
+
 	            vicinity.append([y, x])
 
 	    else:
+
 	    	# Else, we are moving from right to left (B is to the left of A)
 		for x in xrange(corners_list[i+1][1], corners_list[i][1]):
+
 		    vicinity.append([y, x])
 
 	    vicinity.append(corners_list[i+1])
@@ -68,17 +72,21 @@ def fill(corners_list):
 	    x = corners_list[i][1]
 
 	    if corners_list[i+1][0] > corners_list[i][0]:
+
 	        for y in xrange(corners_list[i][0], corners_list[i+1][0]):
+
 	            vicinity.append([y, x])
 
 	    else:
+
 		for y in xrange(corners_list[i+1][0], corners_list[i][0]):
+
 		    vicinity.append([y, x])
 
 	    vicinity.append(corners_list[i+1])
 
-	# TODO: Need an else statement here. This function so far assumes that is is dealing with
-	# a rectangular object. It works for now...
+	# TODO: Need an else statement here. This function so far assumes that
+	# is is dealing with a rectangular object. It works for now...
 
 
     return vicinity
@@ -96,3 +104,4 @@ def find_vicinity(list):
     vicinity = fill(corners) 
 
     return vicinity
+

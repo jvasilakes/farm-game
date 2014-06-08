@@ -15,7 +15,7 @@ def main():
     win.addstr(0, 0, "CAVE!")
     win.refresh()
 
-    rooms = [[1, 7], [9, 1], [3, 20]]
+    rooms = [[9, 1], [3, 20]]
 
     closed_list = [[3, 5], [8, 1], [3, 15], [4, 16], [2, 16], [3, 16], [3, 17]]
 
@@ -32,8 +32,9 @@ def main():
 
     for hall in halls:
 	win.addstr(hall[0], hall[1], '#')
+	win.refresh()
+	win.getch()
 
-    win.getch()
     curses.endwin()
 
 

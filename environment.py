@@ -281,7 +281,7 @@ class Tree(Node):
 	# Set boundaries so that characters can move behind trees.
 	self.boundaries = [[Ystart + 2, Xstart + 2]]
 
-	self.vicinity = [[Ystart + 2, Xstart],
+	self.vicinity = [[Ystart + 2, Xstart + 1],
 		        [Ystart + 2, Xstart + 3],
 		        [Ystart + 3, Xstart + 2]]
 

@@ -5,8 +5,9 @@ import curses
 from header import *
 
 
-# NOTE: MUST USE A READLINES OBJECT
 def display(graphic, window, y, x):
+
+    """ graphic must be a readlines list! """
 
     for line in graphic:
 	line = line.rstrip()
@@ -21,24 +22,24 @@ def intro(win):
     farm_logo = open('GRAPHICS/INTRO/farm_logo',).readlines()
 
     for i in xrange(3):
-        display(tree1, win, 3, 1)
+        display(tree1, win, INTRO_ANIM_POS_Y, INTRO_ANIM_POS_X)
         win.refresh()
         time.sleep(1)
         win.clear()
-        display(tree2, win, 3, 1)
+        display(tree2, win, INTRO_ANIM_POS_Y, INTRO_ANIM_POS_X)
         win.refresh()
         time.sleep(1)
         win.clear()
 
-    txt_win = curses.newwin(
-	TXT_WIN_SIZE_Y,
-	TXT_WIN_SIZE_X,
-	TXT_WIN_POS_Y,
-	TXT_WIN_POS_X
+    logo_win = curses.newwin(
+	LOGO_WIN_SIZE_Y,
+	LOGO_WIN_SIZE_X,
+	LOGO_WIN_POS_Y,
+	LOGO_WIN_POS_X
 	)
 
-    display(farm_logo, txt_win, 0, 0)
-    txt_win.refresh()
+    display(farm_logo, logo_win, 0, 0)
+    logo_win.refresh()
     time.sleep(2)
 
 

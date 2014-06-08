@@ -2,9 +2,6 @@ def find_best_tile(list, start, end, tile_count):
 
     try:
 
-	with open('logfile', 'a') as log:
-	    log.write("Open list: %s\n" % str(list))
-
 	best = list[0]
 
 	for tile in list:
@@ -71,6 +68,7 @@ def Astar(start, end, closed_list):
     This algorithm finds a path from start to end
     avoiding objects whose coordinates are stored
     in closed_list.
+
     """
 
     path = []
@@ -88,7 +86,11 @@ def Astar(start, end, closed_list):
 	walkable = [[current[0] - 1, current[1]],
 		    [current[0] + 1, current[1]],
 		    [current[0], current[1] - 1],
-		    [current[0], current[1] + 1]]
+		    [current[0], current[1] + 1],
+		    [current[0] - 1, current[1] - 1],
+		    [current[0] - 1, current[1] + 1],
+		    [current[0] + 1, current[1] - 1],
+		    [current[0] + 1, current[1] + 1]]
 
 	for tile in walkable:
 
@@ -103,17 +105,20 @@ def Astar(start, end, closed_list):
 
 	best = find_best_tile(open_list, start, end, tile_count)
 
-	if best == end:
-	    complete = True
+	if best == 'None':
 
-	elif best == 'None':
-	    dead_end = current
-	    closed_list.append(dead_end)
+	    closed_list.append(current)
 
-	    last_good_place = path[len(path)]
+	    last_good_place = path[len(path) - 2]
+
 	    current = last_good_place
 
+	elif best == end:
+
+	    complete = True
+
 	else:
+
 	    path.append(best)
 	    current = best
 	    tile_count += 1
