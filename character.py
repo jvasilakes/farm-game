@@ -3,7 +3,7 @@ import time
 
 from header import *
 from pathfinding import Astar
-from space import world
+from singletons import world
 from startup import game_win, msg_win
 from inventory import Inventory
 from environment import Crop
@@ -23,8 +23,8 @@ def moveWrapper(move_func):
 	    msg_win.clear()
 	    msg_win.refresh()
 
-	    for key in world.contents:
-		for obj in world.contents[key]:
+	    for key in self.current_space.contents:
+		for obj in self.current_space.contents[key]:
 
 		    # Make visible objects within the Player's view distance
 		    if abs(obj.Ystart - self.pos[0]) <= self.view_distance_y:
@@ -61,7 +61,7 @@ class Character(object):
 
 	self.future_moves = []
 
-	world.add(self)
+	self.current_space.add(self)
 
 
     def draw(self):
@@ -102,14 +102,14 @@ class Character(object):
 	elif dir == KEY_RIGHT:
 	    pos = [self.pos[0], self.pos[1] + 1]
 
-	for key in world.contents:
-	    for obj in world.contents[key]:
+	for key in self.current_space.contents:
+	    for obj in self.current_space.contents[key]:
 		if pos in obj.boundaries:
 		    
 		    return True
 
-	for key in world.characters:
-	    for character in world.characters[key]:
+	for key in self.current_space.characters:
+	    for character in self.current_space.characters[key]:
 
 		if pos == character.pos:
 
@@ -315,8 +315,3 @@ class NPC(Character):
 
 
 
-#------------- SINGLETONS ---------------------------
-
-farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC, world)
-
-dog = NPC(DOG_START_POS, DOG_GRAPHIC, world)

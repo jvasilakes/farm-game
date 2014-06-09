@@ -8,6 +8,7 @@ from startup import game_win, msg_win
 from node import Node
 from inventory import Inventory
 from expand import find_vicinity
+from singletons import cave
 
 
 class House(Node):
@@ -233,7 +234,26 @@ class Cave_Entrance(Node):
 
 
     def interact(self, player):
-	pass
+
+	msg_win.clear()
+	msg_win.addstr(1, 5, "Enter the cave? [y/n]")
+	msg_win.refresh()
+
+	ans = msg_win.getch()
+
+	while ans != 'y' and ans != 'n':
+	    ans = msg_win.getch()
+
+	if ans == 'n':
+	    return
+
+	elif ans == 'y':
+
+	    cave.add(player)
+
+	    player.current_space = cave
+	    player.pos = PLAYER_1_START_POS_CAVE
+	    
 
 class Crop(Node):
 	

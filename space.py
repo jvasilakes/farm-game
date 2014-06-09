@@ -4,7 +4,7 @@ from header import *
 from startup import game_win
 from environment import House, Shipbox, Pond, Cave_Entrance, Tree, Rock
 from pathfinding import Astar, wrapper
-from cave_system import Room
+from cave_system import Entrance, Room, Hall
 
 
 class Space(object):
@@ -178,15 +178,22 @@ class Cave(Space):
 	self.closed_list = []
 
 	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 3)
-	
+
+	entrance = Entrance(0,
+			    10,
+			    CAVE_GRAPHICS_DIR + 'entrance_internal',
+			    self)
+
+	doors = []
+
+	for room in self.contents['Room']:
+	    
+	    doors.extend(room.doors)
+
 	Astar = wrapper(Astar)
+	halls = Astar(doors, self.closed_list)
 
-	halls = Astar(self.contents['Room'], closed_list)
+	for coor in halls:
 
-
-
-
-# ------- CREATE THE WORLD --------------------
-
-world = World()
+	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 

@@ -5,7 +5,7 @@ import curses
 
 from header import *
 from startup import game_win, msg_win
-from character import Character, farmer, dog
+from singletons import farmer, dog
 
 
 def main():
