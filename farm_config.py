@@ -1,9 +1,9 @@
 #Config file for FARM
 
-INTRO = False
+INTRO = True
 
-HELP_SCREEN = False
+HELP_SCREEN = True
 
 DEBUG_WIN = False
 
-ALL_VISIBLE = True
+ALL_VISIBLE = False

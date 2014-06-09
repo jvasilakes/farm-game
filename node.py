@@ -3,7 +3,6 @@ import random
 from header import *
 from farm_config import ALL_VISIBLE
 from startup import game_win
-from world import world
 
 
 
@@ -11,7 +10,9 @@ class Node(object):
 
     # Add new parameter 'space' which will be the space to which
     # the new Node instance will be added.
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
+
+	self.space = space
 
 	# y, x coordinates of the top left corner of the graphic
 	self.Ystart = Ystart
@@ -41,7 +42,7 @@ class Node(object):
 	    return
 
 	else:
-	    world.add(self)
+	    space.add(self)
 
 
     def find_boundaries(self):
@@ -72,9 +73,9 @@ class Node(object):
 
     def intersects(self):
 	
-	for key in world.contents:
+	for key in self.space.contents:
 
-	    for obj in world.contents[key]: 
+	    for obj in self.space.contents[key]: 
 
 		for n in xrange(len(self.boundaries)):
 
@@ -126,7 +127,8 @@ class Node(object):
 
 	""" Default interact function
 
-	Will do nothing if not defined.
+	Will do nothing if not defined in 
+	some subclass of node.
 
 	"""
 	

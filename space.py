@@ -2,9 +2,12 @@ import random
 
 from header import *
 from startup import game_win
+from environment import House, Shipbox, Pond, Cave_Entrance, Tree, Rock
+from pathfinding import Astar, wrapper
+from cave_system import Room
 
 
-class World(object):
+class Space(object):
 
     def __init__(self):
 
@@ -84,7 +87,7 @@ class World(object):
 	for i in xrange(number):
 	    y = random.randrange(1, GAME_WIN_SIZE_Y-5)
 	    x = random.randrange(1, GAME_WIN_SIZE_X-5)
-	    thing = obj.create(y, x, graphics)	
+	    thing = obj.create(y, x, graphics, self)	
 
 	    if thing.intersection:
 
@@ -92,19 +95,8 @@ class World(object):
 	        while thing.intersection and n < 3:    # Retry up to 3 times
 	            y = random.randrange(1, GAME_WIN_SIZE_Y-5)
 	            x = random.randrange(1, GAME_WIN_SIZE_X-5)
-	            obj.create(y, x, graphics)	
+	            obj.create(y, x, graphics, self)	
 		    n += 1
-
-
-    def grow_crops(self):
-
-	try:
-
-	    for crop in self.contents['Crop']:
-	        crop.grow()
-
-	except:
-	    return
 
 
     def updateNPCs(self):
@@ -139,6 +131,59 @@ class World(object):
 		    
 		else:
 		    pass
+
+
+class World(Space):
+
+    def __init__(self):
+
+	Space.__init__(self)
+
+	self.house = House(1, 1, HOUSE_GRAPHIC, self)
+
+	self.ship_box = Shipbox(4, 12, SHIP_BOX_GRAPHIC, self)
+
+	self.pond = Pond(GAME_WIN_SIZE_Y - 5,
+			 GAME_WIN_SIZE_X - 16,
+			 POND_GRAPHIC,
+			 self
+			 )
+
+	self.seed(Cave_Entrance, CAVE_GRAPHICS_DIR + 'entrance_external', 1)
+	
+	self.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
+
+	self.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
+
+    
+    def grow_crops(self):
+
+	try:
+
+	    for crop in self.contents['Crop']:
+	        crop.grow()
+
+	except:
+	    return
+
+
+
+class Cave(Space):
+
+    def __init__(self):
+
+	Space.__init__(self)
+
+	# Used only by Astar
+	self.closed_list = []
+
+	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 3)
+	
+	Astar = wrapper(Astar)
+
+	halls = Astar(self.contents['Room'], closed_list)
+
+
 
 
 # ------- CREATE THE WORLD --------------------

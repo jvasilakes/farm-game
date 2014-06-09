@@ -5,20 +5,12 @@ import curses
 
 from header import *
 from startup import game_win, msg_win
-from world import world
-from node import Node
 from character import Character, farmer, dog
-from environment import house, ship_box, pond
-from environment import Tree, Rock, Cave
 
 
 def main():
 
-    world.seed(Cave, CAVE_GRAPHICS_DIR + 'entrance_external', 1)
-    world.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
-    world.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
-
-    world.redraw()
+    farmer.current_space.redraw()
 
     # --------------------- GAMEPLAY --------------------------------
 
@@ -28,7 +20,7 @@ def main():
         if c in farmer.dirs:
 	    # 'w', 'a', 's', 'd', 'NULL'
             farmer.move(c)
-            world.redraw()
+            farmer.current_space.redraw()
             c = game_win.getch()
 
 
@@ -40,8 +32,8 @@ def main():
 
             if c == KEY_INTERACT:
 
-	 	for key in world.contents:
-		    for obj in world.contents[key]:
+	 	for key in farmer.current_space.contents:
+		    for obj in farmer.current_space.contents[key]:
 	        	if farmer.pos in obj.vicinity:
 
 			    msg_win.clear()
@@ -56,14 +48,14 @@ def main():
 	    elif c == KEY_PLANT:
 
 	        farmer.plant()
-	        world.redraw()
+	        farmer.current_space.redraw()
                 c = game_win.getch()
 
 
 	    elif c == KEY_HARVEST:
 
 	        farmer.harvest()
-	        world.redraw()
+	        farmer.current_space.redraw()
 	        c = game_win.getch()
 
 
@@ -103,7 +95,7 @@ def main():
             c = game_win.getch()
 
 
-	world.updateNPCs()
+	farmer.current_space.updateNPCs()
 
 
     curses.endwin()

@@ -5,7 +5,6 @@ import animations
 
 from header import *
 from startup import game_win, msg_win
-from world import world
 from node import Node
 from inventory import Inventory
 from expand import find_vicinity
@@ -14,11 +13,11 @@ from expand import find_vicinity
 class House(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'House'
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	# Visible from the start
 	self.visible = True
@@ -35,26 +34,26 @@ class House(Node):
         game_win.clear()
         animations.sunrise(game_win)
         game_win.clear()
-        world.grow_crops()
-        world.redraw()
+        self.space.grow_crops()
+        self.space.redraw()
         player.draw()
 
 	game_win.refresh()
 
-	ship_box.sell(player)
+	self.space.ship_box.sell(player)
 
 
 
 class Shipbox(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'Shipbox'
 
 	self.inventory = Inventory(self.name)
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	self.visible = True
 
@@ -78,6 +77,7 @@ class Shipbox(Node):
 	msg_win.clear()
 
 	if ans == ord('1'):
+
 	    msg_win.addstr(1, 10, "What would you like to add?")
 	    msg_win.refresh()
 	    msg_win.getch()
@@ -94,6 +94,7 @@ class Shipbox(Node):
 	        ship_box.inventory.add(item_list)
 
 	elif ans == ord('2'):
+
 	    msg_win.addstr(1, 10, "What would you like to remove?")
 	    msg_win.refresh()
 	    msg_win.getch()
@@ -109,6 +110,7 @@ class Shipbox(Node):
 	        player.inventory.add(item_list)
 
 	elif ans == ord('3'):
+
 	    return
 
 
@@ -139,11 +141,11 @@ class Shipbox(Node):
 class Pond(Node):
 
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'Pond'
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	self.vicinity = find_vicinity(self.boundaries)
 
@@ -196,11 +198,11 @@ class Pond(Node):
 
 	    if self.graphics == graphics1:
 		self.graphics = graphics2
-		world.redraw()
+		self.space.redraw()
 
 	    else:
 		self.graphics = graphics1
-		world.redraw()
+		self.space.redraw()
 
 	self.graphics = graphics1
 
@@ -210,18 +212,18 @@ class Pond(Node):
 	return random.random() > percent
 
 
-class Cave(Node):
+class Cave_Entrance(Node):
 
     @classmethod
-    def create(cls, Ystart, Xstart, graphics_file):
-	cave = Cave(Ystart, Xstart, graphics_file)
-	return cave
+    def create(cls, Ystart, Xstart, graphics_file, space):
+	cave_entrance = Cave_Entrance(Ystart, Xstart, graphics_file, space)
+	return cave_entrance
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
-	self.name = 'Cave'
+	self.name = 'Cave_Entrance'
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	# Coordinates of cave entrance
 	self.vicinity = [[Ystart + 3, Xstart + 2]]
@@ -236,11 +238,11 @@ class Cave(Node):
 class Crop(Node):
 	
     @classmethod
-    def create(cls, Ystart, Xstart, graphics_file):
-    	crop = Crop(Ystart, Xstart, graphics_file)
+    def create(cls, Ystart, Xstart, graphics_file, space):
+    	crop = Crop(Ystart, Xstart, graphics_file, space)
     	return crop
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'Crop'
 
@@ -249,7 +251,7 @@ class Crop(Node):
 
 	self.value = 5
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 
     def grow(self):
@@ -267,16 +269,16 @@ class Crop(Node):
 class Tree(Node):
 
     @classmethod
-    def create(cls, Ystart, Xstart, graphics_file):
-	tree = Tree(Ystart, Xstart, graphics_file)
+    def create(cls, Ystart, Xstart, graphics_file, space):
+	tree = Tree(Ystart, Xstart, graphics_file, space)
 	return tree
 
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'Tree'
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	# Set boundaries so that characters can move behind trees.
 	self.boundaries = [[Ystart + 2, Xstart + 2]]
@@ -301,10 +303,10 @@ class Tree(Node):
 
 	    temp = []
 	
-	    world.contents[self.name].remove(self)
+	    self.space.contents[self.name].remove(self)
 	    game_win.clear()
 	    farmer.draw()
-	    world.redraw()
+	    self.space.redraw()
 
 	    for i in xrange(self.resource_qty):
 		temp.append(Wood.create())
@@ -319,15 +321,15 @@ class Tree(Node):
 class Rock(Node):
 
     @classmethod
-    def create(cls, Ystart, Xstart, graphics_file):
-	rock = Rock(Ystart, Xstart, graphics_file)
+    def create(cls, Ystart, Xstart, graphics_file, space):
+	rock = Rock(Ystart, Xstart, graphics_file, space)
 	return rock
 
-    def __init__(self, Ystart, Xstart, graphics_file):
+    def __init__(self, Ystart, Xstart, graphics_file, space):
 
 	self.name = 'Rock'
 
-	Node.__init__(self, Ystart, Xstart, graphics_file)
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
 	
 
@@ -374,12 +376,3 @@ class Fish(Node):
 
 	self.value = 20
 	
-	
-
-#----- SINGLETONS ----------------------------------	
-
-house = House(1, 1, HOUSE_GRAPHIC)
-
-ship_box = Shipbox(4, 12, SHIP_BOX_GRAPHIC)
-
-pond = Pond(GAME_WIN_SIZE_Y-5, GAME_WIN_SIZE_X-16, POND_GRAPHIC)

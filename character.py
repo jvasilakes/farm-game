@@ -3,11 +3,10 @@ import time
 
 from header import *
 from pathfinding import Astar
-from world import world
+from space import world
 from startup import game_win, msg_win
 from inventory import Inventory
 from environment import Crop
-from environment import ship_box
 
 	    
 def moveWrapper(move_func):
@@ -44,7 +43,9 @@ def moveWrapper(move_func):
 class Character(object):
 
 
-    def __init__(self, start_pos, graphics):
+    def __init__(self, start_pos, graphics, start_space):
+
+	self.current_space = start_space
 
 	self.pos = start_pos	
 
@@ -156,7 +157,7 @@ class Character(object):
 
 class Player(Character):
 
-    def __init__(self, start_pos, graphics):
+    def __init__(self, start_pos, graphics, start_space):
 
 	self.name = 'Player'
 
@@ -173,7 +174,7 @@ class Player(Character):
 
 	self.inventory = Inventory(self.name)
 	
-	Character.__init__(self, start_pos, graphics)
+	Character.__init__(self, start_pos, graphics, start_space)
 
 
     # Moves another character if it is the way of the Player
@@ -214,7 +215,7 @@ class Player(Character):
 	    return
 
 	else:
-	    new = Crop.create(ypos, xpos, 'GRAPHICS/crop1')
+	    Crop.create(ypos, xpos, 'GRAPHICS/crop1', self.current_space)
 
         msg_win.clear()
         msg_win.refresh()
@@ -224,7 +225,7 @@ class Player(Character):
 
 	try:
 
-	    for crop in world.contents['Crop']:
+	    for crop in self.current_space.contents['Crop']:
 
 	    	# if there is a crop directly above the player
 	        if [(self.pos[0] - 1), self.pos[1]] in crop.boundaries:
@@ -233,9 +234,9 @@ class Player(Character):
 
 			temp = []
 
-		        i = world.contents['Crop'].index(crop)
+		        i = self.current_space.contents['Crop'].index(crop)
 	
-		        plant = world.contents['Crop'].pop(i)
+		        plant = self.current_space.contents['Crop'].pop(i)
 			temp.append(plant)
 
 		        self.inventory.add(temp)
@@ -252,11 +253,11 @@ class Player(Character):
 
 class NPC(Character):
 
-    def __init__(self, start_pos, graphics):
+    def __init__(self, start_pos, graphics, start_space):
 
 	self.name = 'NPC'
 
-	Character.__init__(self, start_pos, graphics)
+	Character.__init__(self, start_pos, graphics, start_space)
 
 	self.last_dir = NULL
 
@@ -301,8 +302,8 @@ class NPC(Character):
 
 	closed_list = []
 
-	for key in world.contents:
-	    for obj in world.contents[key]:
+	for key in self.current_space.contents:
+	    for obj in self.current_space.contents[key]:
 		closed_list.extend(obj.boundaries)
 
 	self.future_moves = Astar(start, end, closed_list)
@@ -316,6 +317,6 @@ class NPC(Character):
 
 #------------- SINGLETONS ---------------------------
 
-farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC)
+farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC, world)
 
-dog = NPC(DOG_START_POS, DOG_GRAPHIC)
+dog = NPC(DOG_START_POS, DOG_GRAPHIC, world)

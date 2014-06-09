@@ -1,27 +1,7 @@
 import random
 
 from pathfinding import Astar, wrapper
-from world import World
 from node import Node
-
-
-class Cave(World):
-
-    def __init(self):
-
-	self.contents = {}
-
-	self.characters = {}
-
-	# Used only by Astar
-	self.closed_list = []
-
-	self.seed(room, CAVE_GRAPHICS_DIR + 'room', 3)
-	
-	Astar = wrapper(Astar)
-
-	halls = Astar(self.contents['Room'], closed_list)
-
 
 
 class Room(Node):
