@@ -1,8 +1,41 @@
 import random
 
+from header import *
 from pathfinding import Astar, wrapper
 from node import Node
-from singletons import world
+from space import Space
+
+
+class Cave(Space):
+
+    def __init__(self):
+
+	self.name = 'Cave'
+
+	Space.__init__(self)
+
+	# Used only by Astar
+	self.closed_list = []
+
+	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 5)
+
+	entrance = Entrance(0,
+			    10,
+			    CAVE_GRAPHICS_DIR + 'entrance_internal',
+			    self)
+
+	doors = []
+
+	for room in self.contents['Room']:
+	    
+	    doors.extend(room.doors)
+
+	self.Astar = wrapper(Astar)
+	halls = self.Astar(doors, self.closed_list)
+
+	for coor in halls:
+
+	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 
 
 class Room(Node):
@@ -21,8 +54,6 @@ class Room(Node):
 	self.doors = []
 	self.find_doors()
 
-	
-
 
     def find_doors(self):
 
@@ -34,10 +65,11 @@ class Room(Node):
 
 	    pos = random.choice(self.boundaries)
 
-	    while pos in doors:
+	    while pos in self.doors:
 		pos = random.choice(self.boundaries)
 
 	    self.doors.append(pos)
+
 
 
 class Entrance(Node):
@@ -67,12 +99,12 @@ class Entrance(Node):
 	while ans != 'y' and ans != 'n':
 	    ans = msg_win.getch()
 
-	if ans = 'n':
+	if ans == 'n':
 	    return
 
-	elif ans = 'y':
+	elif ans == 'y':
 
-	    player.current_space = world
+	    player.current_space = Space.members['World']
 	    player.pos = PLAYER_1_START_POS
 
 

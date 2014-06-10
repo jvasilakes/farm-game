@@ -2,10 +2,10 @@ import random
 import time
 
 from header import *
-from pathfinding import Astar
-from singletons import world
 from startup import game_win, msg_win
+from pathfinding import Astar
 from inventory import Inventory
+from space import Space
 from environment import Crop
 
 	    
@@ -312,6 +312,4 @@ class NPC(Character):
 	    game_win.addstr(coor[0], coor[1], '#')
 	    
 	game_win.refresh()
-
-
 

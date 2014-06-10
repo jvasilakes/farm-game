@@ -2,12 +2,11 @@ import random
 
 from header import *
 from startup import game_win
-from environment import House, Shipbox, Pond, Cave_Entrance, Tree, Rock
-from pathfinding import Astar, wrapper
-from cave_system import Entrance, Room, Hall
 
 
 class Space(object):
+
+    members = {}
 
     def __init__(self):
 
@@ -19,6 +18,8 @@ class Space(object):
 	self.contents = {}	
 
 	self.characters = {}
+
+	self.members.update({self.name: self})
 
   
     def add(self, obj):
@@ -65,15 +66,15 @@ class Space(object):
 
 	game_win.clear()
 
-	for key in self.characters:
-	    for character in self.characters[key]:
-
-	        character.draw()
-
 	for key in self.contents:
 	    for obj in self.contents[key]:
 
 		obj.draw()
+
+	for key in self.characters:
+	    for character in self.characters[key]:
+
+	        character.draw()
 
 	game_win.refresh()
 
@@ -131,69 +132,4 @@ class Space(object):
 		    
 		else:
 		    pass
-
-
-class World(Space):
-
-    def __init__(self):
-
-	Space.__init__(self)
-
-	self.house = House(1, 1, HOUSE_GRAPHIC, self)
-
-	self.ship_box = Shipbox(4, 12, SHIP_BOX_GRAPHIC, self)
-
-	self.pond = Pond(GAME_WIN_SIZE_Y - 5,
-			 GAME_WIN_SIZE_X - 16,
-			 POND_GRAPHIC,
-			 self
-			 )
-
-	self.seed(Cave_Entrance, CAVE_GRAPHICS_DIR + 'entrance_external', 1)
-	
-	self.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
-
-	self.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
-
-    
-    def grow_crops(self):
-
-	try:
-
-	    for crop in self.contents['Crop']:
-	        crop.grow()
-
-	except:
-	    return
-
-
-
-class Cave(Space):
-
-    def __init__(self):
-
-	Space.__init__(self)
-
-	# Used only by Astar
-	self.closed_list = []
-
-	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 3)
-
-	entrance = Entrance(0,
-			    10,
-			    CAVE_GRAPHICS_DIR + 'entrance_internal',
-			    self)
-
-	doors = []
-
-	for room in self.contents['Room']:
-	    
-	    doors.extend(room.doors)
-
-	Astar = wrapper(Astar)
-	halls = Astar(doors, self.closed_list)
-
-	for coor in halls:
-
-	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 
