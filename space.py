@@ -66,15 +66,15 @@ class Space(object):
 
 	game_win.clear()
 
-	for key in self.contents:
-	    for obj in self.contents[key]:
-
-		obj.draw()
-
 	for key in self.characters:
 	    for character in self.characters[key]:
 
 	        character.draw()
+
+	for key in self.contents:
+	    for obj in self.contents[key]:
+
+		obj.draw()
 
 	game_win.refresh()
 
