@@ -33,12 +33,12 @@ class Node(object):
 	else:
 	    self.visible = False
 
-	self.intersection = self.intersects()  #Boolean
+	self.intersection = self.intersects()  # boolean
 
 	# If it intersects with something else, delete it's boundaries
 	# and don't add it to the world.
 	if self.intersection:
-	    del self.boundaries
+	    del self
 	    return
 
 	else:

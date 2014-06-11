@@ -5,12 +5,12 @@
 # People don't need to see my personal BUGLIST or TODO files
 BUGLIST
 TODO
-OLD
+.old
 
 # or my maintenance script
 cleanup
 
-CAVE_STUFF/*.pyc
-CAVE_STUFF/logfile
-CAVE_STUFF/.cave_system.py
-CAVE_STUFF/cave_notes
+OTHER/CAVE_STUFF/*.pyc
+OTHER/CAVE_STUFF/logfile
+OTHER/CAVE_STUFF/.cave_system.py
+OTHER/CAVE_STUFF/cave_notes

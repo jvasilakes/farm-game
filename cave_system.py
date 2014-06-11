@@ -1,6 +1,7 @@
 import random
 
 from header import *
+from startup import game_win, msg_win, debug_win
 from pathfinding import Astar, wrapper
 from node import Node
 from space import Space
@@ -10,6 +11,8 @@ class Cave(Space):
 
     def __init__(self):
 
+	debug_win._print("Cave created.")
+
 	self.name = 'Cave'
 
 	Space.__init__(self)
@@ -18,6 +21,8 @@ class Cave(Space):
 	self.closed_list = []
 
 	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 5)
+
+	debug_win._print("Rooms seeded.")
 
 	entrance = Entrance(0,
 			    10,
@@ -36,6 +41,8 @@ class Cave(Space):
 	for coor in halls:
 
 	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
+
+	debug_win._print("Halls created.")
 
 
 class Room(Node):
@@ -96,13 +103,13 @@ class Entrance(Node):
 
 	ans = msg_win.getch()
 
-	while ans != 'y' and ans != 'n':
+	while ans != ord('y') and ans != ord('n'):
 	    ans = msg_win.getch()
 
-	if ans == 'n':
+	if ans == ord('n'):
 	    return
 
-	elif ans == 'y':
+	elif ans == ord('y'):
 
 	    player.current_space = Space.members['World']
 	    player.pos = PLAYER_1_START_POS

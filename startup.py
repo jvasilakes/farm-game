@@ -93,29 +93,35 @@ def show_help_screen():
 class debug_console(object):
 
     def __init__(self):
-        self.win = curses.newwin(
-	    DEBUG_WIN_SIZE_Y,
-	    DEBUG_WIN_SIZE_X,
-	    DEBUG_WIN_POS_Y,
-	    DEBUG_WIN_POS_X
-	    )
 
-        self.win.keypad(1)
+	if not DEBUG_WIN:
+	    pass
 
-	self.header = curses.newwin(
-	    DEBUG_TITLE_SIZE_Y,
-	    DEBUG_TITLE_SIZE_X,
-	    DEBUG_TITLE_POS_Y,
-	    DEBUG_TITLE_POS_X
-	    )
+	else:
 
-	self.header.addstr(0, 1, "DEBUGGING CONSOLE")
-	self.header.refresh()
+	    self.win = curses.newwin(
+		DEBUG_WIN_SIZE_Y,
+		DEBUG_WIN_SIZE_X,
+		DEBUG_WIN_POS_Y,
+		DEBUG_WIN_POS_X
+		)
 
-	self.ynow = 0
+	    self.win.keypad(1)
+
+	    self.header = curses.newwin(
+		DEBUG_TITLE_SIZE_Y,
+		DEBUG_TITLE_SIZE_X,
+		DEBUG_TITLE_POS_Y,
+		DEBUG_TITLE_POS_X
+		)
+
+	    self.header.addstr(0, 1, "DEBUGGING CONSOLE")
+	    self.header.refresh()
+
+	    self.ynow = 0
 
 
-    def prnt(self, message):
+    def _print(self, message):
     
 	if self.ynow >= DEBUG_WIN_SIZE_Y:
 	    self.clear()
@@ -152,6 +158,6 @@ if INTRO:
 
 msg_win = start_msgwin()
 
-if DEBUG_WIN:
-    debug_win = debug_console()
+#if DEBUG_WIN:
+debug_win = debug_console()
 

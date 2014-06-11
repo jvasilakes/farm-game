@@ -17,6 +17,8 @@ class World(Space):
 
     def __init__(self):
 
+	debug_win._print("World created.")
+
 	self.name = 'World'
 
 	Space.__init__(self)
@@ -36,6 +38,9 @@ class World(Space):
 	self.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
 
 	self.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
+
+	debug_win._print("World populated.")
+
 
     
     def grow_crops(self):

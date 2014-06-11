@@ -33,7 +33,7 @@ def main():
             if c == KEY_INTERACT:
 
 	 	for key in farmer.current_space.contents:
-		    for obj in farmer.current_space.contents[key]:
+		    for obj in farmer.current_space.contents.get(key):
 	        	if farmer.pos in obj.vicinity:
 
 			    msg_win.clear()
