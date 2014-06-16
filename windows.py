@@ -158,6 +158,5 @@ if INTRO:
 
 msg_win = start_msgwin()
 
-#if DEBUG_WIN:
 debug_win = debug_console()
 

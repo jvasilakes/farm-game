@@ -1,7 +1,9 @@
 import random
+import collections
+
+import windows
 
 from header import *
-from startup import game_win
 
 
 class Space(object):
@@ -64,7 +66,7 @@ class Space(object):
 
     def redraw(self):
 
-	game_win.clear()
+	windows.game_win.clear()
 
 	for key in self.characters:
 	    for character in self.characters[key]:
@@ -76,7 +78,7 @@ class Space(object):
 
 		obj.draw()
 
-	game_win.refresh()
+	windows.game_win.refresh()
 
 
     # Initializes <number> amount of <obj> objects
@@ -113,23 +115,27 @@ class Space(object):
 
     # TODO: Fix this so that it actually works.
     # Sorts all objects by order of Ystart value (highest to lowest.)
-    def sort_contents(self, key):
+    def sort_contents(self):
 
-	for n in xrange(len(self.contents[key]) - 1):
+	self.contents = collections.OrderedDict(sorted(self.contents.items()))
 
-	    for i in xrange(len(self.contents[key]), 1, -1):
+	for key in self.contents:
 
-		node = self.contents[key][i]
-		prev_node = self.contents[key][i - 1]
+	    for n in xrange(len(self.contents[key]) - 1):
 
-		# If node is in front of prev_node
-		if node.Ystart < prev_node.Ystart:
+		for i in xrange(len(self.contents[key]) - 1, 0, -1):
 
-		    # Swap them so node is drawn first
-		    temp = node
-		    self.contents[key][i] = prev_node
-		    self.contents[key][i - 1] = temp
-		    
-		else:
-		    pass
+		    node = self.contents[key][i]
+		    prev_node = self.contents[key][i - 1]
+
+		    # If prev_node is in front of node
+		    if node.Ystart < prev_node.Ystart:
+
+			# Swap them so node is drawn first
+			temp = node
+			self.contents[key][i] = prev_node
+			self.contents[key][i - 1] = temp
+			
+		    else:
+			pass
 

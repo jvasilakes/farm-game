@@ -1,9 +1,9 @@
 import random
 
+import windows
+
 from header import *
 from farm_config import ALL_VISIBLE
-from startup import game_win
-
 
 
 class Node(object):
@@ -38,8 +38,12 @@ class Node(object):
 	# If it intersects with something else, delete it's boundaries
 	# and don't add it to the world.
 	if self.intersection:
-	    del self
-	    return
+
+	    try:
+		raise Exception("Intersection found.")
+
+	    except:
+		return
 
 	else:
 	    space.add(self)
@@ -57,8 +61,8 @@ class Node(object):
 		if char == '\n':
 		    pass
 
-		elif char == ' ':
-		    self.X += 1
+		#elif char == ' ':
+		   # self.X += 1
 
 		else:
 	            self.boundaries.append([self.Y, self.X])
@@ -115,7 +119,7 @@ class Node(object):
 
 		line = line.strip().rstrip()
 
-		game_win.addstr(self.Y, self.X, line)
+		windows.game_win.addstr(self.Y, self.X, line)
 
 		self.Y += 1
 		self.X = self.Xstart

@@ -8,7 +8,7 @@ from space import Space
 
 world = World()
 
-cave = Cave()
+#cave = Cave()
 
 #------------- CHARACTERS ---------------------------
 

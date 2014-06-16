@@ -1,3 +1,4 @@
+
 def find_best_tile(list, start, end, tile_count):
 
     try:
@@ -60,6 +61,31 @@ def wrapper(Astar):
     return find_paths
 
 
+def RoomWrapper(Astar):
+
+    def connect_doors(rooms_list, closed_list):
+
+	halls = []
+
+	for i in xrange(len(rooms_list) - 1):
+
+	    if 'exit' not in rooms_list[i].doors:
+
+		pass
+	
+	    else:
+
+		hall = Astar(rooms_list[i].doors['exit'], 
+		       rooms_list[i+1].doors['entrance'],
+		       closed_list)
+
+		halls.extend(hall)
+
+	return halls
+
+    return connect_doors
+
+
 def Astar(start, end, closed_list):
 
     """
@@ -86,11 +112,11 @@ def Astar(start, end, closed_list):
 	walkable = [[current[0] - 1, current[1]],
 		    [current[0] + 1, current[1]],
 		    [current[0], current[1] - 1],
-		    [current[0], current[1] + 1],
-		    [current[0] - 1, current[1] - 1],
-		    [current[0] - 1, current[1] + 1],
-		    [current[0] + 1, current[1] - 1],
-		    [current[0] + 1, current[1] + 1]]
+		    [current[0], current[1] + 1]]
+		    #[current[0] - 1, current[1] - 1],
+		    #[current[0] - 1, current[1] + 1],
+		    #[current[0] + 1, current[1] - 1],
+		    #[current[0] + 1, current[1] + 1]]
 
 	for tile in walkable:
 

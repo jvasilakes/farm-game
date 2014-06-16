@@ -1,6 +1,6 @@
 import curses
 
-from startup import msg_win
+import windows
 
 
 class Inventory(object):
@@ -34,13 +34,17 @@ class Inventory(object):
 	        self.contents.update(zip([item.name], [[]]))
 	        self.contents[item.name].append(item)
 
-	msg_win.clear()
-	msg_win.addstr(
+	windows.msg_win.clear()
+	windows.msg_win.addstr(
 	    1, 5, str(count) + " " + item.name + \
 	    " added to " + self.owner + "'s inventory."
 	    )
 
-	msg_win.refresh()
+	windows.msg_win.refresh()
+
+	windows.msg_win.getch()
+	windows.msg_win.clear()
+	windows.msg_win.refresh()
 
 
     # Pretty much an interactive version of world.remove()
@@ -48,11 +52,11 @@ class Inventory(object):
 
 	curses.echo()
 
-	msg_win.clear()
-	msg_win.addstr(0, 5, "Remove how many?")
-	msg_win.addstr(1, 5, "(Current quantity: " + num + ") ")
+	windows.msg_win.clear()
+	windows.msg_win.addstr(0, 5, "Remove how many?")
+	windows.msg_win.addstr(1, 5, "(Current quantity: " + num + ") ")
 	
-        ans = msg_win.getstr()
+        ans = windows.msg_win.getstr()
 
 	curses.noecho()
 
@@ -60,43 +64,43 @@ class Inventory(object):
 
 	    temp = []
 
-            msg_win.clear()
-            msg_win.addstr(
+            windows.msg_win.clear()
+            windows.msg_win.addstr(
 		1, 5, str(ans) + " " + item + \
 		" removed from " + self.owner + "'s inventory."
 		)
 
-            msg_win.refresh()
+            windows.msg_win.refresh()
 
 	    for i in xrange(int(ans)):
 		temp.append(self.contents[item][0])
                 del self.contents[item][0]
 
-	    msg_win.getch()
-	    msg_win.clear()
-	    msg_win.refresh()
+	    windows.msg_win.getch()
+	    windows.msg_win.clear()
+	    windows.msg_win.refresh()
 	    return temp
 
 	elif int(ans) > int(num):
 
-	    msg_win.clear()
-	    msg_win.addstr(1, 5, "You don't have that many in inventory.")
-	    msg_win.refresh()
+	    windows.msg_win.clear()
+	    windows.msg_win.addstr(1, 5, "You don't have that many in inventory.")
+	    windows.msg_win.refresh()
 
-	    msg_win.getch()
-	    msg_win.clear()
-	    msg_win.refresh()
+	    windows.msg_win.getch()
+	    windows.msg_win.clear()
+	    windows.msg_win.refresh()
 	    return 'None'
 
 	else:
-	    msg_win.clear()
-	    msg_win.refresh()
+	    windows.msg_win.clear()
+	    windows.msg_win.refresh()
 	    return 'None'
 
 
     def view(self):
 
-	msg_win.addstr(2, 50, "$" + str(self.money))
+	windows.msg_win.addstr(2, 50, "$" + str(self.money))
 
 	if len(self.contents) > 0:
 
@@ -114,41 +118,41 @@ class Inventory(object):
 		    empty = False
 		    num = str(count)
 
-		    msg_win.addstr(2, 50, "$" + str(self.money))
+		    windows.msg_win.addstr(2, 50, "$" + str(self.money))
 
-		    msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
-		    msg_win.addstr(0, 25, item_type + " x" + num)
-		    msg_win.addstr(2, 5, "'t': take item    'n': next")
-		    msg_win.refresh()
+		    windows.msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
+		    windows.msg_win.addstr(0, 25, item_type + " x" + num)
+		    windows.msg_win.addstr(2, 5, "'t': take item    'n': next")
+		    windows.msg_win.refresh()
 
-		    c = msg_win.getch()
+		    c = windows.msg_win.getch()
 		    while c != ord('t') and c != ord('n'):
-			c = msg_win.getch()
+			c = windows.msg_win.getch()
 
 		    if c == ord('t'):
 			item_list = self.remove(item_type, num)
 			return item_list
 
 		    else:
-		        msg_win.clear()
-			msg_win.refresh()
+		        windows.msg_win.clear()
+			windows.msg_win.refresh()
 
 		else:
 		    pass
 
 	    if empty:
-	        msg_win.addstr(0, 18, "Nothing here.")
-	        msg_win.refresh() 
-	        msg_win.getch()
-	        msg_win.clear()
-	        msg_win.refresh()
+	        windows.msg_win.addstr(0, 18, "Nothing here.")
+	        windows.msg_win.refresh() 
+	        windows.msg_win.getch()
+	        windows.msg_win.clear()
+	        windows.msg_win.refresh()
 	        return 'None'
 
 	else:
-	    msg_win.addstr(0, 18, "Nothing here.")
-	    msg_win.refresh() 
-	    msg_win.getch()
-	    msg_win.clear()
-	    msg_win.refresh()
+	    windows.msg_win.addstr(0, 18, "Nothing here.")
+	    windows.msg_win.refresh() 
+	    windows.msg_win.getch()
+	    windows.msg_win.clear()
+	    windows.msg_win.refresh()
 	    return 'None'
 

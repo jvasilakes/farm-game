@@ -1,8 +1,9 @@
 import random
 import time
 
+import windows
+
 from header import *
-from startup import game_win, msg_win
 from pathfinding import Astar
 from inventory import Inventory
 from space import Space
@@ -20,8 +21,8 @@ def moveWrapper(move_func):
 
 	if isinstance(self, Player):
 
-	    msg_win.clear()
-	    msg_win.refresh()
+	    windows.msg_win.clear()
+	    windows.msg_win.refresh()
 
 	    for key in self.current_space.contents:
 		for obj in self.current_space.contents[key]:
@@ -33,9 +34,9 @@ def moveWrapper(move_func):
 
 		    # Check to see if we can interact with anything
 		    if self.pos in obj.vicinity:
-			  msg_win.clear()
-			  msg_win.addstr(1, 20, "Press " + chr(KEY_INTERACT) + " to interact.")
-			  msg_win.refresh()
+			  windows.msg_win.clear()
+			  windows.msg_win.addstr(1, 20, "Press " + chr(KEY_INTERACT) + " to interact.")
+			  windows.msg_win.refresh()
 
     return testMove
 
@@ -44,8 +45,6 @@ class Character(object):
 
 
     def __init__(self, start_pos, graphics, start_space):
-
-	self.current_space = start_space
 
 	self.pos = start_pos	
 
@@ -61,12 +60,13 @@ class Character(object):
 
 	self.future_moves = []
 
+	self.current_space = start_space
 	self.current_space.add(self)
 
 
     def draw(self):
 
-	game_win.addstr(self.pos[0], self.pos[1], self.graphics)
+	windows.game_win.addstr(self.pos[0], self.pos[1], self.graphics)
 
 
     def obstructed(self, dir): 
@@ -184,13 +184,13 @@ class Player(Character):
 
     def plant(self):
 
-	msg_win.clear()
+	windows.msg_win.clear()
 
-	msg_win.addstr(1, 20, "In which direction? [wasd] ")
-	ans = msg_win.getch()
+	windows.msg_win.addstr(1, 20, "In which direction? [wasd] ")
+	ans = windows.msg_win.getch()
 
-	msg_win.clear()
-	msg_win.refresh()
+	windows.msg_win.clear()
+	windows.msg_win.refresh()
 
 	if ans == KEY_UP:
 	    ypos = self.pos[0] - 1
@@ -217,8 +217,8 @@ class Player(Character):
 	else:
 	    Crop.create(ypos, xpos, 'GRAPHICS/crop1', self.current_space)
 
-        msg_win.clear()
-        msg_win.refresh()
+        windows.msg_win.clear()
+        windows.msg_win.refresh()
 
 
     def harvest(self):
@@ -309,7 +309,7 @@ class NPC(Character):
 	self.future_moves = Astar(start, end, closed_list)
 
 	for coor in self.future_moves:
-	    game_win.addstr(coor[0], coor[1], '#')
+	    windows.game_win.addstr(coor[0], coor[1], '#')
 	    
-	game_win.refresh()
+	windows.game_win.refresh()
 

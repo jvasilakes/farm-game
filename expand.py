@@ -1,5 +1,10 @@
-
 def find_min(coor, list):
+
+    """ coor is 0 or 1, which 
+	are the y and x coordinates,
+	respectively.
+
+    """
 
     min = list[0][coor]
 
@@ -12,6 +17,12 @@ def find_min(coor, list):
 
 def find_max(coor, list):
 
+    """ coor is 0 or 1, which 
+	are the y and x coordinates,
+	respectively.
+
+    """
+
     max = list[0][coor]
 
     for set in list:
@@ -23,15 +34,42 @@ def find_max(coor, list):
 
 def find_corners(ymin, ymax, xmin, xmax):
 
-    A = [ymin - 1, xmin - 1]
-    B = [ymin - 1, xmax + 1]
-    C = [ymax + 1, xmax + 1]
-    D = [ymax + 1, xmin - 1]
+    A = [ymin, xmin]
+    B = [ymin, xmax]
+    C = [ymax, xmax]
+    D = [ymax, xmin]
 
-    corners = [A, B, C, D, A]
+    corners = [A, B, C, D]
+
+    with open('logfile', 'a') as log:
+	log.write("corners: %s" % str(corners))
 
     return corners
 
+
+def expand_corners(corners_list):
+
+    A = corners_list[0]
+    B = corners_list[1]
+    C = corners_list[2]
+    D = corners_list[3]
+
+    with open('logfile', 'a') as log:
+	log.write("A: %s.\n" % str(A))
+	log.write("A type: %s." % str(type(A)))
+
+    A[0] -= 1
+    A[1] -= 1
+    B[0] -= 1
+    B[1] += 1
+    C[0] += 1
+    C[1] += 1
+    D[0] += 1
+    D[1] -= 1
+
+    expanded = [A, B, C, D, A]
+
+    return expanded
 
 def fill(corners_list):
 
@@ -101,7 +139,9 @@ def find_vicinity(list):
 
     corners = find_corners(ymin, ymax, xmin, xmax)
 
-    vicinity = fill(corners) 
+    expanded = expand_corners(corners)
+
+    vicinity = fill(expanded)
 
     return vicinity
 

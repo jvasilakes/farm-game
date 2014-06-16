@@ -1,8 +1,10 @@
 import random
 
+import expand
+
 from header import *
-from startup import game_win, msg_win, debug_win
-from pathfinding import Astar, wrapper
+import windows
+from pathfinding import Astar, RoomWrapper
 from node import Node
 from space import Space
 
@@ -11,7 +13,7 @@ class Cave(Space):
 
     def __init__(self):
 
-	debug_win._print("Cave created.")
+	windows.debug_win._print("Cave created.")
 
 	self.name = 'Cave'
 
@@ -22,27 +24,25 @@ class Cave(Space):
 
 	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 5)
 
-	debug_win._print("Rooms seeded.")
+	windows.debug_win._print("Rooms seeded.")
 
 	entrance = Entrance(0,
 			    10,
 			    CAVE_GRAPHICS_DIR + 'entrance_internal',
 			    self)
 
-	doors = []
+	rooms = self.contents['Room']
 
-	for room in self.contents['Room']:
-	    
-	    doors.extend(room.doors)
+	self.Astar = RoomWrapper(Astar)
+	halls = self.Astar(rooms, self.closed_list)
 
-	self.Astar = wrapper(Astar)
-	halls = self.Astar(doors, self.closed_list)
+	windows.debug_win._print("%d halls found." % len(halls))
 
 	for coor in halls:
 
 	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 
-	debug_win._print("Halls created.")
+	windows.debug_win._print("Halls created.")
 
 
 class Room(Node):
@@ -58,7 +58,7 @@ class Room(Node):
 
 	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
-	self.doors = []
+	self.doors = {}
 	self.find_doors()
 
 
@@ -68,14 +68,60 @@ class Room(Node):
 
 	num_doors = random.randint(1, 2)
 
-	for i in xrange(num_doors):
+	if num_doors == 1:
+	
+	    self.doors.update({'entrance': []})
+
+	elif num_doors == 2:
+
+	    self.doors.update({'entrance': [], 'exit': []})
+
+	ymin = expand.find_min(0, self.boundaries)
+	ymax = expand.find_max(0, self.boundaries)
+	xmin = expand.find_min(1, self.boundaries)
+	xmax = expand.find_max(1, self.boundaries)
+
+	corners = expand.find_corners(ymin, ymax, xmin, xmax)
+
+	for door in self.doors:
 
 	    pos = random.choice(self.boundaries)
 
-	    while pos in self.doors:
+	    while pos in corners:
+
 		pos = random.choice(self.boundaries)
 
-	    self.doors.append(pos)
+	    self.doors[door].extend(pos)
+
+
+    def draw(self):
+
+	if self.visible:
+
+	    for line in self.graphics:
+
+		for char in line:
+
+		    for door in self.doors:
+
+			if [self.X, self.Y] == self.doors[door]:
+			    char == '#'
+
+		    # Check for leading whitespace
+		    if char == ' ':
+			self.X += 1
+
+		    else:
+			break
+
+		line = line.strip().rstrip()
+
+		windows.game_win.addstr(self.Y, self.X, line)
+
+		self.Y += 1
+		self.X = self.Xstart
+
+	    self.Y = self.Ystart
 
 
 
@@ -87,7 +133,7 @@ class Entrance(Node):
 
 	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
-	self.doors = [[Ystart + 4, Xstart + 2]]
+	self.doors = {'exit': [Ystart + 4, Xstart + 2]}
 
 	self.vicinity = [[Ystart + 1, Xstart + 2]]
 
@@ -97,14 +143,14 @@ class Entrance(Node):
 
     def interact(self, player):
 
-	msg_win.clear()
-	msg_win.addstr(1, 5, "Leave the cave? [y/n]")
-	msg_win.refresh()
+	windows.msg_win.clear()
+	windows.msg_win.addstr(1, 5, "Leave the cave? [y/n]")
+	windows.msg_win.refresh()
 
-	ans = msg_win.getch()
+	ans = windows.msg_win.getch()
 
 	while ans != ord('y') and ans != ord('n'):
-	    ans = msg_win.getch()
+	    ans = windows.msg_win.getch()
 
 	if ans == ord('n'):
 	    return
