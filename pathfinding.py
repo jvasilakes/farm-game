@@ -112,11 +112,11 @@ def Astar(start, end, closed_list):
 	walkable = [[current[0] - 1, current[1]],
 		    [current[0] + 1, current[1]],
 		    [current[0], current[1] - 1],
-		    [current[0], current[1] + 1]]
-		    #[current[0] - 1, current[1] - 1],
-		    #[current[0] - 1, current[1] + 1],
-		    #[current[0] + 1, current[1] - 1],
-		    #[current[0] + 1, current[1] + 1]]
+		    [current[0], current[1] + 1],
+		    [current[0] - 1, current[1] - 1],
+		    [current[0] - 1, current[1] + 1],
+		    [current[0] + 1, current[1] - 1],
+		    [current[0] + 1, current[1] + 1]]
 
 	for tile in walkable:
 

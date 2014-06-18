@@ -308,8 +308,5 @@ class NPC(Character):
 
 	self.future_moves = Astar(start, end, closed_list)
 
-	for coor in self.future_moves:
-	    windows.game_win.addstr(coor[0], coor[1], '#')
-	    
 	windows.game_win.refresh()
 

@@ -106,7 +106,9 @@ class Inventory(object):
 
 	    # This will flip to False if any dictionary key actually 
 	    # has any objects in it's sublist.
-	    # Used to test for an empty list even when dicitonary keys are present.
+	    # Used to test for an empty list even when dicitonary
+	    # keys are present.
+
 	    empty = True
 
 	    for item_type in self.contents:
