@@ -35,8 +35,8 @@ class Node(object):
 
 	self.intersection = self.intersects()  # boolean
 
-	# If it intersects with something else, delete it's boundaries
-	# and don't add it to the world.
+	# If it intersects with something else
+	## don't add it to the world.
 	if self.intersection:
 
 	    try:

@@ -1,6 +1,7 @@
 import random
 import time
 
+import farm_config
 import windows
 import animations
 
@@ -17,7 +18,9 @@ class World(Space):
 
     def __init__(self):
 
-	windows.debug_win._print("World created.")
+	
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("World created.")
 
 	self.name = 'World'
 
@@ -39,11 +42,15 @@ class World(Space):
 
 	self.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
 
-	windows.debug_win._print("World populated.")
+	self.seed(Bush, 'GRAPHICS/bush', NUMBER_BUSHES)
+
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("World populated.")
 
 	self.sort_contents()
 
-	windows.debug_win._print("World contents sorted.")
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("World contents sorted.")
 
 
     
@@ -321,6 +328,8 @@ class Cave_Entrance(Node):
 	    windows.msg_win.addstr(1, 5, "The cave entrance is blocked off...")
 	    windows.msg_win.refresh()
 
+	    return
+
 	    #Space.members['Cave'].add(player)
 
 	    #player.current_space = Space.members['Cave']
@@ -458,6 +467,69 @@ class Rock(Node):
 	else:
 	    return
 
+
+class Bush(Node):
+
+    @classmethod
+    def create(cls, Ystart, Xstart, graphics_file, space):
+	bush = Bush(Ystart, Xstart, graphics_file, space)
+	return bush
+
+    def __init__(self, Ystart, Xstart, graphics_file, space):
+
+	self.name = 'Bush'
+
+	Node.__init__(self, Ystart, Xstart, graphics_file, space)
+
+	self.vicinity = find_vicinity(self.boundaries)
+
+	random.seed()
+	self.resource_qty = random.randint(0, 2)
+
+
+    def interact(self, farmer):
+
+	windows.msg_win.clear()
+	windows.msg_win.addstr(1, 10, "Forage in this bush? [y/n]")
+	windows.msg_win.refresh()
+
+	ans = windows.msg_win.getch()
+
+	if ans == ord('y'):
+
+	    if self.resource_qty > 0:
+
+		temp = []
+
+		for i in xrange(self.resource_qty):
+		    temp.append(Berries.create())
+
+		farmer.inventory.add(temp)
+
+		self.resource_qty = 0
+
+	    else:
+		windows.msg_win.addstr(2, 10, "You find nothing.")
+		windows.msg_win.refresh()
+
+	else:
+	    return
+
+
+class Berries(Node):
+
+    @classmethod
+    def create(cls):
+	berries = Berries()
+	return berries
+
+
+    def __init__(self):
+	
+	self.name = 'Berries'
+
+	self.value = 2
+	
 
 class Wood(Node):
 

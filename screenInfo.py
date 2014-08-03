@@ -1,2 +1,2 @@
-max_y=45
-max_x=169
+max_y=61
+max_x=212

@@ -10,7 +10,4 @@ TODO
 # or my maintenance script
 cleanup
 
-OTHER/CAVE_STUFF/*.pyc
-OTHER/CAVE_STUFF/logfile
-OTHER/CAVE_STUFF/.cave_system.py
-OTHER/CAVE_STUFF/cave_notes
+OTHER/*

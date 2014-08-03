@@ -73,8 +73,6 @@ def main():
 		c = windows.game_win.getch()
 
 		
-
-
         elif c == KEY_QUIT:
 
 	    windows.msg_win.clear()

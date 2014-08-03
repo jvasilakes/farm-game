@@ -1,5 +1,6 @@
 import random
 
+import farm_config
 import expand
 
 from header import *
@@ -13,7 +14,8 @@ class Cave(Space):
 
     def __init__(self):
 
-	windows.debug_win._print("Cave created.")
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("Cave created.")
 
 	self.name = 'Cave'
 
@@ -24,7 +26,8 @@ class Cave(Space):
 
 	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 5)
 
-	windows.debug_win._print("Rooms seeded.")
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("Rooms seeded.")
 
 	entrance = Entrance(0,
 			    10,
@@ -36,13 +39,15 @@ class Cave(Space):
 	self.Astar = RoomWrapper(Astar)
 	halls = self.Astar(rooms, self.closed_list)
 
-	windows.debug_win._print("%d halls found." % len(halls))
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("%d halls found." % len(halls))
 
 	for coor in halls:
 
 	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 
-	windows.debug_win._print("Halls created.")
+	if farm_config.DEBUG_WIN:
+	    windows.debug_win._print("Halls created.")
 
 
 class Room(Node):
