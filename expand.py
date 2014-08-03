@@ -41,9 +41,6 @@ def find_corners(ymin, ymax, xmin, xmax):
 
     corners = [A, B, C, D]
 
-    with open('logfile', 'a') as log:
-	log.write("corners: %s" % str(corners))
-
     return corners
 
 
@@ -53,10 +50,6 @@ def expand_corners(corners_list):
     B = corners_list[1]
     C = corners_list[2]
     D = corners_list[3]
-
-    with open('logfile', 'a') as log:
-	log.write("A: %s.\n" % str(A))
-	log.write("A type: %s." % str(type(A)))
 
     A[0] -= 1
     A[1] -= 1
