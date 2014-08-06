@@ -1,13 +1,16 @@
 import random
 
+import game
+import debug_console
 import farm_config
 import expand
 
 from header import *
-import windows
+
 from pathfinding import Astar, RoomWrapper
 from node import Node
 from space import Space
+
 
 
 class Cave(Space):
@@ -15,7 +18,7 @@ class Cave(Space):
     def __init__(self):
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("Cave created.")
+	    debug_console.get()._print("Cave created.")
 
 	self.name = 'Cave'
 
@@ -27,7 +30,7 @@ class Cave(Space):
 	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 5)
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("Rooms seeded.")
+	    debug_console.get()._print("Rooms seeded.")
 
 	entrance = Entrance(0,
 			    10,
@@ -40,14 +43,14 @@ class Cave(Space):
 	halls = self.Astar(rooms, self.closed_list)
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("%d halls found." % len(halls))
+	    debug_console.get()._print("%d halls found." % len(halls))
 
 	for coor in halls:
 
 	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("Halls created.")
+	    debug_console.get()._print("Halls created.")
 
 
 class Room(Node):
@@ -99,7 +102,7 @@ class Room(Node):
 	    self.doors[door].extend(pos)
 
 
-    def draw(self):
+    def draw(self, window):
 
 	if self.visible:
 
@@ -121,7 +124,7 @@ class Room(Node):
 
 		line = line.strip().rstrip()
 
-		windows.game_win.addstr(self.Y, self.X, line)
+		window.addstr(self.Y, self.X, line)
 
 		self.Y += 1
 		self.X = self.Xstart
@@ -148,14 +151,14 @@ class Entrance(Node):
 
     def interact(self, player):
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 5, "Leave the cave? [y/n]")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 5, "Leave the cave? [y/n]")
+	game.get_instance().msg_win.refresh()
 
-	ans = windows.msg_win.getch()
+	ans = game.get_instance().msg_win.getch()
 
 	while ans != ord('y') and ans != ord('n'):
-	    ans = windows.msg_win.getch()
+	    ans = game.get_instance().msg_win.getch()
 
 	if ans == ord('n'):
 	    return

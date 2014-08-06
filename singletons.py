@@ -12,7 +12,7 @@ cave = Cave()
 
 #------------- CHARACTERS ---------------------------
 
-farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC, Space.members['World'])
-
 dog = NPC(DOG_START_POS, DOG_GRAPHIC, Space.members['World'])
+
+farmer = Player(PLAYER_1_START_POS, PLAYER_1_GRAPHIC, Space.members['World'], pet=dog)
 

@@ -1,8 +1,7 @@
 import random
 import collections
 
-import windows
-
+import debug_console
 from header import *
 
 
@@ -28,7 +27,7 @@ class Space(object):
 
 	# First, choose which list to modify according
 	# to what type of thing we're dealing with.
-	if obj.name == 'Player' or obj.name == 'NPC':
+	if 'Character' in obj.get_base():
 	    list = self.characters
 
 	else:
@@ -64,21 +63,21 @@ class Space(object):
 	    return
 
 
-    def redraw(self):
+    def redraw(self, window):
 
-	windows.game_win.clear()
+	window.clear()
 
 	for key in self.characters:
 	    for character in self.characters[key]:
 
-	        character.draw()
+	        character.draw(window)
 
 	for key in self.contents:
 	    for obj in self.contents[key]:
 
-		obj.draw()
+		obj.draw(window)
 
-	windows.game_win.refresh()
+	window.refresh()
 
 
     # Initializes <number> amount of <obj> objects
@@ -104,17 +103,22 @@ class Space(object):
 
     def updateNPCs(self):
 
+
 	try:
 
+	    for pet in self.characters['Pet']:
+		debug_console.get()._print("Moving pet.")
+		pet.AI_move(self.characters['Player'][0])
+
 	    for npc in self.characters['NPC']:
+		debug_console.get()._print("Moving npc.")
 		npc.AI_move()
 
-	except:
+	except Exception as e:
+	    debug_console.get()._print(str(e))
 	    return
 
 
-    # TODO: Fix this so that it actually works.
-    # Sorts all objects by order of Ystart value (highest to lowest.)
     def sort_contents(self):
 
 	self.contents = collections.OrderedDict(sorted(self.contents.items()))

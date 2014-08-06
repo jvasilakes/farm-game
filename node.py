@@ -1,9 +1,9 @@
 import random
-
-import windows
+import inspect
 
 from header import *
 from farm_config import ALL_VISIBLE
+
 
 
 class Node(object):
@@ -47,6 +47,14 @@ class Node(object):
 
 	else:
 	    space.add(self)
+
+    
+    def get_base(self):
+    
+	clazz = self.__class__
+
+	return inspect.getmro(clazz)[-2].__name__
+
 
 
     def find_boundaries(self):
@@ -102,7 +110,7 @@ class Node(object):
 	return graphics
 
 
-    def draw(self):
+    def draw(self, window):
 
 	if self.visible:
 
@@ -119,7 +127,7 @@ class Node(object):
 
 		line = line.strip().rstrip()
 
-		windows.game_win.addstr(self.Y, self.X, line)
+		window.addstr(self.Y, self.X, line)
 
 		self.Y += 1
 		self.X = self.Xstart

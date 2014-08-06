@@ -1,13 +1,16 @@
 import random
 import time
+import inspect
 
-import windows
+import game
+import debug_console
 
 from header import *
 from pathfinding import Astar
 from inventory import Inventory
 from space import Space
 from environment import Crop
+
 
 	    
 def moveWrapper(move_func):
@@ -21,8 +24,8 @@ def moveWrapper(move_func):
 
 	if isinstance(self, Player):
 
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 
 	    for key in self.current_space.contents:
 		for obj in self.current_space.contents[key]:
@@ -34,15 +37,14 @@ def moveWrapper(move_func):
 
 		    # Check to see if we can interact with anything
 		    if self.pos in obj.vicinity:
-			  windows.msg_win.clear()
-			  windows.msg_win.addstr(1, 20, "Press " + chr(KEY_INTERACT) + " to interact.")
-			  windows.msg_win.refresh()
+			  game.get_instance().msg_win.clear()
+			  game.get_instance().msg_win.addstr(1, 20, "Press " + chr(KEY_INTERACT) + " to interact.")
+			  game.get_instance().msg_win.refresh()
 
     return testMove
 
 
 class Character(object):
-
 
     def __init__(self, start_pos, graphics, start_space):
 
@@ -63,10 +65,17 @@ class Character(object):
 	self.current_space = start_space
 	self.current_space.add(self)
 
+    
+    def get_base(self):
 
-    def draw(self):
+	clazz = self.__class__
 
-	windows.game_win.addstr(self.pos[0], self.pos[1], self.graphics)
+	return inspect.getmro(clazz)[-2].__name__
+
+
+    def draw(self, window):
+
+	window.addstr(self.pos[0], self.pos[1], self.graphics)
 
 
     def obstructed(self, dir): 
@@ -157,23 +166,25 @@ class Character(object):
 
 class Player(Character):
 
-    def __init__(self, start_pos, graphics, start_space):
+    def __init__(self, start_pos, graphics, start_space, pet=None):
 
 	self.name = 'Player'
 
-	self.actions = [
-	    KEY_INTERACT,
-	    KEY_PLANT,
-	    KEY_HARVEST,
-	    KEY_INVENTORY,
-	    KEY_FIND_PLAYER
-	    ]
+	self.pet = pet
 
 	self.view_distance_y = VIEW_DISTANCE_Y
 	self.view_distance_x = VIEW_DISTANCE_X
 
 	self.inventory = Inventory(self.name)
 	
+	self.actions = {
+	    KEY_INTERACT,
+	    KEY_PLANT,
+	    KEY_HARVEST,
+	    KEY_INVENTORY,
+	    KEY_CALL_PET
+	    }
+
 	Character.__init__(self, start_pos, graphics, start_space)
 
 
@@ -181,16 +192,27 @@ class Player(Character):
     def displace(self, character, dir): 
 	character.move(dir)
 
+    
+    def interact(self):
+
+	for key in self.current_space.contents:
+	    for obj in self.current_space.contents.get(key):
+		if self.pos in obj.vicinity:
+
+		    game.get_instance().msg_win.clear()
+		    game.get_instance().msg_win.refresh()
+		    obj.interact(self)
+
 
     def plant(self):
 
-	windows.msg_win.clear()
+	game.get_instance().msg_win.clear()
 
-	windows.msg_win.addstr(1, 20, "In which direction? [wasd] ")
-	ans = windows.msg_win.getch()
+	game.get_instance().msg_win.addstr(1, 20, "In which direction? [wasd] ")
+	ans = game.get_instance().msg_win.getch()
 
-	windows.msg_win.clear()
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.refresh()
 
 	if ans == KEY_UP:
 	    ypos = self.pos[0] - 1
@@ -217,8 +239,8 @@ class Player(Character):
 	else:
 	    Crop.create(ypos, xpos, 'GRAPHICS/crop1', self.current_space)
 
-        windows.msg_win.clear()
-        windows.msg_win.refresh()
+        game.get_instance().msg_win.clear()
+        game.get_instance().msg_win.refresh()
 
 
     def harvest(self):
@@ -251,11 +273,19 @@ class Player(Character):
 	    return
 
 
+    def call_pet(self):
+
+	if self.pet:
+
+	    self.pet.find_goal(self.pos)
+
+	else:
+	    return
+
+
 class NPC(Character):
 
     def __init__(self, start_pos, graphics, start_space):
-
-	self.name = 'NPC'
 
 	Character.__init__(self, start_pos, graphics, start_space)
 
@@ -289,16 +319,14 @@ class NPC(Character):
 	return
 
 
-    # TODO: make this into a more generic Character 
-    # function called 'find_goal(self, goal)'
-    # Also, create a 'character.finding_goal' bool 
-    # state. While True, will execute find_goal()
+    def find_goal(self, goal):
 
-    def find_player(self, player):
+	debug_console.get()._print("In find_goal")
 
 	start = self.pos
+	end = goal 	
 
-	end = player.pos	
+	debug_console.get()._print("Start and end found")
 
 	closed_list = []
 
@@ -306,7 +334,32 @@ class NPC(Character):
 	    for obj in self.current_space.contents[key]:
 		closed_list.extend(obj.boundaries)
 
+	debug_console.get()._print("Starting Astar")
+
 	self.future_moves = Astar(start, end, closed_list)
 
-	windows.game_win.refresh()
+
+
+class Pet(NPC):
+
+    def __init__(self, start_pos, graphics, start_space):
+
+	self.name = 'Pet'
+
+	NPC.__init__(self, start_pos, graphics, start_space)
+
+
+    def AI_move(self, player):
+
+	debug_console.get()._print("Started dog AI_move")
+
+	self.find_goal(player.pos)
+
+	debug_console.get()._print("Found goal")
+
+	coor = self.future_moves.pop(0)
+
+	self.move(coor)
+
+	return
 

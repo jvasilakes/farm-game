@@ -17,11 +17,12 @@ def display(graphic, window, y, x):
 
 def intro(win):
 
-    tree1 = open('GRAPHICS/INTRO/tree1').readlines()
-    tree2 = open('GRAPHICS/INTRO/tree2',).readlines()
-    farm_logo = open('GRAPHICS/INTRO/farm_logo',).readlines()
+    tree1 = open('GRAPHICS/INTRO/tree1', 'r').readlines()
+    tree2 = open('GRAPHICS/INTRO/tree2', 'r').readlines()
+    farm_logo = open('GRAPHICS/INTRO/farm_logo', 'r').readlines()
 
     for i in xrange(3):
+        win.clear()
         display(tree1, win, INTRO_ANIM_POS_Y, INTRO_ANIM_POS_X)
         win.refresh()
         time.sleep(1)
@@ -29,8 +30,8 @@ def intro(win):
         display(tree2, win, INTRO_ANIM_POS_Y, INTRO_ANIM_POS_X)
         win.refresh()
         time.sleep(1)
-        win.clear()
 
+    """
     logo_win = curses.newwin(
 	LOGO_WIN_SIZE_Y,
 	LOGO_WIN_SIZE_X,
@@ -41,6 +42,7 @@ def intro(win):
     display(farm_logo, logo_win, 0, 0)
     logo_win.refresh()
     time.sleep(2)
+    """
 
 
 def sunrise(win):
@@ -58,3 +60,4 @@ def sunrise(win):
     display(graphic, win, 0, 0)
     time.sleep(3)
     win.refresh()
+

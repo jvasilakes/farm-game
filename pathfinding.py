@@ -1,4 +1,3 @@
-
 def find_best_tile(list, start, end, tile_count):
 
     try:

@@ -2,8 +2,9 @@
 
 INTRO = False
 
-HELP_SCREEN = False
+HELP_SCREEN = True
 
-DEBUG_WIN = False
+DEBUG_WIN = True
 
-ALL_VISIBLE = False
+ALL_VISIBLE = True
+

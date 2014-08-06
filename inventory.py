@@ -1,6 +1,6 @@
 import curses
 
-import windows
+import game
 
 
 class Inventory(object):
@@ -34,17 +34,17 @@ class Inventory(object):
 	        self.contents.update(zip([item.name], [[]]))
 	        self.contents[item.name].append(item)
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(
 	    1, 5, str(count) + " " + item.name + \
 	    " added to " + self.owner + "'s inventory."
 	    )
 
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.refresh()
 
-	windows.msg_win.getch()
-	windows.msg_win.clear()
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.getch()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.refresh()
 
 
     # Pretty much an interactive version of world.remove()
@@ -52,11 +52,11 @@ class Inventory(object):
 
 	curses.echo()
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(0, 5, "Remove how many?")
-	windows.msg_win.addstr(1, 5, "(Current quantity: " + num + ") ")
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(0, 5, "Remove how many?")
+	game.get_instance().msg_win.addstr(1, 5, "(Current quantity: " + num + ") ")
 	
-        ans = windows.msg_win.getstr()
+        ans = game.get_instance().msg_win.getstr()
 
 	curses.noecho()
 
@@ -64,43 +64,45 @@ class Inventory(object):
 
 	    temp = []
 
-            windows.msg_win.clear()
-            windows.msg_win.addstr(
+            game.get_instance().msg_win.clear()
+            game.get_instance().msg_win.addstr(
 		1, 5, str(ans) + " " + item + \
 		" removed from " + self.owner + "'s inventory."
 		)
 
-            windows.msg_win.refresh()
+            game.get_instance().msg_win.refresh()
 
 	    for i in xrange(int(ans)):
 		temp.append(self.contents[item][0])
                 del self.contents[item][0]
 
-	    windows.msg_win.getch()
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.getch()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 	    return temp
 
 	elif int(ans) > int(num):
 
-	    windows.msg_win.clear()
-	    windows.msg_win.addstr(1, 5, "You don't have that many in inventory.")
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.addstr(1, 5, "You don't have that many in inventory.")
+	    game.get_instance().msg_win.refresh()
 
-	    windows.msg_win.getch()
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.getch()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 	    return 'None'
 
 	else:
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 	    return 'None'
 
 
     def view(self):
 
-	windows.msg_win.addstr(2, 50, "$" + str(self.money))
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.refresh()
+	game.get_instance().msg_win.addstr(2, 50, "$" + str(self.money))
 
 	if len(self.contents) > 0:
 
@@ -120,41 +122,41 @@ class Inventory(object):
 		    empty = False
 		    num = str(count)
 
-		    windows.msg_win.addstr(2, 50, "$" + str(self.money))
+		    game.get_instance().msg_win.addstr(2, 50, "$" + str(self.money))
 
-		    windows.msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
-		    windows.msg_win.addstr(0, 25, item_type + " x" + num)
-		    windows.msg_win.addstr(2, 5, "'t': take item    'n': next")
-		    windows.msg_win.refresh()
+		    game.get_instance().msg_win.addstr(0, 5, self.owner + "'s Inventory: ")
+		    game.get_instance().msg_win.addstr(0, 25, item_type + " x" + num)
+		    game.get_instance().msg_win.addstr(2, 5, "'t': take item    'n': next")
+		    game.get_instance().msg_win.refresh()
 
-		    c = windows.msg_win.getch()
+		    c = game.get_instance().msg_win.getch()
 		    while c != ord('t') and c != ord('n'):
-			c = windows.msg_win.getch()
+			c = game.get_instance().msg_win.getch()
 
 		    if c == ord('t'):
 			item_list = self.remove(item_type, num)
 			return item_list
 
 		    else:
-		        windows.msg_win.clear()
-			windows.msg_win.refresh()
+		        game.get_instance().msg_win.clear()
+			game.get_instance().msg_win.refresh()
 
 		else:
 		    pass
 
 	    if empty:
-	        windows.msg_win.addstr(0, 18, "Nothing here.")
-	        windows.msg_win.refresh() 
-	        windows.msg_win.getch()
-	        windows.msg_win.clear()
-	        windows.msg_win.refresh()
+	        game.get_instance().msg_win.addstr(0, 18, "Nothing here.")
+	        game.get_instance().msg_win.refresh() 
+	        game.get_instance().msg_win.getch()
+	        game.get_instance().msg_win.clear()
+	        game.get_instance().msg_win.refresh()
 	        return 'None'
 
 	else:
-	    windows.msg_win.addstr(0, 18, "Nothing here.")
-	    windows.msg_win.refresh() 
-	    windows.msg_win.getch()
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.addstr(0, 18, "Nothing here.")
+	    game.get_instance().msg_win.refresh() 
+	    game.get_instance().msg_win.getch()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 	    return 'None'
 

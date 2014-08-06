@@ -44,7 +44,7 @@ def write_screen_info(max_y, max_x):
 def start_game():
 
     try:
-	system("./game.py")
+	system("./main.py")
 
     except:
 	curses.endwin()

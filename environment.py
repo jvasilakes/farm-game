@@ -1,9 +1,11 @@
 import random
 import time
 
+import game
+import debug_console
 import farm_config
-import windows
 import animations
+import cave_system
 
 from header import *
 from expand import find_vicinity
@@ -18,18 +20,15 @@ class World(Space):
 
     def __init__(self):
 
-	
-	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("World created.")
-
 	self.name = 'World'
 
 	Space.__init__(self)
 
+	if farm_config.DEBUG_WIN:
+	    debug_console.get()._print("World created.")
+
 	self.house = House(1, 1, HOUSE_GRAPHIC, self)
-
 	self.ship_box = Shipbox(4, 12, SHIP_BOX_GRAPHIC, self)
-
 	self.pond = Pond(GAME_WIN_SIZE_Y - 5,
 			 GAME_WIN_SIZE_X - 16,
 			 POND_GRAPHIC,
@@ -37,21 +36,17 @@ class World(Space):
 			 )
 
 	self.seed(Cave_Entrance, CAVE_GRAPHICS_DIR + 'entrance_external', 1)
-	
 	self.seed(Tree, 'GRAPHICS/tree', NUMBER_TREES)
-
 	self.seed(Rock, 'GRAPHICS/rock', NUMBER_ROCKS)
-
 	self.seed(Bush, 'GRAPHICS/bush', NUMBER_BUSHES)
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("World populated.")
+	    debug_console.get()._print("World populated.")
 
 	self.sort_contents()
 
 	if farm_config.DEBUG_WIN:
-	    windows.debug_win._print("World contents sorted.")
-
+	    debug_console.get()._print("World contents sorted.")
 
     
     def grow_crops(self):
@@ -86,29 +81,29 @@ class House(Node):
         # go into your house and sleep until the next day
         # plants grow one stage while you sleep
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 5, "Go to sleep? [y/n]")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 5, "Go to sleep? [y/n]")
+	game.get_instance().msg_win.refresh()
 
-	ans = windows.msg_win.getch()
+	ans = game.get_instance().msg_win.getch()
 
 	if ans == ord('y'):
 
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 
-	    windows.game_win.clear()
+	    game.get_instance().game_win.clear()
 
-	    animations.sunrise(windows.game_win)
+	    animations.sunrise(game.get_instance().game_win)
 
-	    windows.game_win.clear()
+	    game.get_instance().game_win.clear()
 
 	    self.space.grow_crops()
-	    self.space.redraw()
+	    self.space.redraw(game.get_instance().game_win)
 
-	    player.draw()
+	    player.draw(game.get_instance().game_win)
 
-	    windows.game_win.refresh()
+	    game.get_instance().game_win.refresh()
 
 	    self.space.ship_box.sell(player)
 
@@ -134,28 +129,28 @@ class Shipbox(Node):
 
     def interact(self, player):
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(0, 5, "Shipping box: ")
-	windows.msg_win.addstr(0, 25, "1. Add items.")
-	windows.msg_win.addstr(1, 25, "2. Remove items.")
-	windows.msg_win.addstr(2, 25, "3. Nevermind.")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(0, 5, "Shipping box: ")
+	game.get_instance().msg_win.addstr(0, 25, "1. Add items.")
+	game.get_instance().msg_win.addstr(1, 25, "2. Remove items.")
+	game.get_instance().msg_win.addstr(2, 25, "3. Nevermind.")
+	game.get_instance().msg_win.refresh()
 
-	ans = windows.msg_win.getch()
+	ans = game.get_instance().msg_win.getch()
 	
 	while ans != ord('1') and ans != ord('2') and ans != ord('3'):
-	    ans = windows.msg_win.getch()
+	    ans = game.get_instance().msg_win.getch()
 
-	windows.msg_win.clear()
+	game.get_instance().msg_win.clear()
 
 	if ans == ord('1'):
 
-	    windows.msg_win.addstr(1, 10, "What would you like to add?")
-	    windows.msg_win.refresh()
-	    windows.msg_win.getch()
+	    game.get_instance().msg_win.addstr(1, 10, "What would you like to add?")
+	    game.get_instance().msg_win.refresh()
+	    game.get_instance().msg_win.getch()
 
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 
 	    item_list = player.inventory.view()
 
@@ -167,12 +162,12 @@ class Shipbox(Node):
 
 	elif ans == ord('2'):
 
-	    windows.msg_win.addstr(1, 10, "What would you like to remove?")
-	    windows.msg_win.refresh()
-	    windows.msg_win.getch()
+	    game.get_instance().msg_win.addstr(1, 10, "What would you like to remove?")
+	    game.get_instance().msg_win.refresh()
+	    game.get_instance().msg_win.getch()
 
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh()
 	    item_list = ship_box.inventory.view()
 
 	    if item_list == 'None':
@@ -199,15 +194,16 @@ class Shipbox(Node):
 	player.inventory.money += earnings
 
 	if earnings > 0:
-	    windows.msg_win.clear()
-	    windows.msg_win.refresh() 
-	    windows.msg_win.addstr(1, 5, "Total shipment value:")
-	    windows.msg_win.addstr(2, 5, "$")
-	    windows.msg_win.addstr(2, 6, str(earnings))
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.refresh() 
+	    game.get_instance().msg_win.addstr(1, 5, "Total shipment value:")
+	    game.get_instance().msg_win.addstr(2, 5, "$")
+	    game.get_instance().msg_win.addstr(2, 6, str(earnings))
+	    game.get_instance().msg_win.refresh()
 
 	else:
 	    pass 
+
 
 
 class Pond(Node):
@@ -226,22 +222,31 @@ class Pond(Node):
 
 	random.seed
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 5, "Fishing...")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 5, "Go fishing? [y/n]")
+	game.get_instance().msg_win.refresh()
+
+	ans = game.get_instance().msg_win.getch()
+
+	if ans != ord('y'):
+	    return
+
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 5, "Fishing...")
+	game.get_instance().msg_win.refresh()
 
         seconds = random.randrange(2, 15)
 	
 	self.animate(seconds)
 
-        windows.game_win.refresh()
+        game.get_instance().game_win.refresh()
 
 	if self.iscatch(0.6):
 
-	    windows.msg_win.clear()
-	    windows.msg_win.addstr(1, 5, "You caught a fish!")
-	    windows.msg_win.refresh()
-	    windows.msg_win.getch()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.addstr(1, 5, "You caught a fish!")
+	    game.get_instance().msg_win.refresh()
+	    game.get_instance().msg_win.getch()
 
 	    temp = []
 	    temp.append(Fish.create())
@@ -251,10 +256,10 @@ class Pond(Node):
 
 	else:
 	
-	    windows.msg_win.clear()
-	    windows.msg_win.addstr(1, 5, "No bites this time...")
-	    windows.msg_win.refresh()
-	    windows.msg_win.getch()
+	    game.get_instance().msg_win.clear()
+	    game.get_instance().msg_win.addstr(1, 5, "No bites this time...")
+	    game.get_instance().msg_win.refresh()
+	    game.get_instance().msg_win.getch()
 
 	    return
 
@@ -270,11 +275,11 @@ class Pond(Node):
 
 	    if self.graphics == graphics1:
 		self.graphics = graphics2
-		self.space.redraw()
+		self.space.redraw(game.get_instance().game_win)
 
 	    else:
 		self.graphics = graphics1
-		self.space.redraw()
+		self.space.redraw(game.get_instance().game_win)
 
 	self.graphics = graphics1
 
@@ -304,29 +309,31 @@ class Cave_Entrance(Node):
 	# So that nothing spawns in front of the entrance.
 	self.boundaries.append(self.vicinity)
 
+	self.cave_system = cave_system.Cave()
+
 
     def interact(self, player):
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 5, "Enter the cave? [y/n]")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 5, "Enter the cave? [y/n]")
+	game.get_instance().msg_win.refresh()
 
-	ans = windows.msg_win.getch()
+	ans = game.get_instance().msg_win.getch()
 
 	while ans != ord('y') and ans != ord('n'):
-	    ans = windows.msg_win.getch()
+	    ans = game.get_instance().msg_win.getch()
 
 	if ans == ord('n'):
 
-	    windows.msg_win.clear()	    
+	    game.get_instance().msg_win.clear()	    
 
 	    return
 
 	elif ans == ord('y'):
 
-	    windows.msg_win.clear()	    
-	    windows.msg_win.addstr(1, 5, "The cave entrance is blocked off...")
-	    windows.msg_win.refresh()
+	    game.get_instance().msg_win.clear()	    
+	    game.get_instance().msg_win.addstr(1, 5, "The cave entrance is blocked off...")
+	    game.get_instance().msg_win.refresh()
 
 	    return
 
@@ -399,20 +406,20 @@ class Tree(Node):
 
     def interact(self, farmer):
 
-        windows.msg_win.clear()
-        windows.msg_win.addstr(1, 10, "Chop down this tree? [y/n]")
-        windows.msg_win.refresh()
+        game.get_instance().msg_win.clear()
+        game.get_instance().msg_win.addstr(1, 10, "Chop down this tree? [y/n]")
+        game.get_instance().msg_win.refresh()
     
-        ans = windows.msg_win.getch()
+        ans = game.get_instance().msg_win.getch()
 
         if ans == ord('y'):
 
 	    temp = []
 	
 	    self.space.contents[self.name].remove(self)
-	    windows.game_win.clear()
-	    farmer.draw()
-	    self.space.redraw()
+	    game.get_instance().game_win.clear()
+	    farmer.draw(game.get_instance().game_win)
+	    self.space.redraw(game.get_instance().game_win)
 
 	    for i in xrange(self.resource_qty):
 		temp.append(Wood.create())
@@ -444,20 +451,20 @@ class Rock(Node):
 	
     def interact(self, farmer):
 
-        windows.msg_win.clear()
-        windows.msg_win.addstr(1, 10, "Break this rock? [y/n]")
-        windows.msg_win.refresh()
+        game.get_instance().msg_win.clear()
+        game.get_instance().msg_win.addstr(1, 10, "Break this rock? [y/n]")
+        game.get_instance().msg_win.refresh()
     
-        ans = windows.msg_win.getch()
+        ans = game.get_instance().msg_win.getch()
 
         if ans == ord('y'):
 
 	    temp = []
 	
 	    self.space.contents[self.name].remove(self)
-	    windows.game_win.clear()
-	    farmer.draw()
-	    self.space.redraw()
+	    game.get_instance().game_win.clear()
+	    farmer.draw(game.get_instance().game_win)
+	    self.space.redraw(game.get_instance().game_win)
 
 	    for i in xrange(self.resource_qty):
 		temp.append(Stone.create())
@@ -489,11 +496,11 @@ class Bush(Node):
 
     def interact(self, farmer):
 
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 10, "Forage in this bush? [y/n]")
-	windows.msg_win.refresh()
+	game.get_instance().msg_win.clear()
+	game.get_instance().msg_win.addstr(1, 10, "Forage in this bush? [y/n]")
+	game.get_instance().msg_win.refresh()
 
-	ans = windows.msg_win.getch()
+	ans = game.get_instance().msg_win.getch()
 
 	if ans == ord('y'):
 
@@ -509,8 +516,8 @@ class Bush(Node):
 		self.resource_qty = 0
 
 	    else:
-		windows.msg_win.addstr(2, 10, "You find nothing.")
-		windows.msg_win.refresh()
+		game.get_instance().msg_win.addstr(2, 10, "You find nothing.")
+		game.get_instance().msg_win.refresh()
 
 	else:
 	    return
@@ -573,117 +580,4 @@ class Fish(Node):
 	self.name = 'Fish'
 
 	self.value = 20
-	
-
-class Cave(Space):
-
-    def __init__(self):
-
-	Space.__init__(self)
-
-	# Used only by Astar
-	self.closed_list = []
-
-	self.seed(Room, CAVE_GRAPHICS_DIR + 'room', 3)
-
-	entrance = Entrance(0,
-			    10,
-			    CAVE_GRAPHICS_DIR + 'entrance_internal',
-			    self)
-
-	doors = []
-
-	for room in self.contents['Room']:
-	    
-	    doors.extend(room.doors)
-
-	Asta = wrapper(Astar)
-	halls = Asta(doors, self.closed_list)
-
-	for coor in halls:
-
-	    Hall.create(coor[0], coor[1], CAVE_GRAPHICS_DIR + 'hall', self)
-
-
-class Room(Node):
-
-    @classmethod
-    def create(cls, Ystart, Xstart, graphics_file, space):
-	room = Room(Ystart, Xstart, graphics_file, space)
-	return room
-
-    def __init__(self, Ystart, Xstart, graphics_file, space):
-
-	self.name = 'Room'
-
-	Node.__init__(self, Ystart, Xstart, graphics_file, space)
-
-	self.doors = []
-	self.find_doors()
-
-
-    def find_doors(self):
-
-	random.seed()
-
-	num_doors = random.randint(1, 2)
-
-	for i in xrange(num_doors):
-
-	    pos = random.choice(self.boundaries)
-
-	    while pos in self.doors:
-		pos = random.choice(self.boundaries)
-
-	    self.doors.append(pos)
-
-
-class Entrance(Node):
-
-    def __init__(self, Ystart, Xstart, graphics_file, space):
-
-	self.name = 'Entrance'
-
-	Node.__init__(self, Ystart, Xstart, graphics_file, space)
-
-	self.doors = [[Ystart + 4, Xstart + 2]]
-
-	self.vicinity = [[Ystart + 1, Xstart + 2]]
-
-	# Make sure the entrance is the first passed to Astar pathfinder
-	self.space.contents['Room'].insert(0, self)
-
-
-    def interact(self, player):
-
-	windows.msg_win.clear()
-	windows.msg_win.addstr(1, 5, "Leave the cave? [y/n]")
-	windows.msg_win.refresh()
-
-	ans = windows.msg_win.getch()
-
-	while ans != 'y' and ans != 'n':
-	    ans = windows.msg_win.getch()
-
-	if ans == 'n':
-	    return
-
-	elif ans == 'y':
-
-	    player.current_space = world
-	    player.pos = PLAYER_1_START_POS
-
-
-class Hall(Node):
-
-    @classmethod
-    def create(cls, Ystart, Xstart, graphics_file, space):
-	hall = Hall(Ystart, Xstart, graphics_file, space)
-	return hall
-
-    def __init__(self, Ystart, Xstart, graphics_file, space):
-
-	self.name = 'Hall'
-
-	Node.__init__(self, Ystart, Xstart, graphics_file, space)
 
